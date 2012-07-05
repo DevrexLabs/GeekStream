@@ -17,13 +17,11 @@ namespace GeekStream.Controllers
 {
     public class PageController : Controller
     {
-        public ActionResult Index(long id, string searchQuery)
+        public ActionResult Index(long id)
         {
             var query = new GetFeedItemById(id);
-            var command = new RegisterClickCommand(id, searchQuery ?? string.Empty);
-
+            var command = new RegisterClickCommand(id, string.Empty);
             MvcApplication.LiveDbClient.Execute(command);
-
             var model = MvcApplication.LiveDbClient.Execute(query);
             return Redirect(model.Url);
         }

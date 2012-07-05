@@ -11,7 +11,6 @@ namespace GeekStream.Controllers
     {
         //
         // GET: /Api/
-
         public ActionResult Index()
         {
             return View();
@@ -19,9 +18,7 @@ namespace GeekStream.Controllers
 
         public ActionResult Search(string query, int pageIndex = 0, bool popular = false)
         {
-            var before = DateTime.Now;
             var model = ModelFactory.SearchResultModel(query, pageIndex, popular);
-            ViewBag.QueryTime = DateTime.Now - before;
             return Json(model,JsonRequestBehavior.AllowGet);
         }
     }
