@@ -179,9 +179,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\BlogSummary.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
