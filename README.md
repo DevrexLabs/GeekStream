@@ -26,6 +26,6 @@ The model is modified by commands and queried using Query objects. You'll find t
 Also, check out the classes in the Views folder. Views are used as return types from queries and commands. 
 
 The LiveDB connection is intialized in Global.asax.cs and exposed as a static property. It's thread safe so 
-Mvc action methods grab a connection and use it to execute queries and commands.
+Mvc action methods grab a connection and use it to execute queries and commands. You can see the queries and commands in the servers console window.
 
-You can see the queries and commands in the servers console window.
+
