@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{320E2191-BAE7-4B7A-B958-48DD87097C73}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GeekStream.Core</RootNamespace>
+    <AssemblyName>GeekStream.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\src\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LiveDomain.Core">
+      <HintPath>..\packages\LiveDomain.Core.0.4.0\lib\net40\LiveDomain.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\AddFeedCommand.cs" />
+    <Compile Include="Commands\AddFeedItemCommand.cs" />
+    <Compile Include="Commands\RegisterClickCommand.cs" />
+    <Compile Include="Domain\Feed.cs" />
+    <Compile Include="Domain\FeedItem.cs" />
+    <Compile Include="Domain\GeekStreamModel.cs" />
+    <Compile Include="Domain\IndexEntry.cs" />
+    <Compile Include="Domain\IndexEntryComparer.cs" />
+    <Compile Include="Domain\Statistics.cs" />
+    <Compile Include="HighscoreList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetFeedByIdQuery.cs" />
+    <Compile Include="Queries\GetFeedItemsByFeedQuery.cs" />
+    <Compile Include="Queries\GetPopularItemsQuery.cs" />
+    <Compile Include="Queries\PopularFeedsQuery.cs" />
+    <Compile Include="Views\FeedView.cs" />
+    <Compile Include="Queries\GetFeedByUrl.cs" />
+    <Compile Include="Queries\GetFeedItemById.cs" />
+    <Compile Include="Queries\GetRecentItemsQuery.cs" />
+    <Compile Include="Queries\SearchQuery.cs" />
+    <Compile Include="Views\FeedItemView.cs" />
+    <Compile Include="Views\SearchResultView.cs" />
+    <Compile Include="Views\SearchResultViewItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(TargetPath) $(SolutionDir)\..\db\ /y</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
