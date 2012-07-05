@@ -23,6 +23,7 @@ namespace GeekStream.Controllers
             return View();
         }
 
+		[OutputCache(Duration = 7200)] // 2h
         [ChildActionOnly]
         public ActionResult Footer()
         {
