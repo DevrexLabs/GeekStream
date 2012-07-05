@@ -1,0 +1,58 @@
+﻿@model GeekStream.Models.IndexModel
+
+@{
+    Func<string, string> cutHelper = input => input.Length > 35 ? input.Substring(0, 35) + "..." : input;
+}
+
+<div class="footer-inner">
+    <div class="entry" style="padding:0 50px">
+        <div style="float: left; width: 33%;">
+            <h2 style="font-weight:bold">Recent Items</h2>
+            <ul style="margin:0 15px 0 0;">
+                @foreach (var item in Model.RecentItems)
+                {
+                    <li>
+                        <a href="@item.Url" target="_blank" title="@item.Title">@cutHelper(item.Title)</a>
+                        <div class="footermeta">
+                            @item.Summary
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div style="float: left; width: 33%;">
+            <h2>Popular Feeds</h2>
+            <ul style="margin:0 15px 0 0;">
+                @foreach (var item in Model.PopularFeeds)
+                {
+                    <li>
+                        @Html.ActionLink(cutHelper(item.Title), "Index", "Feed", new { id = item.Id}, new { title = item.Title })
+                        <div class="footermeta">
+                            @item.Description
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    
+        <div style="float: left; width: 33%;">
+            <h2 style="font-weight:bold">Popular Items</h2>
+            <ul style="margin:0 15px 0 0;">
+                @foreach (var item in Model.PopularItems)
+                {
+                    <li>
+                        <a href="@item.Url" target="_blank" title="@item.Title">@cutHelper(item.Title)</a>
+                        <div class="footermeta">
+                            @item.Summary
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+    <div style="display: block;clear:both;text-align: center;">
+        Powered by <a href="http://livedb.devrex.se">#liveDB</a>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿@model GeekStream.Models.FeedModel
+@{
+    ViewBag.Title = "Showing feed " + Model.Feed.Title;
+    Html.RenderPartial("AlternateCSS");
+    var ajaxOptions = new AjaxOptions();
+    ajaxOptions.UpdateTargetId = "content";
+    ajaxOptions.InsertionMode = InsertionMode.InsertAfter;
+    ajaxOptions.OnBegin = "$('#loader').remove();";
+    var url = Url.Action("Index", "Feed", new { id = Model.Feed.Id }, "http");
+    var selectItems = new[] {new SelectListItem { Text = "Recent", Value = "0", Selected = Model.SortedByPopular },
+                              new SelectListItem { Text = "Popular", Value = "1", Selected = Model.SortedByPopular }};
+}
+
+@if(Model.PageIndex == 0)
+{
+    <h2 style="font-size: 1.5em">@Model.Feed.Title<br/>
+        <span style="font-size: 0.7em;color: #B6B6B6;font-weight: normal;">
+            @Model.Items.Count() items loaded in @(((TimeSpan)ViewBag.QueryTime).TotalSeconds) seconds | Showing :@Html.DropDownList("orderby", selectItems)</span>
+    </h2>
+    <script type="text/javascript">
+            $("#orderby").change(function () {
+                window.location = "@url" + "?popular=" + ($(this).val() == 1);
+            })
+    </script>
+}
+
+@for (int i = 0; i < Model.Items.Count(); i++)
+{
+    @Html.DisplayFor(m => m.Items[i], "FeedItemSummary")
+}
+
+@if (Model.TotalResults > Model.Skipped + Model.Items.Length)
+{
+    @Ajax.ActionLink("Load More", "Index", new { id = Model.Feed.Id, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
+}

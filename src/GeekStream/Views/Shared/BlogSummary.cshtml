@@ -1,0 +1,13 @@
+﻿@model GeekStream.Models.IndexModel
+@{
+    ViewBag.Title = "GeekStream";
+}
+
+<h1>@ViewBag.Author Recent entries</h1>
+
+<div id="entries">
+	@for (int i = 0; i < Model.Entries.Count(); i++)
+	{
+		@Html.DisplayFor(m => m.Entries[i], "FeedItemSummary")
+	}
+</div>

@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title</h2>
+<div class="entry">
+    <div class="meta">
+    </div>
+    <h2>
+        What is Geekstream?</h2>
+    <p>
+        GeekStream is a search engine for geek related content built as a demonstration
+        of <a href="http://livedb.devrex.se">LiveDB</a>. Currently, we index over a thousand
+        carefully selected syndication feeds. Please send us your feed or opml urls and
+        we will consider including them!
+    </p>
+    <h2>
+        Feedback
+    </h2>
+    <p>
+        Visit the <a href="https://getsatisfaction.com/geekstream">Geekstream Community site</a>
+        to ask questions, suggest features, report problems or contact us privately.
+    </p>
+    <h2>
+        Who are you guys?</h2>
+    <p>
+        Geekstream is built by members of the LiveDB developer team, <a href="http://www.twitter.com/robertfriberg">
+            @@robertfriberg</a> and <a href="http://www.twitter.com/woocode">@@woocode</a>
+    </p>
+    <h2>
+        So what's LiveDB?
+    </h2>
+    <p>
+        LiveDB is an open source native .NET in-memory database engine. It's fully ACID
+        compliant and based on <a href="http://en.wikipedia.org/wiki/System_Prevalence">system
+            prevalence</a>. See <a href="http://livedomain.codeplex.com">http://livedomain.codeplex.com</a>
+        and <a href="http://livedb.devrex.se">http://livedb.devrex.se</a> for more information.
+    </p>
+</div>
+@section Header
+{
+    <a href="/" style="float: left; margin-top: 0.8em; margin-right: 1.5em;">
+        <img alt="GeekStream" src="/content/gs_small.png" /></a>
+}
+@{
+    Html.RenderPartial("AlternateCSS");
+}
