@@ -9,15 +9,24 @@ using LiveDomain.Core;
 namespace GeekStream.Core.Queries
 {
     [Serializable]
-    public class PopularFeedsQuery : Query<GeekStreamModel,FeedView[]>
+    public class GetFeedsQuery : Query<GeekStreamModel,FeedView[]>
     {
+    	int _take;
+    	SortMode _sortMode;
+
+    	public GetFeedsQuery(int take,SortMode sortMode)
+    	{
+    		_take = take;
+    		_sortMode = sortMode;
+    	}
+
         #region Overrides of Query<GeekStreamModel,FeedView[]>
 
         protected override FeedView[] Execute(GeekStreamModel m)
         {
             var feeds = m.PopularFeeds().ToArray();
 
-            return feeds.Take(6).Select(f => new FeedView(f)).ToArray();
+            return feeds.Take(_take).Select(f => new FeedView(f)).ToArray();
         }
 
         #endregion

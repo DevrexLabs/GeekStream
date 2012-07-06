@@ -53,12 +53,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetFeedByIdQuery.cs" />
     <Compile Include="Queries\GetFeedItemsByFeedQuery.cs" />
-    <Compile Include="Queries\GetPopularItemsQuery.cs" />
-    <Compile Include="Queries\PopularFeedsQuery.cs" />
+    <Compile Include="Queries\GetFeedItemsQuery.cs" />
+    <Compile Include="Queries\GetFeedsQuery.cs" />
+    <Compile Include="SortMode.cs" />
     <Compile Include="Views\FeedView.cs" />
     <Compile Include="Queries\GetFeedByUrl.cs" />
     <Compile Include="Queries\GetFeedItemById.cs" />
-    <Compile Include="Queries\GetRecentItemsQuery.cs" />
     <Compile Include="Queries\SearchQuery.cs" />
     <Compile Include="Views\FeedItemView.cs" />
     <Compile Include="Views\SearchResultView.cs" />
