@@ -23,22 +23,22 @@ namespace GeekStream.Models
 		    model.PageIndex = pageIndex;
 		    model.Skipped = (pageIndex*100);
 
-		    var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-		    foreach (var item in model.Results) ReplaceUrl(urlHelper, item.FeedItem);
-		    
+			ReplaceUrl(model.Results.Select(i => i.FeedItem));
+
             return model;
         }
 
         public static IndexModel IndexModel()
         {
             var model = new IndexModel();
-            model.RecentItems = MvcApplication.LiveDbClient.Execute(new GetRecentItemsQuery());
-            model.PopularFeeds = MvcApplication.LiveDbClient.Execute(new PopularFeedsQuery());
-            model.PopularItems = MvcApplication.LiveDbClient.Execute(new GetPopularItemsQuery());
+			model.RecentItems = MvcApplication.LiveDbClient.Execute(new GetItemsQuery(5, SortMode.Popular));
+            model.PopularFeeds = MvcApplication.LiveDbClient.Execute(new GetFeedsQuery(6,SortMode.Popular));
+            model.PopularItems = MvcApplication.LiveDbClient.Execute(new GetItemsQuery(5,SortMode.Popular));
 
-            var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            foreach (var item in model.PopularItems) ReplaceUrl(urlHelper,item);
-            foreach (var item in model.RecentItems) ReplaceUrl(urlHelper,item);
+			ReplaceUrl(model.RecentItems);
+			ReplaceUrl(model.PopularItems);
+
+
             
             return model;
         }
@@ -54,15 +54,19 @@ namespace GeekStream.Models
             model.PageIndex = pageIndex;
             model.Skipped = (pageIndex*100);
 
-            var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            foreach (var item in model.Items) ReplaceUrl(urlHelper, item);
-
+			ReplaceUrl(model.Items);
+			
             return model;
         }
 
-        private static void ReplaceUrl(UrlHelper urlHelper, FeedItemView item)
-        {
-            item.Url = urlHelper.Action("Index", "Page", new { id = item.Id }, HttpContext.Current.Request.IsSecureConnection ? "https" : "http");
-        }
+    	public static void ReplaceUrl(IEnumerable<FeedItemView> items )
+		{
+			var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+
+    		foreach (var item in items)
+    		{
+				item.Url = urlHelper.Action("Index", "Page", new { id = item.Id }, HttpContext.Current.Request.IsSecureConnection ? "https" : "http");	
+    		}
+		}
     }
 }
