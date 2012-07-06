@@ -13,8 +13,8 @@ GeekStream is a google-ish search engine for for syndication feeds and items. Be
 Running the application
 -----------------------------
 
-1. Build the solution. A post build event copies the core domain assemly to the db folder. 
-2. Start LiveDB Server using the StartServer.bat shortcut in the db folder.
+1. Build the solution. A post build event copies the core domain assembly to the db folder. 
+2. Start LiveDB Server with db\Server\StartServer.bat
 3. Start the GeekStream web app from within Visual Studio.
 
 What to check out

@@ -5,39 +5,65 @@
 <div>
     <style>
         div,h1,h2,h3{ color: #333333;}
-        h1{font-size:3.2em}
-        h2 {font-size:2.4em}
-        h3{ font-size:1.6em}
+        h1{font-size:2.4em}
+        h2 {font-size:1.8em}
+        h3{ font-size:1.2em}
         em{font-style:italic}
     .code { font-family: monospace;font-size: small;padding: 10px;color: black;line-height: 1.8em;}
+    .meta{background-color: #cccccc}
+    a:visited, a{color:blue}
+    p{ margin-bottom: 22px;}    
     </style>
     <div class="meta">
     </div>
-    <h1>Api</h1>
+    <h1>API</h1>
     <p>
-        This service is free for non-commercial use and requires no api key. There are no limits implemented, please be nice!
-    </p>
-    <p>
-        All calls are made with HTTP GET method and return json.
+        The API is free for non-commercial use and requires no key. There are no limits implemented, please be nice! All methods use HTTP GET and return an array of feeditems in JSON format. Example results are presented as raw JSON or with the <a href="http://jsonviewer.stack.hu">excellent online viewer by Gabor Turi</a>
     </p>
     <h2>Search</h2>
     <p>
-        Search returns items containing all the search words ordered by popularity (default) or by date published.
+        Search returns the first 100 items containing all the search words ordered by popularity (default) or by date published.
         </p>
         <h3>Syntax</h3>
         <div class="meta code">
-            /api/v1/search/<em>search-string</em><br/>
-            /api/v1/search/<em>search-string</em>/popular<br/>
-            /api/v1/search/<em>search-string</em>/recent<br/>
+            GET /api/v1/search/<em>search-string</em><br/>
+            GET /api/v1/search/<em>search-string</em>/popular<br/>
+            GET /api/v1/search/<em>search-string</em>/recent<br/>
         </div>
-        <h3>Example</h3>
-        <div class="meta code">
-            GET http://geekstream.devrex.se/api/v1/search/cqrs+ddd
-        </div>
-        <h3>Result</h3>
-        <div class="meta code">
-            
-        </div>
+        <h3>Examples</h3>
+    <div class="meta code">
+        http://geekstream.devrex.se/api/v1/search/cqrs%20event%20sourcing
+        [<a href="http://geekstream.devrex.se/api/v1/search/cqrs%20event%20sourcing">JSON</a>] [<a href="http://jsonviewer.stack.hu/#http://geekstream.devrex.se/api/v1/search/cqrs%20event%20sourcing">VIEWER</a>]
+        <br/>
+                http://geekstream.devrex.se/api/v1/search/system%20prevalence/popular
+        [<a href="http://geekstream.devrex.se/api/v1/search/system%20prevalence/popular">JSON</a>] [<a href="http://jsonviewer.stack.hu/#http://geekstream.devrex.se/api/v1/search/system%20prevalence/popular">VIEWER</a>]
+
+    </div>
     <h2>Recent items</h2>
+    The crawler collects new items continuously from thousands of carefully chosen sources. 
+    The recent method returns the 100 most recently collected items.
+    <h3>Syntax</h3>
+    <div class="meta code">
+        GET /api/v1/recent
+    </div>
+    <h3>Example</h3>
+    <div class="meta code">
+        http://geekstream.devrex.se/api/v1/recent
+        [<a href="http://geekstream.devrex.se/api/v1/recent">RAW</a>] [<a href="http://jsonviewer.stack.hu/#http://geekstream.devrex.se/api/v1/recent">VIEWER</a>]
+        
+    </div>
     <h2>Popular items</h2>
+    Popularity is based on clicks. The 100 most popular items are returned.
+    <h3>Syntax</h3>
+    <div class="meta code">
+        GET /api/v1/popular
+    </div>
+    <h3>Example</h3>
+    <div class="meta code">
+        http://geekstream.devrex.se/api/v1/popular
+        [<a href="http://geekstream.devrex.se/api/v1/popular">RAW</a>] [<a href="http://jsonviewer.stack.hu/#http://geekstream.devrex.se/api/v1/popular">VIEWER</a>]
+        
+    </div>
+    
+
 </div>
