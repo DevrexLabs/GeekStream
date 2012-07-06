@@ -12,7 +12,7 @@ namespace GeekStream.Models
     public static class ModelFactory
     {
 		public static SearchResultModel SearchResultModel(string query,int pageIndex, bool popular)
-        {
+		{
 			var searchQuery = new SearchQuery(query,pageIndex) {OrderByClicks = popular};
             var model = new SearchResultModel();
             var queryResults = MvcApplication.LiveDbClient.Execute(searchQuery);
@@ -31,7 +31,7 @@ namespace GeekStream.Models
         public static IndexModel IndexModel()
         {
             var model = new IndexModel();
-			model.RecentItems = MvcApplication.LiveDbClient.Execute(new GetItemsQuery(5, SortMode.Popular));
+			model.RecentItems = MvcApplication.LiveDbClient.Execute(new GetItemsQuery(5, SortMode.Recent));
             model.PopularFeeds = MvcApplication.LiveDbClient.Execute(new GetFeedsQuery(6,SortMode.Popular));
             model.PopularItems = MvcApplication.LiveDbClient.Execute(new GetItemsQuery(5,SortMode.Popular));
 
