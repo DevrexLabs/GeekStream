@@ -14,12 +14,10 @@
 }
 @if (Model.PageIndex == 0)
 {
-	<h2>
-		<span style="font-size: 0.9em; color: #B6B6B6; font-weight: normal;">
+		<div style="margin-top:24px; color: #B6B6B6; font-weight: normal;">
 			@Model.TotalResults results for <span class="darktext">"@Model.Query"</span>, loaded
 			in @(((TimeSpan)ViewBag.QueryTime).TotalSeconds)
-			seconds | Showing :@Html.DropDownList("orderby", selectItems)</span>
-	</h2>
+			seconds | Showing :@Html.DropDownList("orderby", selectItems)</div>
 
 	<script type="text/javascript">
 		$("#orderby").change(function () {

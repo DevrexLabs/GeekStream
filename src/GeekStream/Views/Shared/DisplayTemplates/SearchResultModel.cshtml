@@ -8,7 +8,7 @@
         continue; // Protect the feed from invalid items.
     }
 
-<h2><a href="@(item.FeedItem.Url + "?relatedquery=" + Model.Query)" target="_blank">@item.FeedItem.Title</a></h2>
+<h3><a href="@(item.FeedItem.Url + "?relatedquery=" + Model.Query)" target="_blank">@item.FeedItem.Title</a></h3>
 <div class="entry">
     <div class="meta">
         Published <span>@item.FeedItem.Published.Date.ToShortDateString()</span> in <span>@Html.ActionLink(item.FeedItem.FeedTitle, "Feed", "Home", new { id = item.FeedItem.FeedId }, null)</span>

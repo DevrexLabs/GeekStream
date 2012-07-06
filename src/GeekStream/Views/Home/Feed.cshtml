@@ -13,10 +13,12 @@
 
 @if(Model.PageIndex == 0)
 {
-    <h2 style="font-size: 1.5em">@Model.Feed.Title<br/>
-        <span style="font-size: 0.7em;color: #B6B6B6;font-weight: normal;">
-            @Model.TotalResults items loaded in @(((TimeSpan)ViewBag.QueryTime).TotalSeconds) seconds | Showing :@Html.DropDownList("orderby", selectItems)</span>
-    </h2>
+    <div style="margin-top:24px; color: #B6B6B6; font-weight: normal;">
+        <h2>@Model.Feed.Title</h2>
+
+        @Model.TotalResults items loaded in @(((TimeSpan)ViewBag.QueryTime).TotalSeconds) seconds | Showing :@Html.DropDownList("orderby", selectItems)
+    </div>
+    
     <script type="text/javascript">
             $("#orderby").change(function () {
                 window.location = "@url" + "?popular=" + ($(this).val() == 1);
