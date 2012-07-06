@@ -29,18 +29,8 @@ namespace GeekStream
 
 			RegisterApiRoutes(routes);
 
-			routes.MapRoute("DefaultSlim", // Route name
-				"Home/{action}", // URL with parameters
-				new { controller = "Home", action = "Index" } // Parameter defaults
-				);
-
-			routes.MapRoute("DefaultMedium", // Route name
-				"{controller}/{id}", // URL with parameters
-				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-				);
-
 			routes.MapRoute("Default", // Route name
-				"{controller}/{action}/{id}", // URL with parameters
+				"{action}/{id}", // URL with parameters
 				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
 				);
 		}

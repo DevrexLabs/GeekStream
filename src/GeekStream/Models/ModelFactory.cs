@@ -65,7 +65,7 @@ namespace GeekStream.Models
 
     		foreach (var item in items)
     		{
-				item.Url = urlHelper.Action("Index", "Page", new { id = item.Id }, HttpContext.Current.Request.IsSecureConnection ? "https" : "http");	
+				item.Url = urlHelper.Action("Page", "Home", new { id = item.Id }, HttpContext.Current.Request.IsSecureConnection ? "https" : "http");	
     		}
 		}
     }

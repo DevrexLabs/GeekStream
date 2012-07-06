@@ -7,7 +7,7 @@
 	ajaxOptions.UpdateTargetId = "content";
 	ajaxOptions.InsertionMode = InsertionMode.InsertAfter;
 	ajaxOptions.OnBegin = "$('#loader').remove();";
-	var url = Url.Action("Index", "Search", new { query = Model.Query }, "http");
+	var url = Url.Action("Search", "Home", new { query = Model.Query }, "http");
 	var selectItems = new[] {new SelectListItem { Text = "Recent", Value = "0", Selected = Model.SortedByPopular },
                               new SelectListItem { Text = "Popular", Value = "1", Selected = Model.SortedByPopular }};
 
@@ -33,7 +33,7 @@
 }
 @if (Model.Skipped + Model.Results.Length < Model.TotalResults && Model.Skipped + Model.Results.Length < 1000)
 {
-	@Ajax.ActionLink("Load More", "Index", new { query = Model.Query, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
+	@Ajax.ActionLink("Load More", "Search", new { query = Model.Query, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
 }
 else if (Model.TotalResults > 1000)
 {
