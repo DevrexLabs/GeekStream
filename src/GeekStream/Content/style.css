@@ -72,8 +72,8 @@ select
 Links
 ******/
 a, a:visited, a:hover
-{
-    color: #1ba1e2;
+{   
+    color: #008fff;
     text-decoration: underline;
 }
 

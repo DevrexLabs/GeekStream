@@ -38,11 +38,10 @@ namespace GeekStream.Controllers
 			return View(model);
 		}
 
-		public ActionResult Page(long id)
+		public ActionResult Page(long id, string relatedQuery = null)
 		{
-			// Todo : Send query to this action(add parameter) if click is from search.
 			var query = new GetFeedItemById(id);
-			var command = new RegisterClickCommand(id, string.Empty);
+			var command = new RegisterClickCommand(id, relatedQuery ?? string.Empty);
 			MvcApplication.LiveDbClient.Execute(command);
 			var model = MvcApplication.LiveDbClient.Execute(query);
 			return Redirect(model.Url);
