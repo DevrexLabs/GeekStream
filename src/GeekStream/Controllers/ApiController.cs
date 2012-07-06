@@ -14,12 +14,6 @@ namespace GeekStream.Controllers
 {
     public class ApiController : Controller
     {
-        //
-        // GET: /Api/
-        public ActionResult Index()
-        {
-            return View();
-        }
 
 		public ActionResult Search(string query, SortMode sort = SortMode.Recent, int pageIndex = 0)
         {

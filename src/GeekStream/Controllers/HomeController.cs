@@ -11,15 +11,18 @@ namespace GeekStream.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
+
         public ActionResult Index()
         {
             return View();
         }
-        //
-        // GET: /Home/About/5
+
         public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Api()
         {
             return View();
         }

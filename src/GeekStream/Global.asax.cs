@@ -38,14 +38,15 @@ namespace GeekStream
 		static void RegisterApiRoutes(RouteCollection routes)
 		{
 			routes.MapRoute("ApiRoute", // Route name
-					"Api/V1/{sort}", // URL with parameters
+					"api/v1/{sort}", // URL with parameters
 					new { controller = "Api", action = "Items"} // Parameter defaults
 					);
 
 			routes.MapRoute("ApiSearchRoute", // Route name
-				"Api/V1/Search/{query}/{sort}", // URL with parameters
+				"api/v1/search/{query}/{sort}", // URL with parameters
 				new { controller = "Api", action="Search", sort = UrlParameter.Optional} // Parameter defaults
 				);
+
 		}
 
 		protected void Application_Start()

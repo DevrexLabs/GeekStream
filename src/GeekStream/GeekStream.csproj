@@ -161,7 +161,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\AlternateCSS.cshtml" />
-    <Content Include="Views\Api\Index.cshtml" />
+    <Content Include="Views\Home\Api.cshtml" />
     <None Include="..\..\README.md">
       <Link>App_Readme\README.md</Link>
     </None>
