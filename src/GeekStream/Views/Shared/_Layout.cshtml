@@ -58,7 +58,7 @@
 </head>
 <body>
     <div id="sidebar">
-        @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { id = "searchform" }))
+        @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { id = "searchform" }))
         {
             @RenderSection("Header", false)
             if (!IsSectionDefined("Header"))

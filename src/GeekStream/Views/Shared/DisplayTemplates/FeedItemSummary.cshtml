@@ -8,7 +8,7 @@
 <h2><a href="@Model.Url" target="_blank">@Model.Title</a></h2>
 <div class="entry">
     <div class="meta">
-        Published <span>@Model.Published.Date.ToShortDateString()</span> in <span>@Html.ActionLink(Model.FeedTitle,"Index","Feed",new {id = Model.FeedId},null)</span>
+        Published <span>@Model.Published.Date.ToShortDateString()</span> in <span>@Html.ActionLink(Model.FeedTitle,"Feed","Home",new {id = Model.FeedId},null)</span>
         <span class="info">@Model.Clicks</span>
     </div>
     @Model.Summary

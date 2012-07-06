@@ -6,7 +6,7 @@
     ajaxOptions.UpdateTargetId = "content";
     ajaxOptions.InsertionMode = InsertionMode.InsertAfter;
     ajaxOptions.OnBegin = "$('#loader').remove();";
-    var url = Url.Action("Index", "Feed", new { id = Model.Feed.Id }, "http");
+    var url = Url.Action("Feed", "Home", new { id = Model.Feed.Id }, "http");
     var selectItems = new[] {new SelectListItem { Text = "Recent", Value = "0", Selected = Model.SortedByPopular },
                               new SelectListItem { Text = "Popular", Value = "1", Selected = Model.SortedByPopular }};
 }
@@ -15,7 +15,7 @@
 {
     <h2 style="font-size: 1.5em">@Model.Feed.Title<br/>
         <span style="font-size: 0.7em;color: #B6B6B6;font-weight: normal;">
-            @Model.Items.Count() items loaded in @(((TimeSpan)ViewBag.QueryTime).TotalSeconds) seconds | Showing :@Html.DropDownList("orderby", selectItems)</span>
+            @Model.TotalResults items loaded in @(((TimeSpan)ViewBag.QueryTime).TotalSeconds) seconds | Showing :@Html.DropDownList("orderby", selectItems)</span>
     </h2>
     <script type="text/javascript">
             $("#orderby").change(function () {
@@ -31,5 +31,5 @@
 
 @if (Model.TotalResults > Model.Skipped + Model.Items.Length)
 {
-    @Ajax.ActionLink("Load More", "Index", new { id = Model.Feed.Id, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
+    @Ajax.ActionLink("Load More", "Feed", new { id = Model.Feed.Id, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
 }
