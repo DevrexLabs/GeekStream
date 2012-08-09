@@ -39,8 +39,8 @@ namespace GeekStream.Admin
         {
 
             //Set up the db connection or embedded engine
-            string connectionstring = ConfigurationManager.AppSettings["livedb"];
-            connectionstring = connectionstring ?? "mode=remote;host=geekstream.devrex.se";
+            string connectionstring = ConfigurationManager.AppSettings["geekstream"];
+            connectionstring = connectionstring ?? "mode=embedded";
             _geekStreamDb = LiveDbConnectionSettings.Parse(connectionstring).GetClient<GeekStreamModel>();
 
             if (_args.Length >= 2 && _args[0] == "-a") AddUrls(_args.Skip(1));
@@ -138,7 +138,11 @@ namespace GeekStream.Admin
 
         private void AddUrls(IEnumerable<string> urls)
         {
-            Parallel.ForEach(urls, AddUrl);
+            foreach (var url in urls)
+            {
+                AddUrl(url);
+            }
+            //Parallel.ForEach(urls, AddUrl); //server or client is broken (not thread safe)
         }
 
         private void AddUrl(string url)
@@ -183,7 +187,7 @@ namespace GeekStream.Admin
             while (true)
             {
                 DateTime collectedBefore = DateTime.Now.Add(-pollIntervall);
-                FeedView[] feedsToCollect = _geekStreamDb.Execute(new GetFeedsToCollectQuery(collectedBefore));
+                FeedView[] feedsToCollect = _geekStreamDb.Execute(new GetFeedsToCollectQuery(collectedBefore,0,20));
                 if (feedsToCollect.Length == 0)
                 {
                     Console.WriteLine("\nNo feeds to collect, waiting 1 minute");

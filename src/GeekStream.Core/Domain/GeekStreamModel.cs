@@ -40,7 +40,7 @@ namespace GeekStream.Core.Domain
             Statistics stats = new Statistics();
 
             long totalClicks = 0, totalItems = 0;
-            foreach (var feed in _feeds)
+            foreach (var feed in GetFeeds())
             {
                 totalClicks += feed.Clicks;
                 totalItems += feed.Items.Count;

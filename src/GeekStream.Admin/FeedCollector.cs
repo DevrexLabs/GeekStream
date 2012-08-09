@@ -77,16 +77,22 @@ namespace GeekStream.Admin
                 var syndicationFeed = GetFeed(_urlSelector.Invoke(source));
                 if (syndicationFeed != null)
                 {
-                    foreach (var item in syndicationFeed.Items)
+                    lock (this)
                     {
-                        ItemCollected.Invoke(this, new SyndicationItemEventArgs(item, syndicationFeed, source));
+                        foreach (var item in syndicationFeed.Items)
+                        {
+                            ItemCollected.Invoke(this, new SyndicationItemEventArgs(item, syndicationFeed, source));
+                        }
                     }
-                    SourceCollected.Invoke(this, new SourceCollectedEventArgs(source));
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("! " + ex.Message);
+            }
+            finally
+            {
+                lock(this) SourceCollected.Invoke(this, new SourceCollectedEventArgs(source));
             }
         }
     }

@@ -44,9 +44,8 @@
     <Reference Include="LiveDomain.Core">
       <HintPath>..\packages\LiveDomain.Core.0.4.0\lib\net40\LiveDomain.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LiveDomain.Enterprise.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\LiveDomain.Enterprise.Client.dll</HintPath>
+    <Reference Include="LiveDomain.Enterprise.Client, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveDomain.Enterprise.Client.0.3.1\lib\net40\LiveDomain.Enterprise.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

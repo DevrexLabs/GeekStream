@@ -93,13 +93,22 @@ namespace GeekStream.Core
             if (exists)
             {
                 Count--;
-                _items = _items.Skip(idx).Take(Count - idx).ToArray();
+
+                //Move all items upward a step starting just 
+                //below the item to be removed
+                _items[idx] = default(T);
+                while(idx < Count - 1)
+                {
+                    _items[idx] = _items[idx + 1];
+                    idx++;
+                }
+                //Clear the last item
+                _items[Size - 1] = default(T);
             }
             return exists;
-
         }
 
-        public int RemoveItems(IEnumerable<T> items )
+        public int RemoveItems(IEnumerable<T> items)
         {
             int itemsRemoved = 0;
             foreach (var item in items)
