@@ -21,6 +21,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XSocketHandler", "XSocketHandler\XSocketHandler.csproj", "{3BDE2F9E-1F08-4CD4-BD29-F41ED13B104C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream.XSocketServer", "GeekStream.XSocketServer\GeekStream.XSocketServer.csproj", "{A0489AEE-4A1B-4344-9F03-BBB87A450532}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream.Admin", "GeekStream.Admin\GeekStream.Admin.csproj", "{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +73,16 @@ Global
 		{A0489AEE-4A1B-4344-9F03-BBB87A450532}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A0489AEE-4A1B-4344-9F03-BBB87A450532}.Release|x86.ActiveCfg = Release|x86
 		{A0489AEE-4A1B-4344-9F03-BBB87A450532}.Release|x86.Build.0 = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|x86.ActiveCfg = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|x86.Build.0 = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|Any CPU.ActiveCfg = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|Mixed Platforms.Build.0 = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|x86.ActiveCfg = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

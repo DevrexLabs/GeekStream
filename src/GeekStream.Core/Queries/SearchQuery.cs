@@ -23,12 +23,16 @@ namespace GeekStream.Core.Queries
             Take = pageSize;
         }
 
-        protected override SearchResultView Execute(GeekStreamModel m)
+        protected override SearchResultView Execute(GeekStreamModel model)
         {
             var result = new SearchResultView();
             int totalResults;
-            var items = m.Search(SearchString, out totalResults, OrderByClicks);
-            var queryResults = items.Skip(Skip).Take(Take).Select(indexEntry => new SearchResultViewItem(indexEntry)).ToArray();
+            var items = model.Search(SearchString, out totalResults, OrderByClicks);
+            var queryResults = items
+                .Skip(Skip)
+                .Take(Take)
+                .Select(indexEntry => new SearchResultViewItem(indexEntry))
+                .ToArray();
 
             result.Query = SearchString;
             result.TotalResults = totalResults;

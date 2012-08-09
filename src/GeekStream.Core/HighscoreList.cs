@@ -85,5 +85,37 @@ namespace GeekStream.Core
         {
             return GetEnumerator();
         }
+
+        public bool Remove(T item)
+        {
+            int idx = Array.IndexOf(_items, item);
+            bool exists = idx >= 0;
+            if (exists)
+            {
+                Count--;
+
+                //Move all items upward a step starting just 
+                //below the item to be removed
+                _items[idx] = default(T);
+                while(idx < Count - 1)
+                {
+                    _items[idx] = _items[idx + 1];
+                    idx++;
+                }
+                //Clear the last item
+                _items[Size - 1] = default(T);
+            }
+            return exists;
+        }
+
+        public int RemoveItems(IEnumerable<T> items)
+        {
+            int itemsRemoved = 0;
+            foreach (var item in items)
+            {
+                if (Remove(item)) itemsRemoved++;
+            }
+            return itemsRemoved;
+        }
     }
 }

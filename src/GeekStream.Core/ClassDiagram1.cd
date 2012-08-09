@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GeekStream.Core.Domain.Feed">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQAAAgAAgCEAAAABAAAACgAAAAIQACAAAIQAAAoA=</HashCode>
+      <FileName>Domain\Feed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeekStream.Core.FeedItem">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAgAAAAAAAEAACAAAAAAAAAAAAAAACAAAIAAAAgA=</HashCode>
+      <FileName>Domain\FeedItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeekStream.Core.Domain.GeekStreamModel">
+    <Position X="4.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CCAABAAABAQACBAABgAgAQQAgQAACAIAAkAAgAAgAgA=</HashCode>
+      <FileName>Domain\GeekStreamModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeekStream.Core.Domain.IndexEntry">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAEAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Domain\IndexEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

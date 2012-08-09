@@ -11,13 +11,13 @@ namespace GeekStream.Core
     public class FeedItem
     {
         internal int Id { get; set; }
-        
+
         public Int64 LongId
         {
             get
             {
                 //when in doubt, parenthesize
-                return ((Int64)Feed.Id) << 32 | Id;
+                return (((Int64)Feed.Id) << 32) | ((UInt32)Id);
             }
         }
 

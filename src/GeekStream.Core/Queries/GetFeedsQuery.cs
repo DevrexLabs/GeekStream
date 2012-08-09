@@ -12,6 +12,8 @@ namespace GeekStream.Core.Queries
     public class GetFeedsQuery : Query<GeekStreamModel,FeedView[]>
     {
     	int _take;
+
+        //unused, no Recent Feeds feed yet...
     	SortMode _sortMode;
 
     	public GetFeedsQuery(int take,SortMode sortMode)
@@ -22,9 +24,9 @@ namespace GeekStream.Core.Queries
 
         #region Overrides of Query<GeekStreamModel,FeedView[]>
 
-        protected override FeedView[] Execute(GeekStreamModel m)
+        protected override FeedView[] Execute(GeekStreamModel model)
         {
-            var feeds = m.PopularFeeds().ToArray();
+            var feeds = model.PopularFeeds().ToArray();
 
             return feeds.Take(_take).Select(f => new FeedView(f)).ToArray();
         }
