@@ -1,0 +1,24 @@
+﻿var serverLocation = '127.0.0.1:4502';
+var protocol = 'ws';
+var controller = 'GenericText';
+var ws = null;
+$(function(){
+  	
+	ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller);
+
+	//Bind Many on click
+	$("#bind").bind('click',function(){
+		var count = $("#xTimes").val();
+      	ws.many('foo', count, function(data){
+			$("#messages").prepend($("<div>").text(data.MyMessage));
+		});
+	});
+
+	//Trigger 'foo' on click, but is there a listener?
+	$("#trigger").bind('click',function(){
+      	ws.trigger('foo', { MyMessage: 'bar' });
+	});
+
+	//Clear messages..
+	$("#clear").bind('click',function(){$("#messages").empty();});
+});

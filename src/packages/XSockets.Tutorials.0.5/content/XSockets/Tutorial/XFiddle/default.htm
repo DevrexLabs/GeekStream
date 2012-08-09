@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <!--CodeMirror References-->
+        <link href="../Refs/Css/CodeMirror/codemirror.css" rel="stylesheet" type="text/css" />
+        <script src="../Refs/Scripts/CodeMirror/codemirror.js" type="text/javascript"></script>
+        <script src="../Refs/Scripts/CodeMirror/xml.js" type="text/javascript"></script>
+        <script src="../Refs/Scripts/CodeMirror/javascript.js" type="text/javascript"></script>
+        <script src="../Refs/Scripts/CodeMirror/htmlmixed.js" type="text/javascript"></script>
+        <script src="../Refs/Scripts/CodeMirror/css.js" type="text/javascript"></script>
+        <!--jQuery References-->
+        <script src="../Refs/Scripts/jquery-1.7.1.js" type="text/javascript"></script>
+        <script src="../Refs/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+        <!--Theme-->
+        <link href="../Refs/Css/Wijmo/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui" />
+        <!--Wijmo Widgets CSS-->
+        <link href="../Refs/Css/Wijmo/jquery.wijmo-complete.all.2.1.0.min.css" rel="stylesheet"
+              type="text/css" />
+        <!--Wijmo Widgets JavaScript-->
+        <script src="../Refs/Scripts/Wijmo/jquery.wijmo-complete.all.2.1.0.min.js" type="text/javascript"></script>
+        <script src="../Refs/Scripts/Wijmo/jquery.wijmo-open.all.2.1.0.min.js" type="text/javascript"></script>
+        <!--XSockets References//-->
+        <script src="../Refs/Scripts/XSockets/jXSockets.1.0.6.beta.js" type="text/javascript"></script>
+
+        <style>
+            iframe
+            {
+                max-height: 100%;
+                min-height: 100%;
+                min-width: 100%;
+                max-width: 100%;
+                overflow: scroll;
+            }
+        
+            #vsplitter{ height: 730px;width: 100%;}
+            #hsplitterRight{ height: 100%;width: 100%;}
+            #hsplitterLeft{ height: 100%;width: 100%;}
+        
+            .splitterData{ width: 100%;height: 100%;}
+        </style>
+        <script type="text/javascript">
+                
+            var jsArea, htmlArea, cssArea, doc;
+            $(function () {
+                $("#deleteFromStorage").hide();
+
+                //Wijmo Splitter
+                $("#vsplitter").wijsplitter({ splitterDistance: 800, orientation: "vertical", fullSplit: false, expanded: function (e) { $("#hsplitterRight").wijsplitter("refresh"); $("#hsplitterLeft").wijsplitter("refresh"); }, collapsed: function (e) { $("#hsplitterRight").wijsplitter("refresh"); $("#hsplitterLeft").wijsplitter("refresh"); }, sized: function (e) { $("#hsplitterRight").wijsplitter("refresh"); $("#hsplitterLeft").wijsplitter("refresh"); } });
+                $("#hsplitterRight").wijsplitter({ splitterDistance: 360, orientation: "horizontal", fullSplit: true });
+                $("#hsplitterLeft").wijsplitter({ splitterDistance: 360, orientation: "horizontal", fullSplit: true });
+
+                //Load custom saved xfiddle-code
+                loadCustomCode();
+
+                //On run...
+                $("#run").bind('click', function () {
+
+                    var html = htmlArea.getValue();
+                    var css = cssArea.getValue();
+                    var js = jsArea.getValue();
+
+                    var jqueryVersion = $("<script>").attr('src', '../Refs/Scripts/jquery-1.7.1.js').attr('type', 'text/javascript')[0].outerHTML;
+                    var xsocketsVersion = $("<script>").attr('src', '../Refs/Scripts/XSockets/jXSockets.1.0.6.beta.js').attr('type', 'text/javascript')[0].outerHTML;
+
+                    var cssSection = "<style>" + css + "<\/style>";
+                    var jsSection = "<script>" + js + "<\/script>";
+                    var headSection = "<head>" + cssSection + jqueryVersion + xsocketsVersion + jsSection + "<\/head>";
+                    var bodySection = "<body>" + html + "<\/body>";
+                    var result = "<html>" + headSection + bodySection + "<\/html>";
+
+                    $("#frameContainer").empty();
+                    $("#frameContainer").append($("<iframe>"));
+                    var iframe = $("iframe")[0];
+                    if (iframe.contentDocument) doc = iframe.contentDocument;
+                    else if (iframe.contentWindow) doc = iframe.contentWindow.document;
+                    else doc = iframe.document;
+
+                    doc.open();
+                    doc.writeln(result);
+                    doc.close();
+                });
+
+                //Setup the JavaScript edit area
+                jsArea = CodeMirror.fromTextArea(document.getElementById("js"), {
+                    mode: 'javascript',
+                    lineNumbers: true,
+                    matchBrackets: true
+                });
+                //Setup the HTML edit area
+                htmlArea = CodeMirror.fromTextArea(document.getElementById("html"), { mode: "text/html", tabMode: "indent", lineNumbers: true });
+                //Setup the CSS edit area
+                cssArea = CodeMirror.fromTextArea(document.getElementById("css"), { mode: "text/css", tabMode: "indent", lineNumbers: true });
+
+                //load the default (or the one passed as a querystring)
+                loadExample(getQuerystring('example', $('#XSocketsExamples').val()));
+
+                $("#XSocketsExamples").change(function () {
+                    var customData = $("#XSocketsExamples option:selected").data('xfiddle');
+                    if (customData === undefined) {
+                        loadExample($('#XSocketsExamples').val());
+                        $("#deleteFromStorage").fadeOut();
+                        return;
+                    }
+
+                    jsArea.setValue(customData.js);
+                    cssArea.setValue(customData.css);
+                    htmlArea.setValue(customData.html);
+                    $("#deleteFromStorage").data('deleteObj', customData).fadeIn();
+                    $('#saveasName').val(customData.name);
+
+                });
+
+                $("#deleteFromStorage").bind('click', function () {
+                    deleteCustomCode($(this).data('deleteObj').name);
+                });
+
+                $("#saveas").bind('click', function () {
+                    var n = $('#saveasName').val();
+                    if (n.length === 0) {
+                        alert('Missing name for custom code... :(');
+                        return;
+                    }
+
+                    var data = {
+                        name: n,
+                        html: htmlArea.getValue(),
+                        css: cssArea.getValue(),
+                        js: jsArea.getValue()
+                    };
+
+                    var xfiddle = [];
+                    var xfiddleStorage = window.localStorage.getItem('xfiddle');
+                    if (xfiddleStorage !== null) {
+                        xfiddle = JSON.parse(xfiddleStorage);
+                    }
+
+                    var newXfiddle = $.grep(xfiddle, function (o, i) {
+                        return o.name != n;
+                    });
+                    newXfiddle.push(data);
+
+                    window.localStorage.setItem('xfiddle', JSON.stringify(newXfiddle));
+                    $(".xfiddle").remove();
+                    loadCustomCode();
+                    $("#XSocketsExamples").val(data.name);
+                    $('#saveasName').val('');
+                });
+            });
+            
+
+            //Load examples stored in loaclStorage
+            var loadCustomCode = function () {
+                var xfiddleStorage = window.localStorage.getItem('xfiddle');
+                if (xfiddleStorage !== null) {
+                    $.each(JSON.parse(xfiddleStorage), function() {
+                        $("#XSocketsExamples").last('optgroup').append($('<option>').addClass('xfiddle').data('xfiddle', this).text(this.name));
+                    }); 
+                }
+            };
+
+            //Load examples stored in loaclStorage
+            var deleteCustomCode = function (name) {
+                var xfiddleStorage = window.localStorage.getItem('xfiddle');
+                if (xfiddleStorage !== null) {
+                    var xfiddle = $.grep(JSON.parse(xfiddleStorage), function(n, i){
+                        return (n.name != name);
+                    });
+                    window.localStorage.setItem('xfiddle', JSON.stringify(xfiddle));
+                    $('#saveasName').val('');
+                    $("#deleteFromStorage").fadeOut();
+                    $(".xfiddle").remove();
+                    loadCustomCode();
+                    loadExample(getQuerystring('example', $('#XSocketsExamples').val()));
+                }
+            };
+
+            //Load resources for a example
+            var loadExample = function (resourceName) {
+                if (resourceName == 0) {
+                    alert("Sorry, this example is not yet implemented... :(");
+                    return;
+                }
+                //Use get instead of getScript so that we do not execute the script
+                $.get('../Refs/Scripts/XSockets/Examples/' + resourceName + '/' + resourceName + '.js.txt', function (s) {
+                    jsArea.setValue(s);
+                }).fail(function () {
+                    alert("Whopps, something went wrong when loading a external javascript-file!");
+                });
+                $.get('../Refs/Scripts/XSockets/Examples/' + resourceName + '/' + resourceName + '.css.txt', function (s) {
+                    cssArea.setValue(s);
+                }).fail(function () {
+                    alert("Whopps, something went wrong when loading a external css-file!");
+                });
+                $.get('../Refs/Scripts/XSockets/Examples/' + resourceName + '/' + resourceName + '.html.txt', function (s) {
+                    htmlArea.setValue(s);
+                }).fail(function () {
+                    alert("Whopps, something went wrong when loading a external html-file!");
+                });
+            };
+
+            var getQuerystring = function (key, _default) {
+                if (_default == null) _default = "";
+                key = key.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                var regex = new RegExp("[\\?&]" + key + "=([^&#]*)");
+                var qs = regex.exec(window.location.href);
+                if (qs == null)
+                    return _default;
+                else
+                    return qs[1];
+            };
+        </script>
+        <title>XFiddle 0.1 - A XSockets JavaScript Playground</title>
+    </head>
+<body>
+    <h3>
+        XFiddle 0.1 - XSockets.NET JavaScript Playground - Tested in Chrome</h3>
+    <div>
+        <button id="run">
+            Run</button>
+        <select id="XSocketsExamples">
+            <optgroup label="Basics">
+                <option value="connecting" selected="selected">Connecting</option>
+                <option value="publishsubscribe">Publish/Subscribe</option>
+            </optgroup>
+            <optgroup label="Storage">
+                <option value="storageset">Set</option>
+                <option value="storageget">Get</option>
+                <option value="storagegetall">GetAll</option>
+                <option value="0">Remove</option>
+            </optgroup>
+            <optgroup label="JavaScript-API">
+                <option value="trigger">Trigger</option>
+                <option value="bind">Bind</option>
+                <option value="many">Many</option>
+                <option value="one">One</option>
+            </optgroup>
+            <optgroup label="Mixed Examples">
+                <option value="squaredball">A squared ball...?</option>
+            </optgroup>
+            <optgroup label="Custom (your saved code)">
+            </optgroup>
+        </select>
+        <button id="saveas">
+            Save In LocalStorage</button>
+        <input type="text" id="saveasName" placeholder="custom name here..."/>
+        <button id="deleteFromStorage">
+            Delete From LocalStorage</button>
+    </div>
+    <div id="vsplitter">
+        <div>
+            <div id="hsplitterLeft">
+                <div class="splitterData">
+                    <h4>
+                        HTML</h4>
+                    <textarea placeholder="HTML" id="html"></textarea>
+                </div>
+                <div class="splitterData">
+                    <h4>
+                        JAVASCRIPT</h4>
+                    <textarea placeholder="JAVASCRIPT" id="js"></textarea>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="hsplitterRight">
+                <div class="splitterData">
+                    <h4>
+                        CSS</h4>
+                    <textarea placeholder="CSS" id="css"></textarea>
+                </div>
+                <div class="splitterData">
+                    <h4>
+                        OUTPUT</h4>
+                    <div id="frameContainer" style="width: 100%; height: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+﻿#connected{color:green;}
+#disconnected{color:red;}
+#error{color:darkred;}

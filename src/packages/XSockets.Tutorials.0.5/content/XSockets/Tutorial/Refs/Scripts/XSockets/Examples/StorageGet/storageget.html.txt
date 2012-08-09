@@ -1,0 +1,5 @@
+﻿<div>
+  Run the 'Set' example if you do not get a value on click...<br/>
+<button id="storeGet">Click me to get the value</button>
+</div>
+<div id="messages"></div>

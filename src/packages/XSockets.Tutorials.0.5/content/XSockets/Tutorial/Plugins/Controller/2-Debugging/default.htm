@@ -1,0 +1,66 @@
+﻿<html>
+<head>
+    <title>XSockets - WeAreTheRealTimeWeb</title>
+    <script src="../../../Refs/Scripts/Prettify/prettify.js" type="text/javascript"></script>
+    <link href="../../../Refs/Css/Prettify/prettify.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="prettyPrint()">
+    <a href="../../../default.htm">Tutorial Index</a>
+    <h1>
+        Plugins / Controller / Debugging</h1>
+    <ul>
+        <li><a href="../1-Basics/">../1-Basics</a> </li>
+        <li><a href="#">../2-Debugging/</a> </li>
+        <li><a href="../3-DefaultParameter/">../3-DefaultParameter/</a> </li>
+        <li><a href="../4-StronglyTyped/">../4-StronglyTyped/</a> </li>
+        <li><a href="../5-Internal/">../5-Internal/</a> </li>
+    </ul>
+    <div>
+        Since the default development server does not support debugging your plugins you
+        will have to setup your own developmentserver. The steps to do this is listed below.<br />
+        NOTE: We will create a nuget package for a debugserver "XSockets.DebugServer", but
+        if you ever need to to it manually this is how.
+    </div>
+    <div>
+        <h2>
+            PreConditions</h2>
+        <ol>
+            <li>You have installed XSockets. <a href="../../../Basics/1-Setup/">Setup Example</a>
+                or anything equal to this</li>
+        </ol>
+        <h2>
+            Steps - Setup DebugServer</h2>
+        <ol>
+            <li>Create a new ConsoleApplication and name it DebugServer </li>
+            <li>Change target framework to .NET 4 by selecting properties and the applicaiton tab
+                on your new project.<br />
+                Then change the target from .NET Framework 4 Client Profile to .NET Framework 4
+            </li>
+            <li>Add references to XSockets.Core and XSockets.DevelopmentServer </li>
+            <li>Copy the config-content from the developemtserver to the config in your new project.
+            </li>
+            <li>Change to RefPath to point to the folder above your plugindirectory (example below)
+                <pre class="prettyprint">
+//My plugins dir (XSocketServerPlugins) is located directly under the path below.
+&lt;add key=&quot;RefPath&quot; value=&quot;C:\Projects\XSockets.NET\Dev\XSockets&quot; /&gt;
+</pre>
+            </li>
+            <li>Now paste this code into the Main of your program (in the ConsoleApplication)
+                <pre class="prettyprint">
+try
+{                      
+    new Start();
+}
+catch (Exception ex)
+{
+    System.Console.WriteLine(ex.Message);
+    if (ex.InnerException != null)
+        System.Console.WriteLine(ex.InnerException.Message);
+    System.Console.ReadLine();
+}
+</pre>
+            </li>
+        </ol>
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿@{
+	//
+	// This file contains all things needed for livesearch.
+	//
+	ViewBag.Title = "LiveSearch Test";
+	Html.RenderPartial("AlternateCSS");
+}
+<div style="margin-top:24px; color: #B6B6B6; font-weight: normal;" id="resultInfo">
+</div>
+<div id="liveresults">
+	
+</div>
+
+<script src="/Scripts/swfobject.js" type="text/javascript"></script>
+<script src="/Scripts/json2.js" type="text/javascript"></script>
+<script src="/Scripts/jXSockets.WebSockets.Detector-1.0.4.beta.js" type="text/javascript"></script>
+<script src="/Scripts/JXSockets.1.0.6.beta.js" type="text/javascript"></script>
+<script src="/Scripts/jsrender.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.dateFormat-1.0.js" type="text/javascript"></script>
+
+<script id="infoTemplate" type="text/html">
+	{{:Hits}} results for <span class="darktext">"{{:Query}}"</span>, loaded in {{:Time}} seconds.	
+</script>
+
+<script id="searchTemplate" type="text/html">
+	{{for Items ~query=Query}}
+	<h3><a href="/Page/{{:FeedItem.Id}}?relatedquery={{:~query}}" target="_blank">{{:FeedItem.Title}}</a></h3>
+	<div class="entry">
+		<div class="meta">
+			Published <span class="date">{{:FeedItem.Published}}</span> in <span><a href="/Feed/{{:FeedItem.FeedId}}">{{:FeedItem.FeedTitle}}</a></span>
+			<span class="info">{{:Clicks}}</span>
+		</div>
+		{{:FeedItem.Summary}}
+	</div>
+	{{/for}}
+</script>
+
+<script type="text/javascript">
+	var ws;
+	$(function () {
+		$("#searchform .button").remove();
+
+		var serverLocation = '127.0.0.1:4502';
+		var protocol = 'ws';
+		var controller = 'SearchController';
+		ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller, XSockets.WEBSOCKET);
+
+		ws.bind(XSockets.Events.open, function () {
+			//
+		});
+
+		ws.bind("OnSearchCompleted", function (data) {
+			// Render the results with template.
+			$("#liveresults").html($("#searchTemplate").render(data));
+
+			// Fix the ugly date (before you take her to the movies ^^).
+			$(".date").each(function () {
+				var date = new Date(parseInt($(this).text().substr(6)));
+				$(this).text($.format.date(date, "yyyy-MM-dd"));
+			});
+
+			// Show query time and info.
+			var timeS = (new Date() - startDate) / 1000.0;
+			$("#resultInfo").html($("#infoTemplate").render({ Hits: data.TotalResults, Query: data.Query, Time: timeS }));
+
+		});
+
+		$("#searchform").attr("action", "").submit(function () {
+			var query = $("#search").val();
+			PerformSearch(query);
+			return false;
+		});
+
+		$("#search").keydown(function (event) {
+			clearTimeout(timeoutId);
+		});
+
+		var timeoutId;
+		$("#search").keyup(function (event) {
+			clearTimeout(timeoutId);
+			var query = $("#search").val();
+			if (event.keyCode == 32) {
+				PerformSearch(query);
+			} else {
+				timeoutId = setTimeout(function () {
+					PerformSearch(query);
+				}, 800);
+			}
+		});
+	});
+
+	var prevQuery;
+	function PerformSearch(query) {
+		query = $.trim(query);
+		if (prevQuery != query) {
+			prevQuery = query;
+			ws.trigger("searchquery", { Query: query });
+			startDate = new Date();
+		}
+	};
+</script>

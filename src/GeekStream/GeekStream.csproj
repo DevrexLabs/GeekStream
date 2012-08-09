@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.4.1.10715.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="LiveDomain.Core">
       <HintPath>..\packages\LiveDomain.Core.0.4.0\lib\net40\LiveDomain.Core.dll</HintPath>
@@ -46,6 +46,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\LiveDomain.Enterprise.Client.dll</HintPath>
     </Reference>
+    <Reference Include="System.Componentmodel.Composition" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -73,6 +74,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="XSockets.Core, Version=1.3.4527.22740, Culture=neutral, PublicKeyToken=37fe48bcaae4bfd6, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ApiController.cs" />
@@ -88,6 +90,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\XSocketHandler\bin\Debug\XSocketHandler.dll">
+      <Link>XSockets\DevelopmentServer\XSocketHandler.dll</Link>
+    </Content>
     <Content Include="Content\geekstream.gif" />
     <Content Include="Content\gs_big.png" />
     <Content Include="Content\gs_small.png" />
@@ -125,18 +130,30 @@
     <Content Include="robots.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\FlashWebSocket.swf" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.dateFormat-1.0.js" />
     <Content Include="Scripts\jquery.highlight-3.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.watermark.min.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\jsrender.js" />
+    <Content Include="Scripts\jXSockets.1.0.6.beta.js" />
+    <Content Include="Scripts\jXSockets.WebSockets.Detector-1.0.4.beta.js" />
+    <Content Include="Scripts\jXSocketsWorker-1.0.4.beta.js" />
+    <Content Include="Scripts\jXSocketsWorker.WebSocket-1.0.4.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\swfobject.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -162,10 +179,147 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\AlternateCSS.cshtml" />
     <Content Include="Views\Home\Api.cshtml" />
+    <Content Include="XSockets\DevelopmentServer\crossdomain.xml" />
+    <Content Include="XSockets\DevelopmentServer\XSockets.Core.dll" />
+    <Content Include="XSockets\DevelopmentServer\XSockets.DevelopmentServer.Console.exe" />
+    <Content Include="XSockets\DevelopmentServer\XSockets.DevelopmentServer.dll" />
+    <Content Include="XSockets\DevelopmentServer\XSocketServerPlugins\XSockets.Core.Communication.dll" />
+    <Content Include="XSockets\DevelopmentServer\XSocketServerPlugins\XSockets.Extensibility.Handlers.dll" />
+    <Content Include="XSockets\DevelopmentServer\XSocketServerPlugins\XSockets.Extensibility.Interceptors.dll" />
+    <Content Include="XSockets\DevelopmentServer\XSocketServerPlugins\XSockets.External.dll" />
+    <Content Include="XSockets\DevelopmentServer\XSocketServerPlugins\XSockets.Protocol.dll" />
+    <Content Include="XSockets\DevelopmentServer\XSocketServerPlugins\XSockets.Server.dll" />
+    <Content Include="XSockets\devservercode.txt" />
+    <Content Include="XSockets\Examples\Binarymessages\BinaryData.htm" />
+    <Content Include="XSockets\Examples\Chat\XSocketsChat.html" />
+    <Content Include="XSockets\Examples\Chat\xsockets_logo.jpg" />
+    <Content Include="XSockets\Examples\PlayerOfTheGame\danboyle.jpg" />
+    <Content Include="XSockets\Examples\PlayerOfTheGame\dougmurray.jpg" />
+    <Content Include="XSockets\Examples\PlayerOfTheGame\joethornton.jpg" />
+    <Content Include="XSockets\Examples\PlayerOfTheGame\wijmoVoteChart.htm" />
+    <Content Include="XSockets\Examples\PlayerOfTheGame\wijmoVoteClient.htm" />
+    <Content Include="XSockets\Examples\Wijmo\knockout-wijmo.js" />
+    <Content Include="XSockets\Examples\Wijmo\realtime-client.htm" />
+    <Content Include="XSockets\Examples\Wijmo\realtime-controller.htm" />
+    <Content Include="XSockets\Examples\Wijmo\Refs\knockout-2.0.0.debug.js" />
+    <Content Include="XSockets\Examples\Wijmo\Refs\knockout-2.0.0.js" />
+    <Content Include="XSockets\HOW_DO_I_DEBUG_MY_HANDLERS.txt" />
+    <Content Include="XSockets\Tutorial\Basics\1-Setup\default.htm" />
+    <Content Include="XSockets\Tutorial\Basics\2-Connecting\default.htm" />
+    <Content Include="XSockets\Tutorial\Basics\3-Publish\default.htm" />
+    <Content Include="XSockets\Tutorial\Basics\4-Subscribe\default.htm" />
+    <Content Include="XSockets\Tutorial\Basics\5-Events\default.htm" />
+    <Content Include="XSockets\Tutorial\CrossDomain\1-Setup\default.htm" />
+    <Content Include="XSockets\Tutorial\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Controller\1-Basics\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Controller\2-Debugging\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Controller\3-DefaultParameter\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Controller\4-StronglyTyped\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Controller\5-Internal\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Interceptor\1-Basics\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Interceptor\2-Connection\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Interceptor\3-Error\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Interceptor\4-Handshake\default.htm" />
+    <Content Include="XSockets\Tutorial\Plugins\Interceptor\5-Message\default.htm" />
+    <Content Include="XSockets\Tutorial\Refs\Css\CodeMirror\codemirror.css" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Prettify\prettify.css" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Prettify\Themes\desert.css" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Prettify\Themes\sons-of-obsidian.css" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Prettify\Themes\sunburst.css" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Wijmo\Images\ui-bg_highlight-soft_100_83b0ca_1x100.png" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Wijmo\Images\ui-bg_highlight-soft_100_c0c0c0_1x100.png" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Wijmo\Images\ui-icons_38667f_256x240.png" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Wijmo\jquery-wijmo.css" />
+    <Content Include="XSockets\Tutorial\Refs\Css\Wijmo\jquery.wijmo-complete.all.2.1.0.min.css" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\CodeMirror\codemirror.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\CodeMirror\css.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\CodeMirror\htmlmixed.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\CodeMirror\javascript.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\CodeMirror\xml.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\jquery-1.7.1.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\jquery-ui.min.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-apollo.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-clj.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-css.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-go.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-hs.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-lisp.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-lua.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-ml.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-n.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-proto.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-scala.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-sql.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-tex.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-vb.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-vhdl.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-wiki.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-xq.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\lang-yaml.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Prettify\prettify.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Wijmo\jquery.wijmo-complete.all.2.1.0.min.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\Wijmo\jquery.wijmo-open.all.2.1.0.min.js" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Bind\bind.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Bind\bind.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Bind\bind.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Connecting\connecting.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Connecting\connecting.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Connecting\connecting.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Many\many.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Many\many.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Many\many.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\One\one.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\One\one.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\One\one.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\PublishSubscribe\publishsubscribe.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\PublishSubscribe\publishsubscribe.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\PublishSubscribe\publishsubscribe.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\SquaredBall\squaredball.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\SquaredBall\squaredball.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\SquaredBall\squaredball.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageGetAll\storagegetall.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageGetAll\storagegetall.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageGetAll\storagegetall.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageGet\storageget.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageGet\storageget.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageGet\storageget.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageRemove\storageremove.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageRemove\storageremove.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageRemove\storageremove.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageSet\storageset.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageSet\storageset.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\StorageSet\storageset.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Trigger\trigger.css.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Trigger\trigger.html.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\Examples\Trigger\trigger.js.txt" />
+    <Content Include="XSockets\Tutorial\Refs\Scripts\XSockets\jXSockets.1.0.6.beta.js" />
+    <Content Include="XSockets\Tutorial\Storage\1-Set\default.htm" />
+    <Content Include="XSockets\Tutorial\Storage\2-Get\default.htm" />
+    <Content Include="XSockets\Tutorial\Storage\3-GetAll\default.htm" />
+    <Content Include="XSockets\Tutorial\Storage\4-Remove\default.htm" />
+    <Content Include="XSockets\Tutorial\XFiddle\default.htm" />
+    <Content Include="XSockets\XSockets.NET-License.txt" />
     <None Include="..\..\README.md">
       <Link>App_Readme\README.md</Link>
     </None>
     <Content Include="Views\Shared\DisplayTemplates\SearchResultModel.cshtml" />
+    <Content Include="Views\Home\LiveSearch.cshtml" />
+    <Content Include="XSockets\DevelopmentServer\XSockets.DevelopmentServer.Console.exe.config" />
+    <None Include="CodeTemplates\Scaffolders\XConnectionInterceptor\XConnectionInterceptor.ps1" />
+    <None Include="CodeTemplates\Scaffolders\XConnectionInterceptor\XConnectionInterceptorTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\XDevServerConfig\XDevServerConfig.ps1" />
+    <None Include="CodeTemplates\Scaffolders\XDevServerConfig\XDevServerConfigTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\XErrorInterceptor\XErrorInterceptor.ps1" />
+    <None Include="CodeTemplates\Scaffolders\XErrorInterceptor\XErrorInterceptorTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\XHandshakeInterceptor\XHandshakeInterceptor.ps1" />
+    <None Include="CodeTemplates\Scaffolders\XHandshakeInterceptor\XHandshakeInterceptorTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\XMessageInterceptor\XMessageInterceptor.ps1" />
+    <None Include="CodeTemplates\Scaffolders\XMessageInterceptor\XMessageInterceptorTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\XSocketHandlerDemo\XSocketHandlerDemo.ps1" />
+    <None Include="CodeTemplates\Scaffolders\XSocketHandlerDemo\XSocketHandlerDemoTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\XSocketHandler\XSocketBasicHandlerTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\XSocketHandler\XSocketHandler.ps1" />
+    <None Include="CodeTemplates\Scaffolders\XSocketHandler\XSocketStronglyTypedHandlerTemplate.cs.t4" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
@@ -186,6 +340,10 @@
     <ProjectReference Include="..\GeekStream.Core\GeekStream.Core.csproj">
       <Project>{320E2191-BAE7-4B7A-B958-48DD87097C73}</Project>
       <Name>GeekStream.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XSocketHandler\XSocketHandler.csproj">
+      <Project>{3BDE2F9E-1F08-4CD4-BD29-F41ED13B104C}</Project>
+      <Name>XSocketHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,90 @@
+﻿<html>
+<head>
+    <title>XSockets - WeAreTheRealTimeWeb</title>
+    <script src="../../../Refs/Scripts/Prettify/prettify.js" type="text/javascript"></script>
+    <link href="../../../Refs/Css/Prettify/prettify.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="prettyPrint()">
+    <a href="../../../default.htm">Tutorial Index</a>
+    <h1>
+        Plugins / Controller / StonglyTyped
+    </h1>
+    <ul>
+        <li><a href="../1-Basics/">../1-Basics</a> </li>
+        <li><a href="../2-Debugging/">../2-Debugging/</a> </li>
+        <li><a href="../3-DefaultParameter/">../3-DefaultParameter/</a> </li>
+        <li><a href="#">../4-StronglyTyped/</a> </li>
+        <li><a href="../5-Internal/">../5-Internal/</a> </li>
+    </ul>
+    <div>
+        Just like MVC3 XSockets have strongly type bindings. This gives you the possibility
+        to send JSON from your client and XSockets will bind the JSON object to the parameter
+        type in your serverside event. Properties have to match between JSON and the C#
+        class!!!
+    </div>
+    <div>
+        <h2>
+            PreConditions</h2>
+        <ol>
+            <li>You have installed XSockets. <a href="../../../Basics/1-Setup/">Setup Example</a>
+                or anything equal to this</li>
+            <li>If you are NOT using the XSocketHandler project that is installed with XSockets
+                <ul>
+                    <li>See to it that the assembly get copied to the pluginfolder (see XSocketHandler postbuild
+                        events)</li>
+                </ul>
+            </li>
+        </ol>
+        <h2>
+            Code - Event with default parameter</h2>
+        If you do not know about serverside events, please read <a href="../1-Basics/">../1-Basics/</a>
+        and <a href="../3-DefaultParameter/">../3-DefaultParameter/</a> This code will not
+        show howto build a plugin, only howto use the strongly typed binding.
+        <ol>
+            <li>We create a ChatMessage class to have something to bind to.
+                <pre class="prettyprint">
+public class ChatMessage
+{
+    public string UserName { get; set; }
+    public string When { get; set; }
+    public string Message { get; set; }
+}
+</pre>
+            </li>
+            <li>Add a event "ChatMessage" that the server listens to.<br />
+                Not shown here is that we have named our controller "DemoController"
+                <pre class="prettyprint">
+//We listen for events named 'ChatMessage' and expect a message of type ChatMessage to arrive. 
+[HandlerEvent("ChatMessage")]
+public void MyChatMessageMethos(ChatMessage model)
+{
+    //The JSON has now been bound to our inparameter of type ChatMessage
+    
+    //We send the message to all clients listening for the "ChatMessage" event
+    this.AsyncSendToAll(model,"ChatMessage");
+}
+</pre>
+            </li>
+            <li>Create a connection (<a href="../../../Basics/2-Connecting/default.htm">example
+                of connection</a>) to our new controller and calling the method.<br />
+                <pre class="prettyprint">
+var serverLocation = '127.0.0.1'; 
+var protocol = 'ws';
+var controller = 'DemoController';
+var ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller, XSockets.WEBSOCKET);
+
+ws.bind(XSockets.Events.open, function () {
+    //We will send a message as soon as the connection is open just for showing the strongly typed binding.
+    //Create a JSONobject that has the same signature as our serverside class (ChatMessage).
+    var json = {UserName:'John', When: '2012-05-30 12:12:12', Message:'Just saying hello with XSockets'};
+    //Send the message
+    ws.trigger("ChatMessage",json);
+});
+</pre>
+            </li>
+        </ol>
+        <b>NOTE: Read the next section <a href="../2-Debugging/default.htm">2-Debugging/</a>
+            for knowing howto debug your plugins</b>
+    </div>
+</body>
+</html>

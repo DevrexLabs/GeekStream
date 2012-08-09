@@ -1,0 +1,74 @@
+﻿<html>
+<head>
+    <title>XSockets - WeAreTheRealTimeWeb</title>
+    <script src="../../../Refs/Scripts/Prettify/prettify.js" type="text/javascript"></script>
+    <link href="../../../Refs/Css/Prettify/prettify.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="prettyPrint()">
+    <a href="../../../default.htm">Tutorial Index</a>
+    <h1>
+        Plugins / Interceptor / Basics</h1>
+    <ul>
+        <li><a href="#">../1-Basics/</a> </li>
+        <li><a href="../2-Connection/">../2-Connection/</a> </li>
+        <li><a href="../3-Error/">../3-Error/</a> </li>
+        <li><a href="../4-Handshake/">../4-Handshake/</a> </li>
+        <li><a href="../5-Message/">../5-Message/</a> </li>
+    </ul>
+    <div>
+        Interceptors are special plugins that can intercept core events in the server.
+        <ul>
+            <li>Connections</li>
+            <li>Errors</li>
+            <li>Handshakes</li>
+            <li>Messages</li>
+        </ul>
+        The idea with interceptors is to use them in very special cases and they are not
+        intended to use in production!<br />
+        By default you have builtin interceptors that logs the activity for each type of
+        event. Below we show howto create your own interceptors.
+    </div>
+    <div>
+        <h2>
+            PreConditions</h2>
+        <ol>
+            <li>You have installed XSockets. <a href="../../../Basics/1-Setup/">Setup Example</a>
+                or anything equal to this</li>
+            <li>If you are NOT using the XSocketHandler project that is installed with XSockets
+                <ul>
+                    <li>See to it that the assembly get copied to the pluginfolder (see XSocketHandler postbuild
+                        events)</li>
+                </ul>
+            </li>
+            <li>Add a refernce to XSockets.Extensibility.Interceptors.dll (found under XSocketServerPlugins)</li>
+        </ol>
+        <ol>
+            <li>We just create a basic MessageInterceptor by using the Scaffolders (available for
+                all interceptor types)<br />
+                <ol>
+                    <li>Open up the Package Manager Console</li>
+                    <li>Write: Scaffold XMessageInterceptor MyMessageInterceptor</li>
+                    <li>This will create a new MessageInterceptor name MyMessageInterceptor</li>
+                </ol>
+                <pre class="prettyprint">
+[Export(typeof(IMessageInterceptor))]
+public sealed class MyMessageInterceptor : XBaseInterceptor, IMessageInterceptor
+{
+    public void Incomming(IXBaseSocket socket, string data)
+    {
+        //Implement your interceptor stuff here
+    }
+
+    public void Outgoing(IXBaseSocket socket, string data)
+    {
+        //Implement your interceptor stuff here
+    }
+}
+</pre>
+            </li>
+        </ol>
+        <b>NOTE: Read the next section <a href="../2-Debugging/default.htm">2-Debugging/</a>
+            for knowing howto debug your plugins</b>
+    </div>
+</body>
+</html>

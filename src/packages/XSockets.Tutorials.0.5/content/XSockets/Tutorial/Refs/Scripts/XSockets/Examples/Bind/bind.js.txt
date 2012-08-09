@@ -1,0 +1,34 @@
+﻿var serverLocation = '127.0.0.1:4502';
+var protocol = 'ws';
+var controller = 'GenericText';
+var ws = null;
+$(function(){
+  	
+	ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller);
+
+	//Bind all checked id´s as the page loads
+	$.each($(":checked"),function(){
+		ws.bind($(this).val(),showMessage);
+	});
+
+	//Trigger all checkboxes on click (even the ones that are not checked)
+	$("#trigger").bind('click',function(){
+		$.each($("[type='checkbox']"),function(){
+      		ws.trigger($(this).val(), { MyMessage: 'A message for ' + $(this).val() });
+		});
+	});
+
+	$("#clear").bind('click',function(){$("#messages").empty();});
+
+	//Unbind/Bind when checked changes
+	$("[type='checkbox']").bind('change',function(){
+		if($(this).is(':checked'))
+			ws.bind($(this).val(),showMessage);
+		else
+			ws.unbind($(this).val());
+	});
+});
+
+var showMessage = function(data){
+	$("#messages").prepend($("<div>").text(data.MyMessage));
+};

@@ -1,0 +1,19 @@
+﻿var serverLocation = '127.0.0.1:4502';
+var protocol = 'ws';
+var controller = 'GenericText';
+var ws = null;
+$(function(){
+  	
+	ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller);
+
+    ws.bind(XSockets.Events.storage.getAll, function(data){
+      $("#storage").empty();
+      $.each(data,function(){
+      	$("#storage").append($("<li>").text(this.Key + " - " + this.Value));
+      });
+	});
+  
+  	$("#storageGetAll").bind('click',function(){
+  		ws.trigger(XSockets.Events.storage.getAll, {});
+  	});
+});

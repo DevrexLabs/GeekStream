@@ -1,0 +1,4 @@
+﻿<div>Note: Open several browser (Chrome/Firefox/Safari) to see that messages arrive in all browsers</div>
+<input type="text" id="message" placeholder="type message here..." />
+<button id="publish">publish</button>
+<div id="messages"></div>

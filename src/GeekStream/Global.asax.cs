@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -10,6 +12,8 @@ using GeekStream.Core;
 using GeekStream.Core.Domain;
 using LiveDomain.Core;
 using LiveDomain.Enterprise;
+using XSockets.Core.Plugin.MEF;
+using XSockets.Core.XSocket.Interface;
 
 namespace GeekStream
 {
@@ -60,7 +64,6 @@ namespace GeekStream
 			//version 0.3 of the enterprise client lib
 			string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
 			_liveDbConnectionSettings = LiveDbConnectionSettings.Parse(liveDbConnectionString);
-
 		}
 
 

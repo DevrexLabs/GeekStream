@@ -1,0 +1,108 @@
+﻿<html>
+<head>
+    <title>XSockets - WeAreTheRealTimeWeb</title>
+    <script src="../../../Refs/Scripts/Prettify/prettify.js" type="text/javascript"></script>
+    <link href="../../../Refs/Css/Prettify/prettify.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="prettyPrint()">
+    <a href="../../../default.htm">Tutorial Index</a>
+    <h1>
+        Plugins / Controller / Basics</h1>
+    <ul>
+        <li><a href="#">../1-Basics</a> </li>
+        <li><a href="../2-Debugging/">../2-Debugging/</a> </li>
+        <li><a href="../3-DefaultParameter/">../3-DefaultParameter/</a> </li>
+        <li><a href="../4-StronglyTyped/">../4-StronglyTyped/</a> </li>
+        <li><a href="../5-Internal/">../5-Internal/</a> </li>
+    </ul>
+    <div>
+        By creating your own plugin to the XSockets server you can use regular C# to handle
+        serverside events. Event though you can do lots of stuff by just using the JavaScript
+        API and the GenericText controller the real power lies within building serverside
+        controllers.
+        <br />
+        A XSockets controller is very similar to a controller in MVC3, as an example it
+        has strongly typed model binding.
+    </div>
+    <div>
+        <h2>
+            PreConditions</h2>
+        <ol>
+            <li>You have installed XSockets. <a href="../../../Basics/1-Setup/">Setup Example</a>
+                or anything equal to this</li>
+            <li>If you are NOT using the XSocketHandler project that is installed with XSockets
+                <ul>
+                    <li>See to it that the assembly get copied to the pluginfolder (see XSocketHandler postbuild
+                        events)</li>
+                </ul>
+            </li>
+        </ol>
+        <h2>
+            Code - Basic plugin</h2>
+        <ol>
+            <li>Create a stupid plugin, the most basic plugin you can have without any events or
+                logic.<br />
+                This plugin would turn up in the server when it starts, but it will only have the
+                events inherited from XBaseSocket
+                <pre class="prettyprint">
+//Export the IXBaseSocket interface so that the server can fins the plugin
+[Export(typeof(IXBaseSocket))]
+//MetaData for knowing the unique alias and the buffersize
+[XBaseSocketMetadata("DemoController", Constants.GenericTextBufferSize)]
+//Inherit XBaseSocket to make it a plugin/controller
+public class DemoController : XBaseSocket
+{
+    //This method is used by the XSocketFactory to avoid reflection on new connections.
+    public override IXBaseSocket NewInstance()
+    {
+        return new DemoController();
+    }
+}
+</pre>
+            </li>
+            <li>Add a event "HelloWorld" that the server listens to.<br />
+                By using the HandlerEvent you can tell the server what to listen for.
+                <pre class="prettyprint">
+//Export the IXBaseSocket interface so that the server can fins the plugin
+[Export(typeof(IXBaseSocket))]
+//MetaData for knowing the unique alias and the buffersize
+[XBaseSocketMetadata("DemoController", Constants.GenericTextBufferSize)]
+//Inherit XBaseSocket to make it a plugin/controller
+public class DemoController : XBaseSocket
+{
+
+    //We listen for events named 'HelloWorld' without any parameters 
+    [HandlerEvent("HelloWorld")]
+    public void MeHelloWorldMethod()
+    {
+        //Do stuff here
+    }
+
+    //This method is used by the XSocketFactory to avoid reflection on new connections.
+    public override IXBaseSocket NewInstance()
+    {
+        return new DemoController();
+    }
+}
+</pre>
+            </li>
+            <li>Create a connection (<a href="../../../Basics/2-Connecting/default.htm">example
+                of connection</a>) to our new controller and calling the method.<br />
+                <pre class="prettyprint">
+var serverLocation = '127.0.0.1'; 
+var protocol = 'ws';
+var controller = 'DemoController';
+var ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller, XSockets.WEBSOCKET);
+
+ws.bind(XSockets.Events.open, function () {
+    //We will send a message as soon as the connection is open.
+    ws.trigger("HelloWorld",{});
+});
+</pre>
+            </li>
+        </ol>
+        <b>NOTE: Read the next section <a href="../2-Debugging/default.htm">2-Debugging/</a>
+            for knowing howto debug your plugins</b>
+    </div>
+</body>
+</html>

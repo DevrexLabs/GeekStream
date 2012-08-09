@@ -1,0 +1,21 @@
+﻿var serverLocation = '127.0.0.1:4502';
+var protocol = 'ws';
+var controller = 'GenericText';
+var ws = null;
+$(function(){
+	$("div").hide();
+	ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller);
+
+	ws.bind(XSockets.Events.open, function () {
+      	$("#disconnected").hide();
+		$("#connected").show();
+	});
+	ws.bind(XSockets.Events.close, function () {
+		$("#connected").hide();
+		$("#disconnected").show();
+	});
+	ws.bind(XSockets.Events.onError, function (err) {
+		console.log(err);
+		$("#error").text(err.Type + " - " + err.Message + " - " + err.CustomMessage).show();
+	});
+});

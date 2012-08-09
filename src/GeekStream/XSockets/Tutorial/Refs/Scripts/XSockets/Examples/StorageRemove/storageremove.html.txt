@@ -1,0 +1,5 @@
+﻿<div>
+  Click the 'Set' button if you do not have any data in your storage</div>
+<button id="storageRemove">Remove</button>
+<button id="storageSet">Set</button>
+<ul id="storage"></ul>

@@ -1,0 +1,3 @@
+﻿<div>Note: Trigger is the publishing part int the pub/sub pattern</div>
+<button id="trigger">trigger</button>
+<div id="messages"></div>

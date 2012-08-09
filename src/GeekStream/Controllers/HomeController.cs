@@ -59,6 +59,11 @@ namespace GeekStream.Controllers
 			return View(model);
 		}
 
+		public ActionResult LiveSearch()
+		{
+			return View();
+		}
+
         [ChildActionOnly]
         public ActionResult Footer()
         {

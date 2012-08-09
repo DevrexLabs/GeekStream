@@ -1,0 +1,20 @@
+﻿<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+using System.ComponentModel.Composition;
+using XSockets.Core.Globals;
+using XSockets.Core.XSocket;
+using XSockets.Core.XSocket.Interface;
+using XSockets.Core.XSocket.Helpers;
+
+namespace <#= Model.Namespace #>
+{
+  [Export(typeof(IXBaseSocket))]
+  [XBaseSocketMetadata("<#= Model.HandlerName #>", Constants.GenericTextBufferSize)]
+  public class <#= Model.HandlerName #> : XBaseSocket
+  {
+      public override IXBaseSocket NewInstance()
+      {
+          return new <#= Model.HandlerName #>();
+      }
+  }  
+}

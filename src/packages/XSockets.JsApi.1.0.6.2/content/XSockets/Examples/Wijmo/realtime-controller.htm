@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Wijmo/XSockets.NET - Controller</title>
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,400italic' rel='stylesheet' type='text/css'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"
+        type="text/javascript"></script>
+    <!--Theme-->
+    <link href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet"
+        type="text/css" title="rocket-jqueryui" />
+    <!--Wijmo Widgets CSS-->
+    <link href="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.0.5.min.css" rel="stylesheet"
+        type="text/css" />
+    <!--Wijmo Widgets JavaScript-->
+    <script src="http://cdn.wijmo.com/jquery.wijmo-open.all.2.0.5.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/jquery.wijmo-complete.all.2.0.5.min.js" type="text/javascript"></script>
+    <script src="Refs/knockout-2.0.0.debug.js" type="text/javascript"></script>
+    <script src="knockout-wijmo.js" type="text/javascript"></script>
+    <script src="/Scripts/jXSockets.1.0.6.beta.js" type="text/javascript"></script>
+    <script src="/Scripts/moment.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //States to know when to send (and not)
+        var State = {
+            Live: 0,
+            Recorded: 1,
+            Paused: 2
+        };
+
+        //For knowing haw many items to store in localstorage before calling splice(0,1)
+        var Storage = {
+            MaxHistory: 25
+        };
+
+        //Recording ViewModel
+        var ViewModelRecording = function () {
+            var self = this;
+            self.Points = ko.observableArray([]);
+        };
+
+        //Default viewmodel (for gauges)
+        var ViewModelSlider = function (min, max, val, step, time) {
+            var self = this;
+            self.val = ko.observable(val);
+            self.min = ko.observable(min);
+            self.max = ko.observable(max);
+            self.step = ko.observable(step);
+            self.disabled = ko.observable(false);
+            self.time = ko.observable(time);
+        };
+        //Setup tank defaults
+        var TankBenchmark = new ViewModelSlider(0, 100, 50, 5, GetDateTimeNow());
+        var TankRange = new ViewModelSlider(1, 25, 12, 1, GetDateTimeNow());
+        var TankVelocity = new ViewModelSlider(1, 10, 3, 1, GetDateTimeNow());
+        var TankTimer = null;
+        var TankHistoryTimer = null;
+        var TankState = State.Live;
+        var TankHistory = new ViewModelRecording();
+        //Setup temp defaults
+        var TempBenchmark = new ViewModelSlider(0, 100, 65, 5, GetDateTimeNow());
+        var TempRange = new ViewModelSlider(1, 25, 12, 1, GetDateTimeNow());
+        var TempVelocity = new ViewModelSlider(1, 10, 6, 1, GetDateTimeNow());
+        var TempTimer = null;
+        var TempHistoryTimer = null;
+        var TempState = State.Live;
+        var TempHistory = new ViewModelRecording();
+
+        //For our websocket connection 
+        var ws = null;
+        $(function () {
+            //Get Storage From Previous Session (if any)
+            var storedTemp = window.localStorage.getItem('TempHistory');
+            var storedTank = window.localStorage.getItem('TankHistory');
+            TempHistory.Points(!!storedTemp ? JSON.parse(storedTemp) : []);
+            TankHistory.Points(!!storedTank ? JSON.parse(storedTank) : []);
+
+            //Tank - Apply knockoutjs bindings
+            ko.applyBindings(TankHistory, $("#TankReplayArea")[0]);
+            ko.applyBindings(TankBenchmark, $("#TankBenchmark")[0]);
+            ko.applyBindings(TankRange, $("#TankRange")[0]);
+            ko.applyBindings(TankVelocity, $("#TankVelocity")[0]);
+
+            //Temp - Apply knockoutjs bindings
+            ko.applyBindings(TempHistory, $("#TempReplayArea")[0]);
+            ko.applyBindings(TempBenchmark, $("#TempBenchmark")[0]);
+            ko.applyBindings(TempRange, $("#TempRange")[0]);
+            ko.applyBindings(TempVelocity, $("#TempVelocity")[0]);
+
+            //Listen for changes in tankvelocity
+            TankVelocity.val.subscribe(function () {
+                //clear and set timer to mirror the new velocity
+                clearInterval(TankTimer);
+                setTankTimer();
+            });
+            //Listen for changes in tempvelocity
+            TempVelocity.val.subscribe(function () {
+                //clear and set timer to mirror the new velocity
+                clearInterval(TempTimer);
+                setTempTimer();
+            });
+
+
+            //Client Events - Replay Events Tank
+            $("#playTankHistory").click(function () {
+                TankState = State.Recorded;
+                var ix = $(".tank-history").wijslider("value");
+                if (ix === TankHistory.Points().length) {
+                    $("#stopTankHistory").trigger('click');
+                    return;
+                }
+                ws.trigger("OnTankUpdate", TankHistory.Points()[ix]);
+                $(".tank-history").wijslider("value", ix++);
+                TankHistoryTimer = setInterval(function () {
+                    ix = $(".tank-history").wijslider("value");
+                    if (ix === TankHistory.Points().length - 1) {
+                        $("#stopTankHistory").trigger('click');
+                        return;
+                    }
+
+                    ws.trigger("OnTankUpdate", TankHistory.Points()[ix]);
+                    $(".tank-history").wijslider("value", ++ix);
+                }, 1000);
+            });
+            $("#stopTankHistory").click(function () {
+                clearInterval(TankHistoryTimer);
+                TankState = State.Live;
+                $(".tank-history").wijslider("value", 0);
+            });
+            $("#pauseTankHistory").click(function () {
+                clearInterval(TankHistoryTimer);
+                TankState = State.Paused;
+            });
+            $("#sendTrendTankHistory").click(function () {
+                ws.trigger("OnTankTrend", TankHistory.Points());
+            });
+
+            //Client Events - Replay Events Temp
+            $("#playTempHistory").click(function () {
+                TempState = State.Recorded;
+                var ix = $(".temp-history").wijslider("value");
+                if (ix === TempHistory.Points().length) {
+                    $("#stopTempHistory").trigger('click');
+                    return;
+                }
+                ws.trigger("OnTempUpdate", TempHistory.Points()[ix]);
+                $(".tank-history").wijslider("value", ix++);
+                TempHistoryTimer = setInterval(function () {
+                    ix = $(".temp-history").wijslider("value");
+                    if (ix === TempHistory.Points().length - 1) {
+                        $("#stopTempHistory").trigger('click');
+                        return;
+                    }
+
+                    ws.trigger("OnTempUpdate", TempHistory.Points()[ix]);
+                    $(".temp-history").wijslider("value", ++ix);
+                }, 1000);
+            });
+            $("#stopTempHistory").click(function () {
+                clearInterval(TempHistoryTimer);
+                TempState = State.Live;
+                $(".temp-history").wijslider("value", 0);
+            });
+            $("#pauseTempHistory").click(function () {
+                clearInterval(TempHistoryTimer);
+                TempState = State.Paused;
+            });
+            $("#sendTrendTempHistory").click(function () {
+                ws.trigger("OnTempTrend", TempHistory.Points());
+            });
+
+            //WebSocket - open connection
+            ws = new XSockets.WebSocket("ws://127.0.0.1:4502/GenericText", jXSockets.WEBSOCKET);
+
+            //XSockets are ready :)
+            ws.bind(XSockets.Events.open, function () {
+                //Start sending data, the websocket is open.
+                setTankTimer();
+                setTempTimer();
+            });
+        });
+
+        //Handle TankTicks and send data over websockets
+        var setTankTimer = function () {
+            TankTimer = setInterval(function () {
+                if (TankState === State.Live) {
+                    var v = randomPoint(TankBenchmark.val(), TankRange.val(), TankBenchmark.min(), TankBenchmark.max());
+                    var tankPoint = { val: v, min: TankBenchmark.min(), max: TankBenchmark.max(), time: GetDateTimeNow(), state: State.Live };
+                    //Trigger websocket-event OnTempUpdate
+                    ws.trigger("OnTankUpdate", tankPoint, function () {
+                        //Store measurement in localstorage
+                        StoreTankMeasurement(tankPoint);
+                    });
+                }
+            }, TankVelocity.val() * 1000);
+        };
+        //Handle TempTicks and send data over websockets
+        var setTempTimer = function () {
+            TempTimer = setInterval(function () {
+                //Send if state is live
+                if (TempState === State.Live) {
+                    var v = randomPoint(TempBenchmark.val(), TempRange.val(), TempBenchmark.min(), TempBenchmark.max());
+                    var tempPoint = { val: v, min: TempBenchmark.min(), max: TempBenchmark.max(), time: GetDateTimeNow(), state: State.Live };
+                    //Trigger websocket-event OnTempUpdate
+                    ws.trigger("OnTempUpdate", tempPoint, function () {
+                        //Store measurement in localstorage
+                        StoreTempMeasurement(tempPoint);
+                    });
+                }
+            }, TempVelocity.val() * 1000);
+        };
+
+        //Some Utilities
+        //Rnd
+        function randomFromTo(from, to, min, max) {
+            var v = Math.floor(Math.random() * (to - from + 1) + from);
+            if (v > max)
+                return max;
+            if (v < min)
+                return min;
+            return v;
+        };
+        //Rnd for temp/tank
+        function randomPoint(benchmark, range, benchmarkMin, benchmarkMax) {
+            var lowerRange = benchmark - range;
+            var upperRange = benchmark + range;
+            return randomFromTo(lowerRange, upperRange, benchmarkMin, benchmarkMax);
+        };
+        //DateTime
+        function GetDateTimeNow() {
+            return moment().format('YYYY-MM-DD HH:mm:ss');
+        };
+        //Storage for Temp/Tank for history
+        function StoreTempMeasurement(tempPoint) {
+            if (TempHistory.Points().length >= Storage.MaxHistory) {
+                TempHistory.Points().splice(0, 1);
+            }
+            tempPoint.state = State.Recorded;
+            TempHistory.Points.push(tempPoint);
+            window.localStorage.setItem('TempHistory', JSON.stringify(TempHistory.Points()));
+        };
+        function StoreTankMeasurement(tankPoint) {
+            if (TankHistory.Points().length >= Storage.MaxHistory) {
+                TankHistory.Points().splice(0, 1);
+            }
+            tankPoint.state = State.Recorded;
+            TankHistory.Points.push(tankPoint);
+            window.localStorage.setItem('TankHistory', JSON.stringify(TankHistory.Points()));
+        };
+
+    </script>
+    <style type="text/css">
+        .slider
+        {
+            width: 100%;
+        }
+        h1.headline {
+            font-family: 'Lobster', cursive;
+        }
+        h4.subheadline {
+            font-family: 'Ubuntu Mono', sans-serif;
+            color: darkgreen;
+        }
+        h3.menu { cursor: pointer;}
+        div.trend-player {
+             background: #eee;
+             border:gray;
+             border-width: 1px;
+             border-style: solid; 
+             -webkit-border-radius: 6px;
+             /*display: none;*/
+             margin: 8px;
+             padding: 8px;
+        }
+    </style>
+</head>
+    <body style="font-size: 90%; font-family: verdana">
+        <h1 class="headline">Process Controller - {In Real Time}</h1>
+        <h4 class="subheadline">A XSockets.NET & Wijmo Production</h4>
+        <div>
+            <!-- TANK //-->
+            <div>
+                <h3 class="menu">
+                    Tank</h3>
+                <div id="TankReplayArea" class="trend-player" data-bind="With: TankHistory">
+                    <div style="margin-bottom: 15px;">
+                        <button id="playTankHistory">play</button><button id="stopTankHistory">stop</button><button id="pauseTankHistory">pause</button><button id="sendTrendTankHistory">SendTrend</button>
+                        <span data-bind="text:Points().length + ' Frames Available'"></span>
+                    </div>
+                    <div class="slider tank-history" data-bind="wijslider: {value: 0, min: 0, max: Points().length - 1, step: 1, disabled: Points().length == 0}"></div>
+                    <div>&nbsp;</div>
+                </div>
+                <div>
+                    <div id="TankBenchmark" data-bind="With: TankBenchmark">
+                        <h5 id="tankBenchmarkLable">
+                            Benchmark <span data-bind="text:val"></span>
+                        </h5>
+                        <div class="slider" data-bind="wijslider: {value: val, min: min, max: max, step: step, disabled: disabled}">
+                        </div>
+                    </div>
+                    <div id="TankRange" data-bind="With: TankRange">
+                        <h5 id="tankRangeLable">
+                            Range <span data-bind="text:val"></span>
+                        </h5>
+                        <div class="slider" data-bind="wijslider: {value: val, min: min, max: max, step: step, disabled: disabled}">
+                        </div>
+                    </div>
+                    <div id="TankVelocity" data-bind="With: TankVelocity">
+                        <h5 id="tankVelocityLable">
+                            Velocity <span data-bind="text:val"></span>
+                        </h5>
+                        <div class="slider" data-bind="wijslider: {value: val, min: min, max: max, step: step, disabled: disabled}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TEMP //-->
+            <div>
+                <h3 class="menu">
+                    Temp</h3>
+                <div id="TempReplayArea" class="trend-player" data-bind="With: TempHistory">
+                    <div style="margin-bottom: 15px;">
+                        <button id="playTempHistory">play</button><button id="stopTempHistory">stop</button><button id="pauseTempHistory">pause</button><button id="sendTrendTempHistory">SendTrend</button>
+                        <span data-bind="text:Points().length + ' Frames Available'"></span>
+                    </div>
+                    <div class="slider temp-history" data-bind="wijslider: {value: 0, min: 0, max: Points().length - 1, step: 1, disabled: Points().length == 0}"></div>
+                    <div>&nbsp;</div>
+                </div>
+                <div>
+                    <div id="TempBenchmark" data-bind="Entity: TempBenchmark">
+                        <h5>
+                            Benchmark <span data-bind="text:val"></span>
+                        </h5>
+                        <div class="slider" data-bind="wijslider: {value: val, min: min, max: max, step: step, disabled: disabled}">
+                        </div>
+                    </div>
+                    <div id="TempRange" data-bind="With: TempRange">
+                        <h5 id="H2">
+                            Range <span data-bind="text:val"></span>
+                        </h5>
+                        <div class="slider" data-bind="wijslider: {value: val, min: min, max: max, step: step, disabled: disabled}">
+                        </div>
+                    </div>
+                    <div id="TempVelocity" data-bind="Entity: TempVelocity">
+                        <h5 id="H3">
+                            Velocity <span data-bind="text:val"></span>
+                        </h5>
+                        <div class="slider" data-bind="wijslider: {value: val, min: min, max: max, step: step, disabled: disabled}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

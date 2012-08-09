@@ -1,0 +1,4 @@
+﻿<div>Note: Try the StorageGet example to see that values are stored over connections</div>
+<input type="text" id="storeValue" placeholder="type value here..." />
+<button id="storeSet">store</button>
+<div id="messages"></div>

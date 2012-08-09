@@ -1,0 +1,23 @@
+﻿<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+using System.ComponentModel.Composition;
+using XSockets.Core.Interceptors;
+using XSockets.Core.XSocket.Interceptor;
+using XSockets.Core.XSocket.Interface;
+
+namespace <#= Model.Namespace #>
+{
+    [Export(typeof(IConnectionInterceptor))]
+    public sealed class <#= Model.InterceptorName #> : XBaseInterceptor, IConnectionInterceptor
+    {
+        public void Connected(IXBaseSocket socket)
+        {
+           //Implement your interceptor stuff here...
+        }
+
+        public void Disconnected(IXBaseSocket socket)
+        {
+            //Implement your interceptor stuff here...
+        }
+    }
+}

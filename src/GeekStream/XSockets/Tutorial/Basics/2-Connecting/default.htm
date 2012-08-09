@@ -1,0 +1,40 @@
+﻿<html>
+<head>
+    <title>XSockets - WeAreTheRealTimeWeb</title>
+    <script src="../../Refs/Scripts/Prettify/prettify.js" type="text/javascript"></script>
+    <link href="../../Refs/Css/Prettify/prettify.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="prettyPrint()">
+    <a href="../../default.htm">Tutorial Index</a> | <a target="_blank" href="../../XFiddle/default.htm?example=connecting">Try this in XFiddle</a>
+    <h1>
+        Connecting</h1>
+    <ul>
+        <li><a href="../1-Setup/">../1-Setup</a> </li>
+        <li><a href="../2-Connecting/">../2-Connecting/</a> </li>
+        <li><a href="../3-Publish/">../3-Publish/</a> </li>
+        <li><a href="../4-Subscribe/">../4-Subscribe/</a> </li>
+        <li><a href="../5-Events/">../5-Events/</a> </li>
+    </ul>
+    <div>
+        When you have a local (or remote) server running it is very easy to connect</div>
+    <div>
+        <ol>
+            <li>Create a new connection.<br />
+                <pre class="prettyprint">
+var serverLocation = '127.0.0.1:4502'; 
+var protocol = 'ws';
+var controller = 'GenericText';
+var ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller, XSockets.WEBSOCKET);
+</pre>
+            </li>
+            <li>Listen for the open event
+                <pre class="prettyprint">
+ws.bind(XSockets.Events.open, function () {
+    alert("You are XSockets connected!");
+});
+</pre>
+            </li>
+        </ol>
+    </div>
+</body>
+</html>

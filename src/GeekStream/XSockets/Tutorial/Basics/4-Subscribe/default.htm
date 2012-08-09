@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+    <title>XSockets - WeAreTheRealTimeWeb</title>
+    <script src="../../Refs/Scripts/Prettify/prettify.js" type="text/javascript"></script>
+    <link href="../../Refs/Css/Prettify/prettify.css" rel="stylesheet" type="text/css" />
+</head>
+    <body onload="prettyPrint()">
+        <a href="../../default.htm">Tutorial Index</a> | <a target="_blank" href="../../XFiddle/default.htm?example=publishsubscribe">Try this in XFiddle</a>
+        <h1>
+            Subscribe</h1>
+        <ul>
+        <li><a href="../1-Setup/">../1-Setup</a> </li>
+        <li><a href="../2-Connecting/">../2-Connecting/</a> </li>
+        <li><a href="../3-Publish/">../3-Publish/</a> </li>
+        <li><a href="../4-Subscribe/">../4-Subscribe/</a> </li>
+        <li><a href="../5-Events/">../5-Events/</a> </li>
+    </ul>
+        <div>
+            Subscribe is to tell the server that 'Hey, I want messages with this signature'.</div>
+        <div>
+            <h2>
+                PreConditions</h2>
+            <ol>
+                <li>A connection has been made and bound to the variable "ws". <a href="../2-Connecting/">
+                                                                                   Connection Example</a></li>
+                <li>A message is published that match our subscription.  <a href="../3-Publish/">
+                                                                             Publish Example</a></li>
+            </ol>
+            <h2>Code</h2>
+            <ol>
+                <li>
+                    <pre class="prettyprint">
+ws.bind("MyFirstMessage", function(data){
+    alert(data.Message);
+});
+</pre>
+                </li>
+            </ol>
+        </div>
+    </body>
+</html>
