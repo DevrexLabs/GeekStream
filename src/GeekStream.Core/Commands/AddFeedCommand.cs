@@ -23,8 +23,7 @@ namespace GeekStream.Core.Commands
         {
             try
             {
-                model.AddFeed(Feed);
-                return Feed.LongId;
+                return model.AddFeed(Feed);
             }
             catch (Exception ex)
             {

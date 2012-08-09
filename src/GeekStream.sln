@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3B56CD
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream.Admin", "GeekStream.Admin\GeekStream.Admin.csproj", "{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,16 @@ Global
 		{320E2191-BAE7-4B7A-B958-48DD87097C73}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{320E2191-BAE7-4B7A-B958-48DD87097C73}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{320E2191-BAE7-4B7A-B958-48DD87097C73}.Release|x86.ActiveCfg = Release|Any CPU
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|x86.ActiveCfg = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Debug|x86.Build.0 = Debug|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|Any CPU.ActiveCfg = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|Mixed Platforms.Build.0 = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|x86.ActiveCfg = Release|x86
+		{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

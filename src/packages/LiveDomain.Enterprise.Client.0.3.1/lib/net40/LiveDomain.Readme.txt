@@ -1,0 +1,10 @@
+﻿This is the client library for communicating with a LiveDB Enterprise Server.
+For information on obtaining LiveDB Server see http://bit.ly/N2ttWt
+
+For more information on #liveDB visit: 
+http://livedb.devrex.se
+http://livedomain.codeplex.com
+http://github.org/devrexlabs
+http://twitter.com/robertfriberg
+http://twitter.com/livedomain
+
