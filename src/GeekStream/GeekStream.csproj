@@ -39,8 +39,9 @@
     <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.4.1.10715.0\lib\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="LiveDomain.Core">
-      <HintPath>..\packages\LiveDomain.Core.0.4.0\lib\net40\LiveDomain.Core.dll</HintPath>
+    <Reference Include="LiveDomain.Core, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LiveDomain.Core.0.4.1\lib\net40\LiveDomain.Core.dll</HintPath>
     </Reference>
     <Reference Include="LiveDomain.Enterprise.Client, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveDomain.Enterprise.Client.0.3.1\lib\net40\LiveDomain.Enterprise.Client.dll</HintPath>

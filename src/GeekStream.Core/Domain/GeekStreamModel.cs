@@ -156,21 +156,21 @@ namespace GeekStream.Core.Domain
 
         public void Click(Int64 feedItemId, string searchQuery)
         {
-            var item = GetItemByLongId(feedItemId);
-            item.Clicks++;
-            item.Feed.Clicks++;
-            _popularFeeds.Add(item.Feed);
-            _popularItems.Add(item);
+            var itemClicked = GetItemByLongId(feedItemId);
+            itemClicked.Clicks++;
+            itemClicked.Feed.Clicks++;
+            _popularFeeds.Add(itemClicked.Feed);
+            _popularItems.Add(itemClicked);
 
-            IEnumerable<string> searchTerms = ParseQuery(searchQuery);
-            foreach (var searchTerm in searchTerms)
-            {
-                HashSet<IndexEntry> set;
-                if (_searchIndex.TryGetValue(searchTerm, out set))
-                {
-                    set.Single(ie => ie.Item.LongId == item.LongId).Clicks++;
-                }
-            }
+            //IEnumerable<string> searchTerms = ParseQuery(searchQuery);
+            //foreach (var searchTerm in searchTerms)
+            //{
+            //    HashSet<IndexEntry> set;
+            //    if (_searchIndex.TryGetValue(searchTerm, out set))
+            //    {
+            //        set.Single(ie => ie.Item.LongId == itemClicked.LongId).Clicks++;
+            //    }
+            //}
         }
 
         private IEnumerable<string> ParseQuery(string searchQuery)

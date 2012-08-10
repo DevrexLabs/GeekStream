@@ -8,7 +8,16 @@
 <div style="margin-top:24px; color: #B6B6B6; font-weight: normal;" id="resultInfo">
 </div>
 <div id="liveresults">
-	
+    LiveSearch is an experimental feature based on <a href="http://xsockets.net">XSockets</a>, 
+    a websockets implementation created by our friends <a href="http://twitter.com/dathor">@dathor</a> and <a href="http://twitter.com/ulfbjo">@ulfbjo</a>.
+    <p>
+    Queries are handled by an XSockets server with a direct connection to the LiveDB Server hosting the geekstream model. 
+    This setup yields an extremely low latency.
+    </p>
+    <p>
+        The query is sent to the XSockets server either when you press enter/space or after a short period of inactivity. 
+        The total duration displayed above the search results includes the full network roundtrip time.
+    </p>
 </div>
 
 <script src="/Scripts/swfobject.js" type="text/javascript"></script>
@@ -39,8 +48,7 @@
 	var ws;
 	$(function () {
 		$("#searchform .button").remove();
-
-		var serverLocation = '127.0.0.1:4502';
+		var serverLocation = 'geekstream.devrex.se:4502';
 		var protocol = 'ws';
 		var controller = 'SearchController';
 		ws = new XSockets.WebSocket(protocol + "://" + serverLocation + "/" + controller, XSockets.WEBSOCKET);
@@ -50,6 +58,11 @@
 		});
 
 		ws.bind("OnSearchCompleted", function (data) {
+
+		    // Show query time and info.
+		    var timeS = (new Date() - startDate) / 1000.0;
+		    $("#resultInfo").html($("#infoTemplate").render({ Hits: data.TotalResults, Query: data.Query, Time: timeS }));
+
 			// Render the results with template.
 			$("#liveresults").html($("#searchTemplate").render(data));
 
@@ -58,11 +71,6 @@
 				var date = new Date(parseInt($(this).text().substr(6)));
 				$(this).text($.format.date(date, "yyyy-MM-dd"));
 			});
-
-			// Show query time and info.
-			var timeS = (new Date() - startDate) / 1000.0;
-			$("#resultInfo").html($("#infoTemplate").render({ Hits: data.TotalResults, Query: data.Query, Time: timeS }));
-
 		});
 
 		$("#searchform").attr("action", "").submit(function () {

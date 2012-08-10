@@ -27,7 +27,7 @@ namespace GeekStream.Core.Commands
             }
             catch (Exception ex)
             {
-                throw new CommandFailedException(ex.Message);
+                throw new CommandAbortedException(ex.Message);
             }
         }
     }

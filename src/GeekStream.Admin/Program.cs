@@ -107,12 +107,10 @@ namespace GeekStream.Admin
                 _geekStreamDb.Execute(command);
                 Console.WriteLine("ok");
             }
-            catch (CommandFailedException)
+            catch (CommandAbortedException)
             {
                 Console.WriteLine("no such feed");
             }
-
-
         }
 
         private void AddFeedsFromOpml(string path)

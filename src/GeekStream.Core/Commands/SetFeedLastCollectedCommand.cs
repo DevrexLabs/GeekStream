@@ -29,7 +29,7 @@ namespace GeekStream.Core.Commands
             catch (ArgumentException e)
             {
                 
-                throw new CommandFailedException(e.Message);
+                throw new CommandAbortedException(e.Message);
             } 
 
         }

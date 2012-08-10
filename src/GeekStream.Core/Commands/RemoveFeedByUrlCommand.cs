@@ -20,7 +20,7 @@ namespace GeekStream.Core.Commands
         protected override void Execute(GeekStreamModel model)
         {
             if (!model.RemoveFeedByUrl(Url))
-                throw new CommandFailedException("No such feed");
+                throw new CommandAbortedException("No such feed");
         }
 
         
