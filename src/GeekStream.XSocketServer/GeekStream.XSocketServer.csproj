@@ -65,12 +65,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\XSocketServerPlugins\XSockets.Core.Communication.dll" />
-    <Content Include="bin\Debug\XSocketServerPlugins\XSockets.Extensibility.Handlers.dll" />
-    <Content Include="bin\Debug\XSocketServerPlugins\XSockets.Extensibility.Interceptors.dll" />
-    <Content Include="bin\Debug\XSocketServerPlugins\XSockets.External.dll" />
-    <Content Include="bin\Debug\XSocketServerPlugins\XSockets.Protocol.dll" />
-    <Content Include="bin\Debug\XSocketServerPlugins\XSockets.Server.dll" />
+    <Content Include="XSocketServerPlugins\XSockets.Core.Communication.dll" />
+    <Content Include="XSocketServerPlugins\XSockets.Extensibility.Handlers.dll" />
+    <Content Include="XSocketServerPlugins\XSockets.Extensibility.Interceptors.dll" />
+    <Content Include="XSocketServerPlugins\XSockets.External.dll" />
+    <Content Include="XSocketServerPlugins\XSockets.Protocol.dll" />
+    <Content Include="XSocketServerPlugins\XSockets.Server.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
