@@ -12,7 +12,7 @@ namespace GeekStream.Admin
 {
     public class FeedCollector<T>
     {
-
+		
         public class SyndicationItemEventArgs : EventArgs
         {
             public readonly SyndicationItem SyndicationItem;
@@ -37,25 +37,23 @@ namespace GeekStream.Admin
             }
         }
 
-
-
         public EventHandler<SyndicationItemEventArgs> ItemCollected = delegate { };
         public EventHandler<SourceCollectedEventArgs> SourceCollected = delegate { };
 
         private T[] _sources;
         private Func<T, String> _urlSelector;
+	    ParallelOptions _parallelOptions = new ParallelOptions();
 
-        public FeedCollector(IEnumerable<T> sources, Func<T, string> urlSelector)
-        {
+		public FeedCollector(IEnumerable<T> sources, Func<T, string> urlSelector, int maxDegreeOfParallelism)
+		{
+			_parallelOptions.MaxDegreeOfParallelism = maxDegreeOfParallelism;
             _sources = sources.ToArray();
             _urlSelector = urlSelector;
         }
 
-
         public void Collect()
         {
-            Parallel.ForEach(_sources, CollectSingleSource);
-
+	        Parallel.ForEach(_sources, _parallelOptions, CollectSingleSource);
         }
 
         public static SyndicationFeed GetFeed(string url)
@@ -71,28 +69,25 @@ namespace GeekStream.Admin
         }
 
         public void CollectSingleSource(T source)
-        {
-            try
+        {        
+			try
             {
                 var syndicationFeed = GetFeed(_urlSelector.Invoke(source));
                 if (syndicationFeed != null)
                 {
-                    lock (this)
-                    {
                         foreach (var item in syndicationFeed.Items)
                         {
                             ItemCollected.Invoke(this, new SyndicationItemEventArgs(item, syndicationFeed, source));
                         }
-                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("! " + ex.Message);
+	            Console.WriteLine("!");
             }
             finally
             {
-                lock(this) SourceCollected.Invoke(this, new SourceCollectedEventArgs(source));
+				lock(this) SourceCollected.Invoke(this, new SourceCollectedEventArgs(source));
             }
         }
     }

@@ -47,6 +47,7 @@
     <Compile Include="Commands\RemoveFeedByIdCommand.cs" />
     <Compile Include="Commands\RemoveFeedByUrlCommand.cs" />
     <Compile Include="Commands\SetFeedLastCollectedCommand.cs" />
+    <Compile Include="Commands\SetFeedsLastCollectedCommand.cs" />
     <Compile Include="Domain\Feed.cs" />
     <Compile Include="Domain\FeedItem.cs" />
     <Compile Include="Domain\GeekStreamModel.cs" />
