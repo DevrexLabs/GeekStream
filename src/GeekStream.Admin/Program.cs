@@ -38,7 +38,6 @@ namespace GeekStream.Admin
 
 		private void Run()
 		{
-
 			//Set up the db connection or embedded engine
 			string connectionstring = ConfigurationManager.AppSettings["geekstream"];
 			connectionstring = connectionstring ?? "mode=embedded";
@@ -48,7 +47,7 @@ namespace GeekStream.Admin
 			else if (_args.Length == 2 && _args[0] == "-o") AddFeedsFromOpml(_args[1]);
 			else if (_args.Length >= 2 && _args[0] == "-c")
 			{
-				if(_args.Length == 4 && _args[2] == "-p") 
+				if (_args.Length == 4 && _args[2] == "-p")
 					CollectContinously(_args[1], int.Parse(_args[3]));
 				else CollectContinously(_args[1]);
 			}
@@ -194,61 +193,76 @@ namespace GeekStream.Admin
 				FeedView[] feedsToCollect = _geekStreamDb.Execute(new GetFeedsToCollectQuery(collectedBefore, 0, 20));
 				if (feedsToCollect.Length == 0)
 				{
-					Console.WriteLine("\nNo feeds to collect, waiting 1 minute");
+					Console.Title = "No feeds to collect, waiting 1 minute";
 					Thread.Sleep(TimeSpan.FromMinutes(1));
 				}
 				else
 				{
+					Console.Title = string.Format("Collecting {0} feeds", feedsToCollect.Length);
+
 					var collector = new FeedCollector<FeedView>(feedsToCollect, feedView => feedView.Url, maxDegreeOfParallelism);
-					collector.ItemCollected += ItemCollected;
-					collector.SourceCollected += (sender, args) => _collectedFeeds.Add(args.Source.Id, DateTime.Now);
+					collector.SourceCollected += SourceCollected;
 					collector.Collect();
 					SaveFeedsCollected();
 				}
 			}
 		}
 
+		long _newItems;
+		long _invalidItems;
+
+		void SourceCollected(object sender, FeedCollector<FeedView>.SourceCollectedEventArgs sourceCollectedEventArgs)
+		{
+			lock (_collectedFeeds)
+				_collectedFeeds.Add(sourceCollectedEventArgs.Source.Id, DateTime.Now);
+
+			var items = new List<AddFeedItemCommand>();
+			foreach (var e in sourceCollectedEventArgs.Items)
+			{
+				try
+				{
+					FeedView feedView = e.Source;
+					string[] indexKeys;
+					FeedItem item = CreateFeedItem(e.SyndicationItem, out indexKeys);
+
+					//Include feed title in search terms
+					var set = new HashSet<string>(indexKeys, StringComparer.InvariantCultureIgnoreCase);
+					set.UnionWith(Regex.Split(feedView.Title, @"\W+"));
+					indexKeys = set.ToArray();
+
+					if (!feedView.ItemUrls.Contains(item.Url))
+					{
+						items.Add(new AddFeedItemCommand(item, indexKeys, feedView.Id, DateTime.Now));
+						Interlocked.Increment(ref _newItems);
+					}
+					//else Console.Write(".");
+				}
+				catch (Exception ex)
+				{
+					//Console.WriteLine("!");
+					Interlocked.Increment(ref _invalidItems);
+				}
+			}
+			var command = new AddFeedItemsCommand(items.ToArray());
+			ExecuteCommand(command);
+
+			
+			Console.Write("\r{0} new items and {1} invalid items           ", _newItems, _invalidItems);
+		}
+
 		void SaveFeedsCollected()
 		{
 			if (_collectedFeeds.Count > 0)
 			{
-				foreach (KeyValuePair<int, DateTime> collectedFeed in _collectedFeeds)
-				{
-					var command = new SetFeedLastCollectedCommand(collectedFeed.Key, collectedFeed.Value);
-					ExecuteCommand(command);
-				}
+				//foreach (KeyValuePair<int, DateTime> collectedFeed in _collectedFeeds)
+				//{
+				//    var command = new SetFeedLastCollectedCommand(collectedFeed.Key, collectedFeed.Value);
+				//    ExecuteCommand(command);
+				//}
 
-				//var command = new SetFeedsLastCollectedCommand(_collectedFeeds);
-				//ExecuteCommand(command, true);
+				var command = new SetFeedsLastCollectedCommand(_collectedFeeds);
+				ExecuteCommand(command, true);
 				_collectedFeeds.Clear();
-			}
-		}
-
-		private void ItemCollected(object sender, FeedCollector<FeedView>.SyndicationItemEventArgs e)
-		{
-			try
-			{
-				FeedView feedView = e.Source;
-
-				string[] indexKeys;
-				FeedItem item = CreateFeedItem(e.SyndicationItem, out indexKeys);
-
-				//Include feed title in search terms
-				var set = new HashSet<string>(indexKeys, StringComparer.InvariantCultureIgnoreCase);
-				set.UnionWith(Regex.Split(feedView.Title, @"\W+"));
-				indexKeys = set.ToArray();
-
-				if (!feedView.ItemUrls.Contains(item.Url))
-				{
-					Console.Write("+");
-					var command = new AddFeedItemCommand(item, indexKeys, feedView.Id, DateTime.Now);
-					ExecuteCommand(command, true);
-				}
-				else Console.Write(".");
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("!");
 			}
 		}
 
@@ -261,7 +275,6 @@ namespace GeekStream.Admin
 				try
 				{
 					_geekStreamDb.Execute(command);
-					if (retryCount > 0) Console.Write(retryCount);
 					break;
 				}
 				catch (TimeoutException)
@@ -275,7 +288,6 @@ namespace GeekStream.Admin
 							continue;
 						}
 					}
-					Console.Write("~");
 					if (throwIfTimeout) throw;
 					break;
 				}

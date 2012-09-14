@@ -23,7 +23,7 @@ namespace XSocketHandler
 	[XBaseSocketMetadata("SearchController", Constants.GenericTextBufferSize)]
 	public class SearchHandler : XBaseSocket
 	{
-		static LiveDbConnectionSettings _liveDbConnectionSettings;
+		static ClientSettings _liveDbConnectionSettings;
 
 		public static ITransactionHandler<GeekStreamModel> Db
 		{
@@ -32,7 +32,7 @@ namespace XSocketHandler
 				if (_liveDbConnectionSettings == null)
 				{
 					string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
-					_liveDbConnectionSettings = LiveDbConnectionSettings.Parse(liveDbConnectionString);
+					_liveDbConnectionSettings = ClientSettings.Parse(liveDbConnectionString);
 
 				}
 				return _liveDbConnectionSettings.GetClient<GeekStreamModel>();

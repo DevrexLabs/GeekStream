@@ -63,13 +63,13 @@ namespace GeekStream
 			//WARN: The following code will become obsolete in 
 			//version 0.3 of the enterprise client lib
 			string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
-			_liveDbConnectionSettings = LiveDbConnectionSettings.Parse(liveDbConnectionString);
+			_liveDbConnectionSettings = ClientSettings.Parse(liveDbConnectionString);
 		}
 
 
 		//WARN: The following code will become obsolete in 
 		//version 0.3 of the enterprise client lib
-		private static LiveDbConnectionSettings _liveDbConnectionSettings;
+		private static ClientSettings _liveDbConnectionSettings;
 
 
 		//WARN: The following code will become obsolete in 

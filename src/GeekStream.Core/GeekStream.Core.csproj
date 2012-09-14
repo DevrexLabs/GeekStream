@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Commands\AddFeedCommand.cs" />
     <Compile Include="Commands\AddFeedItemCommand.cs" />
+    <Compile Include="Commands\AddFeedItemsCommand.cs" />
     <Compile Include="Commands\RegisterClickCommand.cs" />
     <Compile Include="Commands\RemoveFeedByIdCommand.cs" />
     <Compile Include="Commands\RemoveFeedByUrlCommand.cs" />

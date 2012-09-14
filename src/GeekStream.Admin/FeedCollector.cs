@@ -30,14 +30,17 @@ namespace GeekStream.Admin
         public class SourceCollectedEventArgs : EventArgs
         {
             public readonly T Source;
+			public readonly List<SyndicationItemEventArgs> Items;
 
-            public SourceCollectedEventArgs(T source)
+            public SourceCollectedEventArgs(T source, List<SyndicationItemEventArgs> items)
             {
-                Source = source;
+	            Source = source;
+	            Items = items;
             }
         }
 
         public EventHandler<SyndicationItemEventArgs> ItemCollected = delegate { };
+		
         public EventHandler<SourceCollectedEventArgs> SourceCollected = delegate { };
 
         private T[] _sources;
@@ -70,6 +73,8 @@ namespace GeekStream.Admin
 
         public void CollectSingleSource(T source)
         {        
+			var items = new List<SyndicationItemEventArgs>();
+
 			try
             {
                 var syndicationFeed = GetFeed(_urlSelector.Invoke(source));
@@ -77,7 +82,9 @@ namespace GeekStream.Admin
                 {
                         foreach (var item in syndicationFeed.Items)
                         {
-                            ItemCollected.Invoke(this, new SyndicationItemEventArgs(item, syndicationFeed, source));
+	                        var eventArgs = new SyndicationItemEventArgs(item, syndicationFeed, source);
+							ItemCollected.Invoke(this, eventArgs);
+							items.Add(eventArgs);
                         }
                 }
             }
@@ -87,7 +94,7 @@ namespace GeekStream.Admin
             }
             finally
             {
-				lock(this) SourceCollected.Invoke(this, new SourceCollectedEventArgs(source));
+				SourceCollected.Invoke(this, new SourceCollectedEventArgs(source, items));
             }
         }
     }
