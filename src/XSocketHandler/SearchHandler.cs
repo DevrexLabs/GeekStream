@@ -7,7 +7,6 @@ using System.Text;
 using GeekStream.Core.Domain;
 using GeekStream.Core.Queries;
 using LiveDomain.Core;
-using LiveDomain.Enterprise;
 using XSockets.Core.Globals;
 using XSockets.Core.XSocket;
 using XSockets.Core.XSocket.Event.Attributes;
@@ -23,16 +22,16 @@ namespace XSocketHandler
 	[XBaseSocketMetadata("SearchController", Constants.GenericTextBufferSize)]
 	public class SearchHandler : XBaseSocket
 	{
-		static ClientSettings _liveDbConnectionSettings;
+		static ClientConfiguration _liveDbConnectionSettings;
 
-		public static ITransactionHandler<GeekStreamModel> Db
+		public static IEngine<GeekStreamModel> Db
 		{
 			get
 			{
 				if (_liveDbConnectionSettings == null)
 				{
 					string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
-					_liveDbConnectionSettings = ClientSettings.Parse(liveDbConnectionString);
+					_liveDbConnectionSettings = ClientConfiguration.Create(liveDbConnectionString);
 
 				}
 				return _liveDbConnectionSettings.GetClient<GeekStreamModel>();

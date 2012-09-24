@@ -11,7 +11,6 @@ using System.Web.Routing;
 using GeekStream.Core;
 using GeekStream.Core.Domain;
 using LiveDomain.Core;
-using LiveDomain.Enterprise;
 using XSockets.Core.Plugin.MEF;
 using XSockets.Core.XSocket.Interface;
 
@@ -63,18 +62,18 @@ namespace GeekStream
 			//WARN: The following code will become obsolete in 
 			//version 0.3 of the enterprise client lib
 			string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
-			_liveDbConnectionSettings = ClientSettings.Parse(liveDbConnectionString);
+			_liveDbConnectionSettings = ClientConfiguration.Create(liveDbConnectionString);
 		}
 
 
 		//WARN: The following code will become obsolete in 
 		//version 0.3 of the enterprise client lib
-		private static ClientSettings _liveDbConnectionSettings;
+		private static ClientConfiguration _liveDbConnectionSettings;
 
 
 		//WARN: The following code will become obsolete in 
 		//version 0.3 of the enterprise client lib
-		public static ITransactionHandler<GeekStreamModel> LiveDbClient
+		public static IEngine<GeekStreamModel> LiveDbClient
 		{
 			get
 			{

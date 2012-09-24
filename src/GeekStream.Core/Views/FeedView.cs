@@ -14,11 +14,13 @@ namespace GeekStream.Core.Views
         public readonly HashSet<string> ItemUrls;
         public string Description { get; set; }
         public int Id { get; set; }
+	    public int PartitionId { get; set; }
 
         public FeedView(Feed feed)
         {
             Id = feed.Id;
             LongId = feed.LongId;
+	        PartitionId = feed.PartitionId;
             Url = feed.Url;
             Title = feed.Title;
             ItemUrls = new HashSet<string>(feed.Items.Select(f => f.Url));

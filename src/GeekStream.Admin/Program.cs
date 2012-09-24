@@ -14,7 +14,7 @@ using System.ServiceModel.Syndication;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using System.Xml;
-using LiveDomain.Enterprise;
+
 using GeekStream.Core.Queries;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace GeekStream.Admin
 	class Program
 	{
 		const int CollectorDefaultMaxDegreeOfParallelism = -1; // Unlimited
-		private ITransactionHandler<GeekStreamModel> _geekStreamDb;
+		private PartitionClusterClient<GeekStreamModel> _geekStreamDb;
 		private string[] _args;
 		private Dictionary<int, DateTime> _collectedFeeds = new Dictionary<int, DateTime>();
 
@@ -39,9 +39,9 @@ namespace GeekStream.Admin
 		private void Run()
 		{
 			//Set up the db connection or embedded engine
-			string connectionstring = ConfigurationManager.AppSettings["geekstream"];
-			connectionstring = connectionstring ?? "mode=embedded";
-			_geekStreamDb = ClientSettings.Parse(connectionstring).GetClient<GeekStreamModel>();
+			//string connectionstring = ConfigurationManager.AppSettings["geekstream"];
+			//connectionstring = connectionstring ?? "mode=embedded";
+			_geekStreamDb = (PartitionClusterClient<GeekStreamModel>) new GeekStreamClientConfiguration().GetClient<GeekStreamModel>(); //Engine.For<GeekStreamModel>(connectionstring);
 
 			if (_args.Length >= 2 && _args[0] == "-a") AddUrls(_args.Skip(1));
 			else if (_args.Length == 2 && _args[0] == "-o") AddFeedsFromOpml(_args[1]);
@@ -203,7 +203,6 @@ namespace GeekStream.Admin
 					var collector = new FeedCollector<FeedView>(feedsToCollect, feedView => feedView.Url, maxDegreeOfParallelism);
 					collector.SourceCollected += SourceCollected;
 					collector.Collect();
-					SaveFeedsCollected();
 				}
 			}
 		}
@@ -213,8 +212,8 @@ namespace GeekStream.Admin
 
 		void SourceCollected(object sender, FeedCollector<FeedView>.SourceCollectedEventArgs sourceCollectedEventArgs)
 		{
-			lock (_collectedFeeds)
-				_collectedFeeds.Add(sourceCollectedEventArgs.Source.Id, DateTime.Now);
+			//lock (_collectedFeeds)
+			//    _collectedFeeds.Add(sourceCollectedEventArgs.Source.Id, DateTime.Now);
 
 			var items = new List<AddFeedItemCommand>();
 			foreach (var e in sourceCollectedEventArgs.Items)
@@ -235,38 +234,24 @@ namespace GeekStream.Admin
 						items.Add(new AddFeedItemCommand(item, indexKeys, feedView.Id, DateTime.Now));
 						Interlocked.Increment(ref _newItems);
 					}
-					//else Console.Write(".");
 				}
 				catch (Exception ex)
 				{
-					//Console.WriteLine("!");
 					Interlocked.Increment(ref _invalidItems);
 				}
 			}
-			var command = new AddFeedItemsCommand(items.ToArray());
+			var command = new AddFeedItemsCommand(sourceCollectedEventArgs.Source, items.ToArray());
 			ExecuteCommand(command);
 
+			var feed = sourceCollectedEventArgs.Source;
+
+			var collectedCommand = new SetFeedLastCollectedCommand(sourceCollectedEventArgs.Source.Id, DateTime.Now);
+			ExecuteCommand(collectedCommand, partitionId:feed.PartitionId);
 			
 			Console.Write("\r{0} new items and {1} invalid items           ", _newItems, _invalidItems);
 		}
-
-		void SaveFeedsCollected()
-		{
-			if (_collectedFeeds.Count > 0)
-			{
-				//foreach (KeyValuePair<int, DateTime> collectedFeed in _collectedFeeds)
-				//{
-				//    var command = new SetFeedLastCollectedCommand(collectedFeed.Key, collectedFeed.Value);
-				//    ExecuteCommand(command);
-				//}
-
-				var command = new SetFeedsLastCollectedCommand(_collectedFeeds);
-				ExecuteCommand(command, true);
-				_collectedFeeds.Clear();
-			}
-		}
-
-		void ExecuteCommand(Command<GeekStreamModel> command, bool retryOnTimeout = false, bool throwIfTimeout = false)
+		
+		void ExecuteCommand(Command<GeekStreamModel> command, bool retryOnTimeout = false, bool throwIfTimeout = false, int partitionId = -1)
 		{
 			int retryInterval = 100;
 			double retryCount = 0;
@@ -274,7 +259,8 @@ namespace GeekStream.Admin
 			{
 				try
 				{
-					_geekStreamDb.Execute(command);
+					if(partitionId > -1) _geekStreamDb.Execute(command,partitionId);
+					else _geekStreamDb.Execute(command);
 					break;
 				}
 				catch (TimeoutException)
@@ -299,7 +285,7 @@ namespace GeekStream.Admin
 
 			var feed = new Feed
 						   {
-							   PartitionId = 0,
+							   PartitionId = 2,
 							   Title = syndicationFeed.Title != null ? syndicationFeed.Title.Text : "Untitled feed",
 							   Description = syndicationFeed.Description != null ? syndicationFeed.Description.Text : "No description",
 							   ImageUrl = syndicationFeed.ImageUrl != null ? syndicationFeed.ImageUrl.ToString() : null,

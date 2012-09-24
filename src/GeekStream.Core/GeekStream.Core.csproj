@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiveDomain.Core, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LiveDomain.Core, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\LiveDomain.Core.0.4.1\lib\net40\LiveDomain.Core.dll</HintPath>
+      <HintPath>..\..\lib\LiveDomain.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +47,7 @@
     <Compile Include="Commands\RegisterClickCommand.cs" />
     <Compile Include="Commands\RemoveFeedByIdCommand.cs" />
     <Compile Include="Commands\RemoveFeedByUrlCommand.cs" />
+    <Compile Include="Commands\RemoveSearchkeyCommand.cs" />
     <Compile Include="Commands\SetFeedLastCollectedCommand.cs" />
     <Compile Include="Commands\SetFeedsLastCollectedCommand.cs" />
     <Compile Include="Domain\Feed.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Domain\IndexEntry.cs" />
     <Compile Include="Domain\IndexEntryComparer.cs" />
     <Compile Include="Domain\Statistics.cs" />
+    <Compile Include="GeekStreamClientConfiguration.cs" />
     <Compile Include="HighscoreList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetFeedsByRegexQuery.cs" />
@@ -75,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

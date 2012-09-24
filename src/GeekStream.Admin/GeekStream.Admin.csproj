@@ -41,12 +41,9 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.4\lib\Net40-client\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="LiveDomain.Core, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveDomain.Core.0.4.1\lib\net40\LiveDomain.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveDomain.Enterprise.Client, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LiveDomain.Core, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\LiveDomain.Enterprise.Client.dll</HintPath>
+      <HintPath>..\..\lib\LiveDomain.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
