@@ -246,7 +246,7 @@ namespace GeekStream.Admin
 			var feed = sourceCollectedEventArgs.Source;
 
 			var collectedCommand = new SetFeedLastCollectedCommand(sourceCollectedEventArgs.Source.Id, DateTime.Now);
-			ExecuteCommand(collectedCommand, partitionId:feed.PartitionId);
+			ExecuteCommand(collectedCommand, partitionId: feed.LongId & Int16.MaxValue);
 			
 			Console.Write("\r{0} new items and {1} invalid items           ", _newItems, _invalidItems);
 		}

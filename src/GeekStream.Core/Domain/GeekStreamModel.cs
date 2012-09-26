@@ -101,8 +101,8 @@ namespace GeekStream.Core.Domain
 
         public FeedItem GetItemByLongId(Int64 id)
         {
-            var feedId = (int)(id >> 32);
-            var itemId = (int)id;
+            var feedId = (int)(id >> 32) & Int16.MaxValue;
+            var itemId = (int)id & Int32.MaxValue;
             return _feeds[feedId - 1].GetItemById(itemId);
         }
 

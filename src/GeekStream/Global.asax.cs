@@ -61,8 +61,8 @@ namespace GeekStream
 
 			//WARN: The following code will become obsolete in 
 			//version 0.3 of the enterprise client lib
-			string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
-			_liveDbConnectionSettings = ClientConfiguration.Create(liveDbConnectionString);
+			//string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
+			_liveDbConnectionSettings = new GeekStreamClientConfiguration();//ClientConfiguration.Create(liveDbConnectionString);
 		}
 
 

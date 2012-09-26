@@ -27,7 +27,7 @@
                 @foreach (var item in Model.PopularFeeds)
                 {
                     <li>
-                        @Html.ActionLink(cutHelper(item.Title), "Feed", "Home", new { id = item.Id}, new { title = item.Title })
+                        @Html.ActionLink(cutHelper(item.Title), "Feed", "Home", new { id = item.LongId }, new { title = item.Title })
                         <div class="footermeta">
                             @item.Description
                         </div>

@@ -6,7 +6,7 @@
     ajaxOptions.UpdateTargetId = "content";
     ajaxOptions.InsertionMode = InsertionMode.InsertAfter;
     ajaxOptions.OnBegin = "$('#loader').remove();";
-    var url = Url.Action("Feed", "Home", new { id = Model.Feed.Id }, "http");
+    var url = Url.Action("Feed", "Home", new { id = Model.Feed.LongId }, "http");
     var selectItems = new[] {new SelectListItem { Text = "Recent", Value = "0", Selected = Model.SortedByPopular },
                               new SelectListItem { Text = "Popular", Value = "1", Selected = Model.SortedByPopular }};
 }
@@ -35,5 +35,5 @@
 
 @if (Model.TotalResults > Model.Skipped + Model.Items.Length)
 {
-    @Ajax.ActionLink("Load More", "Feed", new { id = Model.Feed.Id, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
+    @Ajax.ActionLink("Load More", "Feed", new { id = Model.Feed.LongId, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
 }

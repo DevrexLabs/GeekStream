@@ -17,7 +17,7 @@ namespace GeekStream.Core
             get
             {
                 //when in doubt, parenthesize
-                return (((Int64)Feed.Id) << 32) | ((UInt32)Id);
+                return (((Int64)Feed.LongId) << 32) | ((UInt32)Id);
             }
         }
 
