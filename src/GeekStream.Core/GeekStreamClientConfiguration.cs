@@ -27,10 +27,10 @@ namespace GeekStream.Core
 			_client = new PartitionClusterClient<GeekStreamModel>();
 
 			// Partition nodes
-			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"C:\Dropbox\Shared Work\GeekStream\src\GeekStream.Admin\bin\Debug\partition1"));
-			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"C:\Dropbox\Shared Work\GeekStream\src\GeekStream.Admin\bin\Debug\partition2"));
-			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"C:\Dropbox\Shared Work\GeekStream\src\GeekStream.Admin\bin\Debug\partition3"));
-			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"C:\Dropbox\Shared Work\GeekStream\src\GeekStream.Admin\bin\Debug\partition4"));
+			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"partition1"));
+			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"partition2"));
+			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"partition3"));
+			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"partition4"));
 			
 			// Dispatchers
 			_client.SetDispatcherFor<AddFeedCommand>(command => command.Feed.PartitionId);
