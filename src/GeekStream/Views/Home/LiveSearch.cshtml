@@ -62,7 +62,6 @@
 		});
 
 		ws.bind("OnSearchCompleted", function (data) {
-
 		    // Show query time and info.
 		    var timeS = (new Date() - startDate) / 1000.0;
 		    $("#resultInfo").html($("#infoTemplate").render({ Hits: data.TotalResults, Query: data.Query, Time: timeS }));

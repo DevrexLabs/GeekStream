@@ -12,8 +12,8 @@ namespace GeekStream.Core
 {
 	public class GeekStreamClientConfiguration : PartitionClusterClientConfiguration
 	{
-		PartitionClusterClient<GeekStreamModel> _client;
-
+		PartitionClient<GeekStreamModel> _client;
+		//FailoverClusterClient<GeekStreamModel> _client; 
 		public override IEngine<M> GetClient<M>()
 		{
 			CreateClientIfNull();
@@ -24,7 +24,7 @@ namespace GeekStream.Core
 		void CreateClientIfNull()
 		{
 			if (_client != null) return;
-			_client = new PartitionClusterClient<GeekStreamModel>();
+			_client = new PartitionClient<GeekStreamModel>();
 
 			// Partition nodes
 			_client.Nodes.Add(Engine.For<GeekStreamModel>(@"partition1"));

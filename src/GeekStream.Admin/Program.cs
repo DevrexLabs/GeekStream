@@ -25,7 +25,7 @@ namespace GeekStream.Admin
 	class Program
 	{
 		const int CollectorDefaultMaxDegreeOfParallelism = -1; // Unlimited
-		private PartitionClusterClient<GeekStreamModel> _geekStreamDb;
+		private IEngine<GeekStreamModel> _geekStreamDb;
 		private string[] _args;
 		private Dictionary<int, DateTime> _collectedFeeds = new Dictionary<int, DateTime>();
 
@@ -41,7 +41,7 @@ namespace GeekStream.Admin
 			//Set up the db connection or embedded engine
 			//string connectionstring = ConfigurationManager.AppSettings["geekstream"];
 			//connectionstring = connectionstring ?? "mode=embedded";
-			_geekStreamDb = (PartitionClusterClient<GeekStreamModel>) new GeekStreamClientConfiguration().GetClient<GeekStreamModel>(); //Engine.For<GeekStreamModel>(connectionstring);
+			_geekStreamDb = new GeekStreamClientConfiguration().GetClient<GeekStreamModel>(); //Engine.For<GeekStreamModel>(connectionstring);
 
 			if (_args.Length >= 2 && _args[0] == "-a") AddUrls(_args.Skip(1));
 			else if (_args.Length == 2 && _args[0] == "-o") AddFeedsFromOpml(_args[1]);
@@ -259,7 +259,7 @@ namespace GeekStream.Admin
 			{
 				try
 				{
-					if(partitionId > -1) _geekStreamDb.Execute(command,partitionId);
+					if(partitionId > -1) _geekStreamDb.Execute(command);
 					else _geekStreamDb.Execute(command);
 					break;
 				}
