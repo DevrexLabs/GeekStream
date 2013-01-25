@@ -11,8 +11,6 @@ using System.Web.Routing;
 using GeekStream.Core;
 using GeekStream.Core.Domain;
 using LiveDomain.Core;
-using XSockets.Core.Plugin.MEF;
-using XSockets.Core.XSocket.Interface;
 
 namespace GeekStream
 {

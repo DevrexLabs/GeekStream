@@ -39,9 +39,8 @@ namespace GeekStream.Admin
 		private void Run()
 		{
 			//Set up the db connection or embedded engine
-			//string connectionstring = ConfigurationManager.AppSettings["geekstream"];
-			//connectionstring = connectionstring ?? "mode=embedded";
-			_geekStreamDb = new GeekStreamClientConfiguration().GetClient<GeekStreamModel>(); //Engine.For<GeekStreamModel>(connectionstring);
+			string connectionstring = ConfigurationManager.AppSettings["geekstream"];
+			_geekStreamDb = ClientConfiguration.Create(connectionstring).GetClient<GeekStreamModel>();
 
 			if (_args.Length >= 2 && _args[0] == "-a") AddUrls(_args.Skip(1));
 			else if (_args.Length == 2 && _args[0] == "-o") AddFeedsFromOpml(_args[1]);

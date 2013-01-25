@@ -71,7 +71,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="XSockets.Core, Version=1.3.4527.22740, Culture=neutral, PublicKeyToken=37fe48bcaae4bfd6, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ApiController.cs" />
@@ -337,10 +336,6 @@
     <ProjectReference Include="..\GeekStream.Core\GeekStream.Core.csproj">
       <Project>{320E2191-BAE7-4B7A-B958-48DD87097C73}</Project>
       <Name>GeekStream.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XSocketHandler\XSocketHandler.csproj">
-      <Project>{3BDE2F9E-1F08-4CD4-BD29-F41ED13B104C}</Project>
-      <Name>XSocketHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

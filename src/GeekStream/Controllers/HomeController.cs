@@ -65,6 +65,7 @@ namespace GeekStream.Controllers
 		}
 
         [ChildActionOnly]
+		[OutputCache(Duration = 600)]
         public ActionResult Footer()
         {
             return PartialView("_footer",ModelFactory.IndexModel());
