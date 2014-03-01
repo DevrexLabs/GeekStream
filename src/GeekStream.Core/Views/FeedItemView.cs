@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GeekStream.Core.Views
 {
@@ -13,7 +10,6 @@ namespace GeekStream.Core.Views
         public string Summary { get; set; }
         public string Url { get; set; }
         public string FeedTitle { get; set; }
-        public int Clicks { get; set; }
         public DateTimeOffset Published { get; set; }
         public int FeedId { get; set; }
 
@@ -25,10 +21,8 @@ namespace GeekStream.Core.Views
             Url = item.Url;
             FeedTitle = item.Feed.Title;
             FeedId = item.Feed.Id;
-            Clicks = item.Clicks;
             Published = item.Published;
         }
-
         
     }
 }

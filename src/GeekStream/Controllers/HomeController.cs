@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using GeekStream.Core.Commands;
 using GeekStream.Core.Queries;
 using GeekStream.Models;
 
@@ -19,7 +15,7 @@ namespace GeekStream.Controllers
 
         public ActionResult About()
         {
-            return View();
+            return View(MvcApplication.DbProxy.GetStatistics());
         }
 
         public ActionResult Api()
@@ -27,30 +23,27 @@ namespace GeekStream.Controllers
             return View();
         }
 
-		public ActionResult Feed(int id, int pageIndex = 0, bool popular = false)
+		public ActionResult Feed(int id, int pageIndex = 0)
 		{
 			var before = DateTime.Now;
-			var model = ModelFactory.FeedModel(id, pageIndex, popular);
+			var model = ModelFactory.FeedModel(id, pageIndex);
 			ViewBag.QueryTime = DateTime.Now - before;
 
-			if (Request.IsAjaxRequest())
-				return PartialView(model);
+			if (Request.IsAjaxRequest()) return PartialView(model);
 			return View(model);
 		}
 
-		public ActionResult Page(long id, string relatedQuery = null)
+		public ActionResult Page(long id)
 		{
 			var query = new GetFeedItemById(id);
-			var command = new RegisterClickCommand(id, relatedQuery ?? string.Empty);
-			MvcApplication.LiveDbClient.Execute(command);
-			var model = MvcApplication.LiveDbClient.Execute(query);
+			var model = MvcApplication.DbClient.Execute(query);
 			return Redirect(model.Url);
 		}
 
-		public ActionResult Search(string query, int pageIndex = 0, bool popular = false)
+		public ActionResult Search(string query, int pageIndex = 0)
 		{
 			var before = DateTime.Now;
-			var model = ModelFactory.SearchResultModel(query, pageIndex, popular);
+			var model = ModelFactory.SearchResultModel(query, pageIndex);
 			ViewBag.QueryTime = DateTime.Now - before;
 
 			if (Request.IsAjaxRequest())
@@ -59,15 +52,11 @@ namespace GeekStream.Controllers
 			return View(model);
 		}
 
-		public ActionResult LiveSearch()
-		{
-			return View();
-		}
 
         [ChildActionOnly]
         public ActionResult Footer()
         {
-            return PartialView("_footer",ModelFactory.IndexModel());
+            return PartialView("_footer", ModelFactory.IndexModel());
         }
     }
 }

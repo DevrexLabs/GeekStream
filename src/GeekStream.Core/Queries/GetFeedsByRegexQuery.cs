@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GeekStream.Core.Domain;
-using LiveDomain.Core;
 using GeekStream.Core.Views;
-using System.Text.RegularExpressions;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Queries
 {

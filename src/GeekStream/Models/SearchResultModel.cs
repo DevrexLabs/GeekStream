@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using GeekStream.Core;
-using GeekStream.Core.Queries;
-using GeekStream.Core.Views;
+﻿using GeekStream.Core.Views;
 
 namespace GeekStream.Models
 {
@@ -9,8 +6,7 @@ namespace GeekStream.Models
     {
         public string Query { get; set; }
 	    public int PageIndex { get; set; }
-        public SearchResultViewItem[] Results { get; set;}
-	    public bool SortedByPopular { get; set; }
+        public FeedItemView[] Results { get; set;}
 	    public int Skipped { get; set; }
 	    public int TotalResults { get; set; }
     }

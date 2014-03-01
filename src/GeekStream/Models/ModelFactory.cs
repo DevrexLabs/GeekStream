@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using GeekStream.Core;
 using GeekStream.Core.Queries;
 using GeekStream.Core.Views;
 
@@ -11,51 +8,40 @@ namespace GeekStream.Models
 {
     public static class ModelFactory
     {
-		public static SearchResultModel SearchResultModel(string query,int pageIndex, bool popular)
+		public static SearchResultModel SearchResultModel(string query,int pageIndex)
 		{
-			var searchQuery = new SearchQuery(query,pageIndex) {OrderByClicks = popular};
+			var searchQuery = new SearchQuery(query,pageIndex);
             var model = new SearchResultModel();
-            var queryResults = MvcApplication.LiveDbClient.Execute(searchQuery);
+            var queryResults = MvcApplication.DbClient.Execute(searchQuery);
 		    model.Results = queryResults.Items;
 			model.Query = queryResults.Query;
             model.TotalResults = queryResults.TotalResults;
-		    model.SortedByPopular = popular;
 		    model.PageIndex = pageIndex;
 		    model.Skipped = (pageIndex*100);
 
-			ReplaceUrl(model.Results.Select(i => i.FeedItem));
+			ReplaceUrl(model.Results);
 
             return model;
         }
 
         public static IndexModel IndexModel()
         {
-            var model = new IndexModel();
-			model.RecentItems = MvcApplication.LiveDbClient.Execute(new GetItemsQuery(5, SortMode.Recent));
-            model.PopularFeeds = MvcApplication.LiveDbClient.Execute(new GetFeedsQuery(6,SortMode.Popular));
-            model.PopularItems = MvcApplication.LiveDbClient.Execute(new GetItemsQuery(5,SortMode.Popular));
-
-			ReplaceUrl(model.RecentItems);
-			ReplaceUrl(model.PopularItems);
-
-
-            
-            return model;
+            return new IndexModel
+            {
+                Statistics = MvcApplication.DbProxy.GetStatistics()
+            };
         }
 
-        public static FeedModel FeedModel(int id,int pageIndex, bool popular)
+        public static FeedPageModel FeedModel(int id,int pageIndex)
         {
-            var model = new FeedModel();
-            var result = MvcApplication.LiveDbClient.Execute(new GetFeedItemsByFeedQuery(id, pageIndex) { OrderByClicks = popular });
+            var model = new FeedPageModel();
+            var result = MvcApplication.DbClient.Execute(new GetFeedItemsByFeedQuery(id, pageIndex));
             model.Items = result.Items;
-            model.Feed = MvcApplication.LiveDbClient.Execute(new GetFeedByIdQuery(id));
+            model.Feed = MvcApplication.DbClient.Execute(new GetFeedByIdQuery(id));
             model.TotalResults = result.TotalResults;
-            model.SortedByPopular = popular;
             model.PageIndex = pageIndex;
             model.Skipped = (pageIndex*100);
-
 			ReplaceUrl(model.Items);
-			
             return model;
         }
 

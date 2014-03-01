@@ -1,13 +1,25 @@
 ﻿@{
     ViewBag.Title = "GeekStream";
 }
-<style type="text/css">
-        .footer-inner{margin: 0 auto;}
-        #searchform {text-align: center;}
-</style>
-@section Header
-{
-    <img alt="GeekStream" src="/Content/gs_big.png"/>
-}
 
+<form method="GET" id="searchform" class="form-inline" onsubmit="return 0">
+    <input type="text" placeholder="Search" id="search" style="width:300px;padding:4px;margin-top:10px" name="query" value="@ViewBag.searchQuery" />
+</form>
 
+<div id="content" style="text-align: left; line-height: 160%">
+</div>
+
+<script>
+    $(function () {
+        $("#searchform").on("submit", function () {
+            var query = $("#search").val();
+            if (query.trim().length > 0) {
+                $("#content").text("Querying...");
+                $.get("/Search", { 'query': query }, function (data) {
+                    $("#content").html(data);
+                });
+            }
+            return false;
+        });
+    });
+</script>

@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using GeekStream.Core;
-using GeekStream.Core.Queries;
-using GeekStream.Core.Views;
+﻿using GeekStream.Core.Domain;
 
 namespace GeekStream.Models
 {
     public class IndexModel
     {
-        public FeedItemView[] RecentItems { get; set; }
-        public FeedItemView[] PopularItems { get; set; }
-        public FeedView[] PopularFeeds { get; set; }
+        public Statistics Statistics { get; set; }
     }
 }

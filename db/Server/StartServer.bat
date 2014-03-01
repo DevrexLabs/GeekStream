@@ -1,1 +1,0 @@
-livedomain.enterprise.server.exe --data-model ..\geekstream.core.dll --data-directory ..\geekstream --native-port 9292

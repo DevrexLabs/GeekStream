@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using LiveDomain.Core;
 using GeekStream.Core.Domain;
 using GeekStream.Core.Views;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Queries
 {
@@ -14,9 +12,8 @@ namespace GeekStream.Core.Queries
         public readonly string SearchString;
         public readonly int Skip;
         public readonly int Take;
-        public bool OrderByClicks { get; set; }
 
-        public SearchQuery(string searchString, int zeroBasedPageIndex = 0, int pageSize = 100)
+        public SearchQuery(string searchString, int zeroBasedPageIndex = 0, int pageSize = 30)
         {
             SearchString = searchString;
             Skip = zeroBasedPageIndex * pageSize;
@@ -27,11 +24,12 @@ namespace GeekStream.Core.Queries
         {
             var result = new SearchResultView();
             int totalResults;
-            var items = model.Search(SearchString, out totalResults, OrderByClicks);
+            var items = model.Search(SearchString, out totalResults);
             var queryResults = items
+                .OrderByDescending(entry => entry.Item.Published)
                 .Skip(Skip)
                 .Take(Take)
-                .Select(indexEntry => new SearchResultViewItem(indexEntry))
+                .Select(indexEntry => new FeedItemView(indexEntry.Item))
                 .ToArray();
 
             result.Query = SearchString;

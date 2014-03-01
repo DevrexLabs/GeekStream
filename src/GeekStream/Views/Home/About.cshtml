@@ -1,45 +1,52 @@
-﻿@{
+﻿@model GeekStream.Core.Domain.Statistics
+
+
+@{
     ViewBag.Title = "About";
 }
-<div class="entry">
-    <h1>@ViewBag.Title</h1>
+
+<div style="margin-top: 40px;line-height: 160%;text-align:justify">
+    <h2>What is Geekstream?</h2>
+    GeekStream is a tech blog search engine built to demonstrate <a href="http://livedb.devrex.se">OrigoDB</a>. 
+    It's not meant to be useful as a service in any way. The content is based on a number of tech-related news and
+    blog RSS sources which were gathered ramdomly, see below for some statistics.
+    
+    <h2>Build faster systems faster</h2>
     <p>
-        GeekStream is a search engine for geek related content built as a demonstration
-        of <a href="http://livedb.devrex.se">LiveDB</a>. Currently, we index over a thousand
-        carefully selected syndication feeds. Please send us your feed or opml urls and
-        we will consider including them!
+        OrigoDB is an in-memory database toolkit for NET/Mono. Discover more here:
+        <ul>
+            <li><a href="http://origodb.com">OrigoDB Server</a></li>
+            <li><a href="http://github.com/devrexlabs/origodb">OrigoDB open source engine</a></li>
+            <li><a href="https://github.com/devrexlabs/geekstream">Geekstream source on GitHub</a></li>
+        </ul>
     </p>
-    <h2>
-        Feedback
-    </h2>
+
+    <h2>Under the hood</h2>
+    Geekstream is an ASP.NET MVC application running on IIS. A standalone OrigoDB server instance running on the same machine hosts the data.
+    The web application does not cache any data, every request triggers a call to the database. Each result page displays the time taken for the query.
+
+
+    <h2>Statistics</h2>
     <p>
-        Visit the <a href="https://getsatisfaction.com/geekstream">Geekstream Community site</a>
-        to ask questions, suggest features, report problems or contact us privately.
+        Some current statistics from the database:
     </p>
-    <h2>
-        Who are you guys?</h2>
-    <p>
-        Geekstream is built by members of the LiveDB developer team, <a href="http://www.twitter.com/robertfriberg">
-            @@robertfriberg</a> and <a href="http://www.twitter.com/woocode">@@woocode</a>
-    </p>
-    <h2>
-        So what's LiveDB?
-    </h2>
-    <p>
-        LiveDB is an open source native .NET in-memory database engine. It's fully ACID
-        compliant and based on <a href="http://en.wikipedia.org/wiki/System_Prevalence">system
-            prevalence</a>.<br />
-        See <a href="http://livedomain.codeplex.com">http://livedomain.codeplex.com</a>
-        and <a href="http://livedb.devrex.se">http://livedb.devrex.se</a> for more information.
-        Also, the geekstream source is hosted on <a href="https://github.com/devrexlabs/geekstream">github</a>.
-        
-    </p>
+    <table class="table table-bordered">
+        <tr>
+            <td>Number of feeds</td>
+            <td>@Model.TotalFeeds</td>
+        </tr>
+                <tr>
+            <td>Number of articles</td>
+            <td>@Model.TotalFeedItems</td>
+        </tr>
+                <tr>
+            <td>Unique search terms</td>
+            <td>@Model.UniqueKeywords</td>
+        </tr>
+                <tr>
+            <td>Number of edges</td>
+            <td>@Model.TotalKeywords</td>
+        </tr>
+
+    </table>
 </div>
-@section Header
-{
-    <a href="/" style="float: left; margin-top: 0.8em; margin-right: 1.5em;">
-        <img alt="GeekStream" src="/content/gs_small.png" /></a>
-}
-@{
-    Html.RenderPartial("AlternateCSS");
-}

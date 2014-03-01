@@ -1,4 +1,0 @@
-﻿<div>
-  Run the 'Set' example if you do not get a value on click...</div>
-<button id="storageGetAll">GetAll</button>
-<ul id="storage"></ul>

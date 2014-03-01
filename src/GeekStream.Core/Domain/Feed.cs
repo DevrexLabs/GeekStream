@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GeekStream.Core.Domain
 {
@@ -49,9 +50,23 @@ namespace GeekStream.Core.Domain
         public string Url { get; set; }
 
         public DateTime Created { get; set; }
-        public DateTime LastIndexed { get; set; }
-
-        public long Clicks { get; set; }
+        
+        /// <summary>
+        /// Last time we checked for new items
+        /// </summary>
+        public DateTime LastCollected { get; set; }
+        
+        /// <summary>
+        /// Last time an item was added 
+        /// </summary>
+        public DateTime? LastItemPublished
+        {
+            get
+            {
+                if (Items.Count == 0) return null;
+                return Items.Last().Published.LocalDateTime;
+            }
+        }
 
         /// <summary>
         /// Chronological list of entries

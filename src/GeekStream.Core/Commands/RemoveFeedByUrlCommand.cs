@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GeekStream.Core.Domain;
-using LiveDomain.Core;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Commands
 {

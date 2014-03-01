@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GeekStream.Core.Domain;
-using System.Text.RegularExpressions;
 
 namespace GeekStream.Core
 {
@@ -25,8 +21,6 @@ namespace GeekStream.Core
         public string Summary { get; set; }
         public string Url { get; set; }
         public DateTimeOffset Published { get; set; }
-
         internal Feed Feed{ get; set; }
-        internal int Clicks { get; set; }
     }
 }

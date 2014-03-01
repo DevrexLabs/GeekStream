@@ -1,0 +1,17 @@
+﻿@model IEnumerable<GeekStream.Core.Views.FeedItemView>
+@foreach(var item in Model)
+{
+    if(string.IsNullOrEmpty(item.Title))
+    {
+        continue; // Protect the feed from invalid items.
+    }
+        <article>
+            <h3><a href="@item.Url">@item.Title</a></h3>
+            <div class="summary">
+                @item.Summary
+            </div>
+            <div class="meta">
+                Published <span>@item.Published.Date.ToShortDateString()</span> in <span>@Html.ActionLink(item.FeedTitle, "Feed", "Home", new { id = item.FeedId }, null)</span>
+            </div>
+        </article>
+}

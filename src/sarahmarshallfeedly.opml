@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>Sarah subscriptions in feedly Cloud</title>
+    </head>
+    <body>
+        <outline text="Business news" title="Business news">
+            <outline type="rss" text="Quartz" title="Quartz" xmlUrl="http://qz.com/feed/" htmlUrl="http://qz.com"/>
+        </outline>
+        <outline text="Journalism blogs" title="Journalism blogs">
+            <outline type="rss" text="Monday Note" title="Monday Note" xmlUrl="http://www.mondaynote.com/feed/" htmlUrl="http://www.mondaynote.com"/>
+            <outline type="rss" text="10,000 Words" title="10,000 Words" xmlUrl="http://www.mediabistro.com/10000words/feed/rss" htmlUrl="http://www.mediabistro.com/10000words"/>
+            <outline type="rss" text="bbc.co.uk/journalism" title="bbc.co.uk/journalism" xmlUrl="http://www.bbc.co.uk/journalism/rss.xml"/>
+            <outline type="rss" text="Poynter." title="Poynter." xmlUrl="http://www.poynter.org/feed/rss/" htmlUrl="http://www.poynter.org"/>
+            <outline type="rss" text="College of Journalism feed" title="College of Journalism feed" xmlUrl="http://www.bbc.co.uk/blogs/blogcollegeofjournalism/rss" htmlUrl="http://www.bbc.co.uk/blogs/blogcollegeofjournalism"/>
+            <outline type="rss" text="paidContent" title="paidContent" xmlUrl="http://feeds.paidcontent.org/pcorg/" htmlUrl="http://paidcontent.org"/>
+            <outline type="rss" text="Nieman Journalism Lab" title="Nieman Journalism Lab" xmlUrl="http://feeds.feedburner.com/NiemanJournalismLab" htmlUrl="http://www.niemanlab.org"/>
+            <outline type="rss" text="News from Journalism.co.uk" title="News from Journalism.co.uk" xmlUrl="http://rss.feedsportal.com/feed/journalism/News" htmlUrl="http://www.journalism.co.uk"/>
+            <outline type="rss" text="Media news and media industry analysis - FT.com" title="Media news and media industry analysis - FT.com" xmlUrl="http://www.ft.com/rss/companies/media" htmlUrl="http://www.ft.com/companies/media"/>
+            <outline type="rss" text="Media Briefing TheMediaBriefing Analysis" title="Media Briefing TheMediaBriefing Analysis" xmlUrl="http://www.themediabriefing.com/rss/media-briefing-themediabriefing-analysis.xml" htmlUrl="http://www.themediabriefing.com"/>
+        </outline>
+        <outline text="Reports" title="Reports">
+            <outline type="rss" text="Pew Research Center" title="Pew Research Center" xmlUrl="http://pewresearch.org/rss.xml" htmlUrl="http://www.pewresearch.org"/>
+        </outline>
+        <outline text="Social media blogs" title="Social media blogs">
+            <outline type="rss" text="Media" title="Media" xmlUrl="https://blog.twitter.com/media/feed" htmlUrl="https://blog.twitter.com/"/>
+        </outline>
+        <outline text="Tech blogs" title="Tech blogs">
+            <outline type="rss" text="ReadWrite" title="ReadWrite" xmlUrl="http://www.readwriteweb.com/rss.xml" htmlUrl="http://readwrite.com"/>
+            <outline type="rss" text="Post Tech" title="Post Tech" xmlUrl="http://feeds.washingtonpost.com/rss/rss_post-tech" htmlUrl="http://www.washingtonpost.com/blogs/the-switch"/>
+            <outline type="rss" text="NYT Bits" title="NYT Bits" xmlUrl="http://bits.blogs.nytimes.com/feed/" htmlUrl="http://bits.blogs.nytimes.com/"/>
+            <outline type="rss" text="The Next Web" title="The Next Web" xmlUrl="http://feeds2.feedburner.com/thenextweb" htmlUrl="http://thenextweb.com"/>
+        </outline>
+        <outline text="News industry blogs" title="News industry blogs">
+            <outline type="rss" text="Hacks/Hackers" title="Hacks/Hackers" xmlUrl="http://feeds.feedburner.com/Hackshackers" htmlUrl="http://hackshackers.com"/>
+            <outline type="rss" text="Internet blog feed" title="Internet blog feed" xmlUrl="http://www.bbc.co.uk/blogs/bbcinternet/rss.xml" htmlUrl="http://www.bbc.co.uk/blogs/internet"/>
+            <outline type="rss" text="@innovations | Washington Post on news innovation" title="@innovations | Washington Post on news innovation" xmlUrl="http://on.washingtonpost.com/rss"/>
+            <outline type="rss" text="guardian.co.uk/info" title="guardian.co.uk/info" xmlUrl="http://www.guardian.co.uk/info/series/guardian-shorts/rss"/>
+            <outline type="rss" text="BBC - The Editors" title="BBC - The Editors" xmlUrl="http://www.bbc.co.uk/blogs/theeditors/atom.xml" htmlUrl="http://www.bbc.co.uk/blogs/theeditors/"/>
+            <outline type="rss" text="Hacks/Hackers Buenos Aires" title="Hacks/Hackers Buenos Aires" xmlUrl="http://hhba.info/?feed=rss2" htmlUrl="http://hhba.info"/>
+            <outline type="rss" text="Quartz" title="Quartz" xmlUrl="http://quartz.tumblr.com/rss" htmlUrl="http://blog.qz.com/"/>
+            <outline type="rss" text="timesdigitalexperiments" title="timesdigitalexperiments" xmlUrl="http://timesdigitalexperiments.tumblr.com/rss"/>
+            <outline type="rss" text="Muck Rack" title="Muck Rack" xmlUrl="http://blog.muckrack.com/rss" htmlUrl="http://blog.muckrack.com/"/>
+            <outline type="rss" text="Times Digital Development" title="Times Digital Development" xmlUrl="http://timesdigitaldevelopment.tumblr.com/rss" htmlUrl="http://timesdigitaldevelopment.tumblr.com/"/>
+            <outline type="rss" text="Storyful Blog" title="Storyful Blog" xmlUrl="http://blog.storyful.com/feed/" htmlUrl="http://blog.storyful.com"/>
+            <outline type="rss" text="Info: Developer blog | guardian.co.uk" title="Info: Developer blog | guardian.co.uk" xmlUrl="http://www.guardian.co.uk/info/developer-blog/rss" htmlUrl="http://www.theguardian.com/info/developer-blog"/>
+        </outline>
+        <outline text="WSJ" title="WSJ">
+            <outline type="rss" text="WSJ.com: Europe Home" title="WSJ.com: Europe Home" xmlUrl="http://europe.wsj.com/xml/rss/3_7481.xml" htmlUrl="http://online.wsj.com"/>
+            <outline type="rss" text="WSJ.com: World News" title="WSJ.com: World News" xmlUrl="http://online.wsj.com/xml/rss/3_7085.xml" htmlUrl="http://online.wsj.com/page/2_0006.html"/>
+            <outline type="rss" text="WSJ.com: Lifestyle" title="WSJ.com: Lifestyle" xmlUrl="http://online.wsj.com/xml/rss/3_7201.xml" htmlUrl="http://online.wsj.com/page/2_1578.html"/>
+            <outline type="rss" text="Life and style Wines" title="Life and style Wines" xmlUrl="http://mobilefeeds.wsj.com/xml/feed/v2/3_8427.rss" htmlUrl="http://online.wsj.com/page/2_0062.html"/>
+            <outline type="rss" text="Today in WSJ History" title="Today in WSJ History" xmlUrl="http://blogs.wsj.com/wsj125/feed/" htmlUrl="http://blogs.wsj.com/wsj125"/>
+            <outline type="rss" text="WSJ.com: What's News Europe" title="WSJ.com: What's News Europe" xmlUrl="http://online.wsj.com/xml/rss/3_7012.xml" htmlUrl="http://online.wsj.com"/>
+            <outline type="rss" text="WSJ.com: Breaking News" title="WSJ.com: Breaking News" xmlUrl="http://online.wsj.com/xml/rss/3_8998.xml" htmlUrl="http://online.wsj.com"/>
+            <outline type="rss" text="WSJ.com Video - News" title="WSJ.com Video - News" xmlUrl="http://feeds.wsjonline.com/wsj/video/news/feed" htmlUrl="http://www.wsj.com/video"/>
+            <outline type="rss" text="Emerging Europe Real Time" title="Emerging Europe Real Time" xmlUrl="http://blogs.wsj.com/emergingeurope/feed/" htmlUrl="http://blogs.wsj.com/emergingeurope"/>
+            <outline type="rss" text="WSJ.com: Technology" title="WSJ.com: Technology" xmlUrl="http://online.wsj.com/xml/rss/3_7455.xml" htmlUrl="http://online.wsj.com"/>
+            <outline type="rss" text="Tech Europe" title="Tech Europe" xmlUrl="http://blogs.wsj.com/tech-europe/feed/" htmlUrl="http://blogs.wsj.com/tech-europe"/>
+        </outline>
+        <outline text="Tech co blogs" title="Tech co blogs">
+            <outline type="rss" text="Zite's blog" title="Zite's blog" xmlUrl="http://blog.zite.com/feed/" htmlUrl="http://blog.zite.com"/>
+            <outline type="rss" text="Parse.ly" title="Parse.ly" xmlUrl="http://blog.parsely.com/rss" htmlUrl="http://blog.parsely.com"/>
+            <outline type="rss" text="Twitter Blog" title="Twitter Blog" xmlUrl="http://feeds.feedburner.com/TwitterBlog" htmlUrl="http://blog.twitter.com/"/>
+            <outline type="rss" text="IFTTT Blog" title="IFTTT Blog" xmlUrl="http://blog.ifttt.com/rss" htmlUrl="http://blog.ifttt.com/"/>
+            <outline type="rss" text="The Official Google Blog" title="The Official Google Blog" xmlUrl="http://feeds.feedburner.com/blogspot/MKuf" htmlUrl="http://googleblog.blogspot.com/"/>
+            <outline type="rss" text="Google News Blog" title="Google News Blog" xmlUrl="http://feeds.feedburner.com/GoogleNewsBlog" htmlUrl="http://googlenewsblog.blogspot.com/"/>
+            <outline type="rss" text="Inside Search" title="Inside Search" xmlUrl="http://insidesearch.blogspot.com/feeds/posts/default" htmlUrl="http://insidesearch.blogspot.com/"/>
+            <outline type="rss" text="Foursquare Blog" title="Foursquare Blog" xmlUrl="http://feeds.feedburner.com/thefoursquareblog" htmlUrl="http://blog.foursquare.com"/>
+            <outline type="rss" text="Facebook Blog" title="Facebook Blog" xmlUrl="http://blog.facebook.com/atom.php"/>
+            <outline type="rss" text="Chartbeat | News from the Chartbase" title="Chartbeat | News from the Chartbase" xmlUrl="http://blog.chartbeat.com/feed/" htmlUrl="http://blog.chartbeat.com"/>
+            <outline type="rss" text="The Whip" title="The Whip" xmlUrl="http://blog.newswhip.com/index.php/feed/" htmlUrl="http://blog.newswhip.com"/>
+            <outline type="rss" text="The Mozilla Blog" title="The Mozilla Blog" xmlUrl="http://blog.mozilla.com/feed/" htmlUrl="https://blog.mozilla.org"/>
+            <outline type="rss" text="trendsmap" title="trendsmap" xmlUrl="http://blog.trendsmap.com/feed/" htmlUrl="http://blog.trendsmap.com"/>
+            <outline type="rss" text="tweetdeck-blog" title="tweetdeck-blog" xmlUrl="http://feeds.feedburner.com/tweetdeck-blog"/>
+            <outline type="rss" text="Knight Lab" title="Knight Lab" xmlUrl="http://knightlab.northwestern.edu/feed/" htmlUrl="http://knightlab.northwestern.edu"/>
+            <outline type="rss" text="Official LinkedIn Blog" title="Official LinkedIn Blog" xmlUrl="http://feeds.feedburner.com/LinkedInBlog" htmlUrl="http://blog.linkedin.com"/>
+            <outline type="rss" text="storify" title="storify" xmlUrl="http://blog.storify.com/feed/rss/"/>
+        </outline>
+        <outline text="Journalist blogs" title="Journalist blogs">
+            <outline type="rss" text="Joanna Geary" title="Joanna Geary" xmlUrl="http://feeds.feedburner.com/joannageary/WMeg" htmlUrl="http://www.joannageary.com"/>
+            <outline type="rss" text="One Man &amp; His Blog" title="One Man &amp; His Blog" xmlUrl="http://feeds.feedburner.com/oneman" htmlUrl="http://www.onemanandhisblog.com/"/>
+            <outline type="rss" text="Cory Bergman" title="Cory Bergman" xmlUrl="http://corybe.com/rss" htmlUrl="http://corybe.com/"/>
+            <outline type="rss" text="Journalistopia" title="Journalistopia" xmlUrl="http://journalistopia.com/feed/" htmlUrl="http://journalistopia.com"/>
+            <outline type="rss" text="sergiosantos.info, blog &amp; works" title="sergiosantos.info, blog &amp; works" xmlUrl="http://feeds.feedburner.com/sergiosantos" htmlUrl="http://sergiosantos.info/"/>
+            <outline type="rss" text="clairemiller.net" title="clairemiller.net" xmlUrl="http://feeds.feedburner.com/Clairemiller?format=xml" htmlUrl="http://clairemiller.net/blog"/>
+            <outline type="rss" text="Heather Brooke" title="Heather Brooke" xmlUrl="http://heatherbrooke.org/feed/" htmlUrl="http://heatherbrooke.org"/>
+            <outline type="rss" text="Martin Belam" title="Martin Belam" xmlUrl="http://feeds.feedburner.com/currybet" htmlUrl="http://martinbelam.com"/>
+            <outline type="rss" text="David Higgerson" title="David Higgerson" xmlUrl="http://davidhiggerson.wordpress.com/feed/" htmlUrl="http://davidhiggerson.wordpress.com"/>
+            <outline type="rss" text="NATIONAL INFOGRAPHIC" title="NATIONAL INFOGRAPHIC" xmlUrl="http://juanvelascoblog.com/feed/" htmlUrl="http://juanvelascoblog.com"/>
+            <outline type="rss" text="BuzzMachine" title="BuzzMachine" xmlUrl="http://buzzmachine.com/feed/" htmlUrl="http://buzzmachine.com"/>
+            <outline type="rss" text="Media law and ethics" title="Media law and ethics" xmlUrl="http://meejalaw.com/feed/" htmlUrl="http://meejalaw.com"/>
+            <outline type="rss" text="nickgarnett.co.uk" title="nickgarnett.co.uk" xmlUrl="http://www.nickgarnett.co.uk/rss.xml"/>
+            <outline type="rss" text="Meg Pickard" title="Meg Pickard" xmlUrl="http://www.megpickard.com/feed/" htmlUrl="http://www.megpickard.com"/>
+            <outline type="rss" text="A digital editor's tale" title="A digital editor's tale" xmlUrl="http://richardkendall.wordpress.com/feed/" htmlUrl="http://richardkendall.wordpress.com"/>
+            <outline type="rss" text="Help Me Investigate Help Me Investigate" title="Help Me Investigate Help Me Investigate" xmlUrl="http://helpmeinvestigate.com/feed/" htmlUrl="http://helpmeinvestigate.com"/>
+            <outline type="rss" text="Reportr.net" title="Reportr.net" xmlUrl="http://www.reportr.net/feed/" htmlUrl="http://www.reportr.net"/>
+            <outline type="rss" text="Pressthink" title="Pressthink" xmlUrl="http://pressthink.org/feed/" htmlUrl="http://pressthink.org"/>
+            <outline type="rss" text="Glen Mulcahy's -VJ Technology Blog" title="Glen Mulcahy's -VJ Technology Blog" xmlUrl="http://tvvj.wordpress.com/feed/" htmlUrl="http://tvvj.wordpress.com"/>
+            <outline type="rss" text="Rhys Griffiths" title="Rhys Griffiths" xmlUrl="http://rhysdgriffiths.wordpress.com/feed/" htmlUrl="http://rhysdgriffiths.wordpress.com"/>
+            <outline type="rss" text="Headlines and Deadlines" title="Headlines and Deadlines" xmlUrl="http://www.alisongow.com/feeds/posts/default" htmlUrl="http://www.alisongow.com/"/>
+            <outline type="rss" text="paulconley" title="paulconley" xmlUrl="http://paulconley.blogspot.com/feeds/posts/default" htmlUrl="http://paulconley.blogspot.com/"/>
+            <outline type="rss" text="Joanna Geary" title="Joanna Geary" xmlUrl="http://www.joannageary.com/feed/" htmlUrl="http://www.joannageary.com"/>
+            <outline type="rss" text="Subs' Standards" title="Subs' Standards" xmlUrl="http://subsstandards.wordpress.com/feed/" htmlUrl="http://subsstandards.wordpress.com"/>
+            <outline type="rss" text="simontownsendjournalism.com" title="simontownsendjournalism.com" xmlUrl="http://simontownsendjournalism.com/feed/" htmlUrl="http://simontownsendjournalism.com"/>
+            <outline type="rss" text="Online Journalism Blog" title="Online Journalism Blog" xmlUrl="http://onlinejournalismblog.com/feed/" htmlUrl="http://onlinejournalismblog.com"/>
+            <outline type="rss" text="Data Miner UK" title="Data Miner UK" xmlUrl="http://datamineruk.wordpress.com/feed/" htmlUrl="https://datamineruk.wordpress.com"/>
+            <outline type="rss" text="Matt McAlister" title="Matt McAlister" xmlUrl="http://www.mattmcalister.com/blog/feed/" htmlUrl="http://www.mattmcalister.com/blog"/>
+            <outline type="rss" text="Teaching Online Journalism" title="Teaching Online Journalism" xmlUrl="http://feeds.feedburner.com/tojou" htmlUrl="http://mindymcadams.com/tojou"/>
+            <outline type="rss" text="AndyDickinson.net" title="AndyDickinson.net" xmlUrl="http://www.andydickinson.net/feed/" htmlUrl="http://digidickinson.net"/>
+            <outline type="rss" text="Paul on Journalism" title="Paul on Journalism" xmlUrl="http://paulonjournalism.wordpress.com/feed/" htmlUrl="http://paulonjournalism.wordpress.com"/>
+            <outline type="rss" text="Kristine Lowe" title="Kristine Lowe" xmlUrl="http://kristinelowe.blogs.com/kristine_lowe/atom.xml" htmlUrl="http://kristinelowe.blogs.com/kristine_lowe/"/>
+            <outline type="rss" text="#realtalk from your editor" title="#realtalk from your editor" xmlUrl="http://editorrealtalk.tumblr.com/rss" htmlUrl="http://editorrealtalk.tumblr.com/"/>
+            <outline type="rss" text="deborah petersen.social media editor.writer.guide" title="deborah petersen.social media editor.writer.guide" xmlUrl="http://deborahpetersen.wordpress.com/feed/" htmlUrl="http://deborahpetersen.wordpress.com"/>
+            <outline type="rss" text="iPhoneReporting: NealAugenstein" title="iPhoneReporting: NealAugenstein" xmlUrl="http://iphonereporting.tumblr.com/rss" htmlUrl="http://iphonereporting.tumblr.com/"/>
+            <outline type="rss" text="The Editor's Desk" title="The Editor's Desk" xmlUrl="http://editdesk.wordpress.com/feed/" htmlUrl="http://editdesk.wordpress.com"/>
+            <outline type="rss" text="Strange Attractor" title="Strange Attractor" xmlUrl="http://charman-anderson.com/feed/" htmlUrl="http://charman-anderson.com"/>
+            <outline type="rss" text="Alan Geere online" title="Alan Geere online" xmlUrl="http://alangeere.blogspot.com/feeds/posts/default" htmlUrl="http://alangeere.blogspot.com/"/>
+            <outline type="rss" text="Pete Warden's blog" title="Pete Warden's blog" xmlUrl="http://feeds.feedburner.com/typepad/petewarden" htmlUrl="http://petewarden.com"/>
+            <outline type="rss" text="GeorgeHopkin.com" title="GeorgeHopkin.com" xmlUrl="http://www.georgehopkin.com/feed/" htmlUrl="http://www.georgehopkin.com"/>
+            <outline type="rss" text="edwalker.net" title="edwalker.net" xmlUrl="http://www.edwalker.net/blog/feed/" htmlUrl="http://www.edwalker.net/blog"/>
+            <outline type="rss" text="JackLail.com" title="JackLail.com" xmlUrl="http://feeds.jacklail.com/RandomMumblings" htmlUrl="http://jacklail.com/"/>
+            <outline type="rss" text="The Buttry Diary" title="The Buttry Diary" xmlUrl="http://stevebuttry.wordpress.com/feed/" htmlUrl="http://stevebuttry.wordpress.com"/>
+            <outline type="rss" text="George Brock" title="George Brock" xmlUrl="http://georgebrock.net/feed/" htmlUrl="http://georgebrock.net"/>
+            <outline type="rss" text="newsmary" title="newsmary" xmlUrl="http://maryhamilton.co.uk/feed/" htmlUrl="http://maryhamilton.co.uk"/>
+        </outline>
+        <outline text="Subbing" title="Subbing">
+            <outline type="rss" text="After Deadline" title="After Deadline" xmlUrl="http://afterdeadline.blogs.nytimes.com/feed/" htmlUrl="http://afterdeadline.blogs.nytimes.com/"/>
+            <outline type="rss" text="Style &amp; Substance" title="Style &amp; Substance" xmlUrl="http://blogs.wsj.com/styleandsubstance/feed/" htmlUrl="http://blogs.wsj.com/styleandsubstance"/>
+        </outline>
+    </body>
+</opml>

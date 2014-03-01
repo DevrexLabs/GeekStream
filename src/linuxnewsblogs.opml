@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<opml version="1.1">
+<head>
+<title>Everyday Linux User - Linux Blogs Worth Following</title> 
+<dateCreated>Mon, 07 Oct 2013 14:31:01 +0200</dateCreated> 
+</head>
+<body>
+<outline text="Main Folder">
+<outline title="lxer.com/module/newswire/headlines.rss" text="lxer.com/module/newswire/headlines.rss" type="rss" xmlUrl="http://lxer.com/module/newswire/headlines.rss" /> 
+<outline title="feeds.feedburner.com/linuxtoday/linux" text="feeds.feedburner.com/linuxtoday/linux" type="rss" xmlUrl="http://feeds.feedburner.com/linuxtoday/linux" /> 
+<outline title="feeds.feedburner.com/linuxjournalcom" text="feeds.feedburner.com/linuxjournalcom" type="rss" xmlUrl="http://feeds.feedburner.com/linuxjournalcom" /> 
+<outline title="feeds.feedburner.com/LinuxJournal-BreakingNews" text="feeds.feedburner.com/LinuxJournal-BreakingNews" type="rss" xmlUrl="http://feeds.feedburner.com/LinuxJournal-BreakingNews" /> 
+<outline title="feeds.feedburner.com/LinuxJournalBlogs" text="feeds.feedburner.com/LinuxJournalBlogs" type="rss" xmlUrl="http://feeds.feedburner.com/LinuxJournalBlogs" /> 
+<outline title="feeds.feedburner.com/LinuxJournalEducation" text="feeds.feedburner.com/LinuxJournalEducation" type="rss" xmlUrl="http://feeds.feedburner.com/LinuxJournalEducation" /> 
+<outline title="feeds.feedburner.com/LinuxJournalHowtos" text="feeds.feedburner.com/LinuxJournalHowtos" type="rss" xmlUrl="http://feeds.feedburner.com/LinuxJournalHowtos" /> 
+<outline title="feeds.feedburner.com/LinuxJournalSoftware" text="feeds.feedburner.com/LinuxJournalSoftware" type="rss" xmlUrl="http://feeds.feedburner.com/LinuxJournalSoftware" /> 
+<outline title="feeds.feedburner.com/LinuxJournalSecurity" text="feeds.feedburner.com/LinuxJournalSecurity" type="rss" xmlUrl="http://feeds.feedburner.com/LinuxJournalSecurity" /> 
+<outline title="feeds.feedburner.com/Phoronix" text="feeds.feedburner.com/Phoronix" type="rss" xmlUrl="http://feeds.feedburner.com/Phoronix" /> 
+<outline title="feeds.arstechnica.com/arstechnica/index" text="feeds.arstechnica.com/arstechnica/index" type="rss" xmlUrl="http://feeds.arstechnica.com/arstechnica/index" /> 
+<outline title="www.itworld.com/taxonomy/term/47/all/feed/?source=rss_os" text="www.itworld.com/taxonomy/term/47/all/feed/?source=rss_os" type="rss" xmlUrl="http://www.itworld.com/taxonomy/term/47/all/feed/?source=rss_os" /> 
+<outline title="feeds.feedburner.com/DesktopLinuxReviews?format=xml" text="feeds.feedburner.com/DesktopLinuxReviews?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/DesktopLinuxReviews?format=xml" /> 
+<outline title="feeds.feedburner.com/everydaylinuxuser/WLlg?format=xml" text="feeds.feedburner.com/everydaylinuxuser/WLlg?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/everydaylinuxuser/WLlg?format=xml" /> 
+<outline title="larrythecrunchbangguy.wordpress.com/feed/" text="larrythecrunchbangguy.wordpress.com/feed/" type="rss" xmlUrl="http://larrythecrunchbangguy.wordpress.com/feed/" /> 
+<outline title="larrythefreesoftwareguy.wordpress.com/feed/" text="larrythefreesoftwareguy.wordpress.com/feed/" type="rss" xmlUrl="http://larrythefreesoftwareguy.wordpress.com/feed/" /> 
+<outline title="www.dedoimedo.com/rss_feed.xml" text="www.dedoimedo.com/rss_feed.xml" type="rss" xmlUrl="http://www.dedoimedo.com/rss_feed.xml" /> 
+<outline title="feeds.feedburner.com/LinuxNotesFromDarkduck?format=xml" text="feeds.feedburner.com/LinuxNotesFromDarkduck?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/LinuxNotesFromDarkduck?format=xml" /> 
+<outline title="feeds.feedburner.com/mylinuxrig" text="feeds.feedburner.com/mylinuxrig" type="rss" xmlUrl="http://feeds.feedburner.com/mylinuxrig" /> 
+<outline title="feeds.feedburner.com/dasublogbyprashanth?format=xml" text="feeds.feedburner.com/dasublogbyprashanth?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/dasublogbyprashanth?format=xml" /> 
+<outline title="thevarguy.com/rss.xml" text="thevarguy.com/rss.xml" type="rss" xmlUrl="http://thevarguy.com/rss.xml" /> 
+<outline title="feeds.feedburner.com/Linuxaria_En?format=xml" text="feeds.feedburner.com/Linuxaria_En?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/Linuxaria_En?format=xml" /> 
+<outline title="feeds.feedburner.com/yalb" text="feeds.feedburner.com/yalb" type="rss" xmlUrl="http://feeds.feedburner.com/yalb" /> 
+<outline title="www.gamingonlinux.com/article_rss.php" text="www.gamingonlinux.com/article_rss.php" type="rss" xmlUrl="http://www.gamingonlinux.com/article_rss.php" /> 
+<outline title="www.linuxinsider.com/perl/syndication/rssfull.pl" text="www.linuxinsider.com/perl/syndication/rssfull.pl" type="rss" xmlUrl="http://www.linuxinsider.com/perl/syndication/rssfull.pl" /> 
+<outline title="feeds.feedburner.com/linuxbsdos?format=xml" text="feeds.feedburner.com/linuxbsdos?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/linuxbsdos?format=xml" /> 
+<outline title="feeds.feedburner.com/EyeOnLinux?format=xml" text="feeds.feedburner.com/EyeOnLinux?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/EyeOnLinux?format=xml" /> 
+<outline title="www.linuxsecurity.com/static-content/linuxsecurity_articles.rss" text="www.linuxsecurity.com/static-content/linuxsecurity_articles.rss" type="rss" xmlUrl="http://www.linuxsecurity.com/static-content/linuxsecurity_articles.rss" /> 
+<outline title="feeds.feedburner.com/UbuntuGeek?format=xml" text="feeds.feedburner.com/UbuntuGeek?format=xml" type="rss" xmlUrl="http://feeds.feedburner.com/UbuntuGeek?format=xml" /> 
+</outline>
+</body>
+</opml>

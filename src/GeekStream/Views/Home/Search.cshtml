@@ -2,35 +2,22 @@
 @{
 	ViewBag.Title = "Search Results for " + Model.Query;
 	ViewBag.searchQuery = Model.Query;
-	Html.RenderPartial("AlternateCSS");
 	var ajaxOptions = new AjaxOptions();
 	ajaxOptions.UpdateTargetId = "content";
 	ajaxOptions.InsertionMode = InsertionMode.InsertAfter;
 	ajaxOptions.OnBegin = "$('#loader').remove();";
-	var url = Url.Action("Search", "Home", new { query = Model.Query }, "http");
-	var selectItems = new[] {new SelectListItem { Text = "Recent", Value = "0", Selected = Model.SortedByPopular },
-                              new SelectListItem { Text = "Popular", Value = "1", Selected = Model.SortedByPopular }};
-
 }
 @if (Model.PageIndex == 0)
 {
 		<div style="margin-top:24px; color: #B6B6B6; font-weight: normal;">
 			@Model.TotalResults results for <span class="darktext">"@Model.Query"</span>, loaded
 			in @(((TimeSpan)ViewBag.QueryTime).TotalSeconds)
-			seconds | Showing :@Html.DropDownList("orderby", selectItems)</div>
+			seconds</div>
+}
+@Html.DisplayFor(m => m.Results,"FeedItems")
+	
+@if (Model.Skipped + Model.Results.Length < Model.TotalResults)
+{
+	@Ajax.ActionLink("Load More", "Search", new { query = Model.Query, pageIndex = Model.PageIndex + 1}, ajaxOptions, new { id = "loader" })
+}
 
-	<script type="text/javascript">
-		$("#orderby").change(function () {
-			window.location = "@url" + "&popular=" + ($(this).val() == 1);
-		})
-	</script>
-}
-	@Html.DisplayForModel()
-@if (Model.Skipped + Model.Results.Length < Model.TotalResults && Model.Skipped + Model.Results.Length < 1000)
-{
-	@Ajax.ActionLink("Load More", "Search", new { query = Model.Query, pageIndex = Model.PageIndex + 1, popular = Model.SortedByPopular }, ajaxOptions, new { id = "loader" })
-}
-else if (Model.TotalResults > 1000)
-{
-	@:Please refine your query to show more results.
-}

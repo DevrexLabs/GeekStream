@@ -1,35 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GeekStream.Core.Domain;
 using GeekStream.Core.Views;
-using LiveDomain.Core;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Queries
 {
     [Serializable]
     public class GetItemsQuery : Query<GeekStreamModel,FeedItemView[]>
     {
-    	int _take;
-    	SortMode _sortMode;
+    	public readonly int Take;
 
-    	public GetItemsQuery(int take, SortMode sortMode)
+     	public GetItemsQuery(int take)
     	{
-    		_take = take;
-    		_sortMode = sortMode;
+    		Take = take;
     	}
-
-        #region Overrides of Query<GeekStreamModel,FeedItemView[]>
 
         protected override FeedItemView[] Execute(GeekStreamModel m)
         {
-			if(_sortMode == SortMode.Popular)
-				return m.PopularItems().Take(_take).Select(f => new FeedItemView(f)).ToArray();
-
-			return m.GetMostRecentItems().Take(_take).Select(fi => new FeedItemView(fi)).ToArray();
+			return m.GetMostRecentItems()
+                .Take(Take)
+                .Select(fi => new FeedItemView(fi))
+                .ToArray();
         }
-
-        #endregion
     }
 }

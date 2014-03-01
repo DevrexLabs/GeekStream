@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GeekStream.Core.Domain;
-using LiveDomain.Core;
 using GeekStream.Core.Views;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Queries
 {
@@ -18,13 +15,10 @@ namespace GeekStream.Core.Queries
             Id = id;
         }
 
-        #region Overrides of Query<BlogModel,BlogEntryView>
-
         protected override FeedItemView Execute(GeekStreamModel m)
         {
             return new FeedItemView(m.GetItemByLongId(Id));
         }
 
-        #endregion
     }
 }

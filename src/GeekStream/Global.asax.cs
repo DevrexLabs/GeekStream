@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using System.Configuration;
-using System.IO;
-using System.Linq;
+﻿using System.Configuration;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using GeekStream.Core;
 using GeekStream.Core.Domain;
-using LiveDomain.Core;
-using LiveDomain.Enterprise;
-using XSockets.Core.Plugin.MEF;
-using XSockets.Core.XSocket.Interface;
+using OrigoDB.Core;
+using OrigoDB.Core.Proxy;
 
 namespace GeekStream
 {
@@ -58,28 +50,33 @@ namespace GeekStream
 			AreaRegistration.RegisterAllAreas();
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
-
-
-			//WARN: The following code will become obsolete in 
-			//version 0.3 of the enterprise client lib
-			string liveDbConnectionString = ConfigurationManager.ConnectionStrings["geekstream"].ConnectionString;
-			_liveDbConnectionSettings = LiveDbConnectionSettings.Parse(liveDbConnectionString);
 		}
 
 
-		//WARN: The following code will become obsolete in 
-		//version 0.3 of the enterprise client lib
-		private static LiveDbConnectionSettings _liveDbConnectionSettings;
 
+	    private static IEngine<GeekStreamModel> _engine;
 
-		//WARN: The following code will become obsolete in 
-		//version 0.3 of the enterprise client lib
-		public static ITransactionHandler<GeekStreamModel> LiveDbClient
+	    public static IEngine<GeekStreamModel> DbClient
+	    {
+	        get
+	        {
+                if (_engine == null)
+                {
+                    var connectionStringElement = ConfigurationManager.ConnectionStrings["geekstream"];
+                    if (connectionStringElement != null)
+                        _engine = Engine.For<GeekStreamModel>(connectionStringElement.ConnectionString);
+                    else _engine = Engine.For<GeekStreamModel>();
+                }
+	            return _engine;
+
+	        }
+	    }
+		public static GeekStreamModel DbProxy
 		{
 			get
 			{
-				return _liveDbConnectionSettings.GetClient<GeekStreamModel>();
+			    return DbClient.GetProxy();
 			}
 		}
-	}
+    }
 }

@@ -1,3 +1,0 @@
-﻿<div id="connected">You Are XSockets Connected!</div>
-<div id="disconnected">You Are Disconnected! Is your XSocketServer started?</div>
-<div id="error"></div>

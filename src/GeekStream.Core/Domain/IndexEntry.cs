@@ -8,7 +8,6 @@ namespace GeekStream.Core.Domain
     public class IndexEntry 
     {
         public FeedItem Item { get; set; }
-        public UInt32 Clicks { get; set; }
         public readonly string Key;
 
         public IndexEntry(string key)

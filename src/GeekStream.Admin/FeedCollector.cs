@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.ServiceModel.Syndication;
 using System.Xml;
-using GeekStream.Admin;
 using System.Threading.Tasks;
-using System.Reflection;
 
 namespace GeekStream.Admin
 {
@@ -55,7 +52,6 @@ namespace GeekStream.Admin
         public void Collect()
         {
             Parallel.ForEach(_sources, CollectSingleSource);
-
         }
 
         public static SyndicationFeed GetFeed(string url)
@@ -77,6 +73,7 @@ namespace GeekStream.Admin
                 var syndicationFeed = GetFeed(_urlSelector.Invoke(source));
                 if (syndicationFeed != null)
                 {
+                    Console.WriteLine(syndicationFeed.Title.Text);
                     lock (this)
                     {
                         foreach (var item in syndicationFeed.Items)

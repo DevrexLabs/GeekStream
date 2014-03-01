@@ -1,4 +1,0 @@
-﻿<div>Note: One will listen ONE and ONLY ONE time</div>
-<button id="bind">bind one</button>
-<button id="trigger">trigger</button>
-<div id="messages"></div>

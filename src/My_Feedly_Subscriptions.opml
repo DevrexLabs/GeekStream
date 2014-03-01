@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>Mahesh subscriptions in feedly Cloud</title>
+    </head>
+    <body>
+        <outline text="Tech" title="Tech">
+            <outline type="rss" text="OnStartups" title="OnStartups" xmlUrl="http://feed.onstartups.com/onstartups" htmlUrl="http://onstartups.com/"/>
+            <outline type="rss" text="Lifehacker" title="Lifehacker" xmlUrl="http://feeds.gawker.com/lifehacker/full" htmlUrl="http://lifehacker.com"/>
+            <outline type="rss" text="Techmeme" title="Techmeme" xmlUrl="http://www.techmeme.com/index.xml" htmlUrl="http://www.techmeme.com/"/>
+            <outline type="rss" text="Lifehack" title="Lifehack" xmlUrl="http://www.lifehack.org/feed/" htmlUrl="http://www.lifehack.org"/>
+            <outline type="rss" text="Inbound" title="Inbound" xmlUrl="http://www.inbound.org/feeds/articles_hot" htmlUrl="http://inbound.org/feeds/articles"/>
+        </outline>
+        <outline text="Marketing" title="Marketing">
+            <outline type="rss" text="Copyblogger" title="Copyblogger" xmlUrl="http://feeds.copyblogger.com/copyblogger" htmlUrl="http://www.copyblogger.com"/>
+            <outline type="rss" text="Social Mouths" title="Social Mouths" xmlUrl="http://socialmouths.com/blog/feed/" htmlUrl="http://socialmouths.com/blog"/>
+            <outline type="rss" text="State of Search" title="State of Search" xmlUrl="http://www.stateofsearch.com/feed/" htmlUrl="http://www.stateofdigital.com"/>
+            <outline type="rss" text="HubSpot" title="HubSpot" xmlUrl="http://blog.hubspot.com/rss.xml" htmlUrl="http://blog.hubspot.com/marketing"/>
+            <outline type="rss" text="WordStream" title="WordStream" xmlUrl="http://www.wordstream.com/blog/feed" htmlUrl="http://www.wordstream.com/blog"/>
+            <outline type="rss" text="Top Rank Blog" title="Top Rank Blog" xmlUrl="http://feeds.feedburner.com/OnlineMarketingSEOBlog" htmlUrl="http://www.toprankblog.com"/>
+            <outline type="rss" text="AWeber" title="AWeber" xmlUrl="http://www.aweber.com/blog/feed" htmlUrl="http://www.aweber.com/blog"/>
+            <outline type="rss" text="SE Watch" title="SE Watch" xmlUrl="http://searchenginewatch.com/rss" htmlUrl="http://searchenginewatch.com/"/>
+            <outline type="rss" text="SE Journal" title="SE Journal" xmlUrl="http://www.searchenginejournal.com/feed/" htmlUrl="http://www.searchenginejournal.com"/>
+            <outline type="rss" text="Unbounce" title="Unbounce" xmlUrl="http://feeds.feedburner.com/unbounce" htmlUrl="http://unbounce.com"/>
+            <outline type="rss" text="KISSmetrics" title="KISSmetrics" xmlUrl="http://feeds.feedburner.com/KISSmetrics" htmlUrl="http://blog.kissmetrics.com"/>
+            <outline type="rss" text="Google Webmaster Central" title="Google Webmaster Central" xmlUrl="http://googlewebmastercentral.blogspot.com/feeds/posts/default" htmlUrl="http://googlewebmastercentral.blogspot.com/"/>
+            <outline type="rss" text="SE Roundtable" title="SE Roundtable" xmlUrl="http://www.seroundtable.com/index-full.rdf" htmlUrl="http://www.seroundtable.com/"/>
+            <outline type="rss" text="Portent" title="Portent" xmlUrl="http://feeds.feedburner.com/conversationmarketing/mrji" htmlUrl="http://www.portent.com"/>
+            <outline type="rss" text="SEO People" title="SEO People" xmlUrl="http://www.searchenginepeople.com/feed" htmlUrl="http://www.searchenginepeople.com"/>
+            <outline type="rss" text="Dave Naylor" title="Dave Naylor" xmlUrl="http://www.davidnaylor.co.uk/feed" htmlUrl="http://www.davidnaylor.co.uk"/>
+            <outline type="rss" text="SE Land" title="SE Land" xmlUrl="http://feeds.searchengineland.com/searchengineland" htmlUrl="http://searchengineland.com"/>
+            <outline type="rss" text="Distilled" title="Distilled" xmlUrl="http://www.distilled.net/blog/feed" htmlUrl="http://www.distilled.net/blog/feeds/rss/"/>
+            <outline type="rss" text="Moz YouMoz" title="Moz YouMoz" xmlUrl="http://feeds.feedburner.com/youmoz" htmlUrl="http://moz.com/ugc"/>
+            <outline type="rss" text="Backlinko" title="Backlinko" xmlUrl="http://backlinko.com/feed" htmlUrl="http://backlinko.com"/>
+            <outline type="rss" text="SEO By The Sea" title="SEO By The Sea" xmlUrl="http://www.seobythesea.com/feed/" htmlUrl="http://www.seobythesea.com"/>
+            <outline type="rss" text="Buffer" title="Buffer" xmlUrl="http://blog.bufferapp.com/feed/" htmlUrl="http://blog.bufferapp.com"/>
+        </outline>
+        <outline text="Mashups" title="Mashups">
+            <outline type="rss" text="Quick Sprout" title="Quick Sprout" xmlUrl="http://feeds.feedburner.com/Quicksprout" htmlUrl="http://www.quicksprout.com"/>
+            <outline type="rss" text="WPMU" title="WPMU" xmlUrl="http://wpmu.org/feed" htmlUrl="http://premium.wpmudev.org/blog"/>
+            <outline type="rss" text="Inspired Magazine" title="Inspired Magazine" xmlUrl="http://www.inspiredm.com/feed/" htmlUrl="http://inspiredm.com"/>
+            <outline type="rss" text="Digital Inspiration" title="Digital Inspiration" xmlUrl="http://feeds.labnol.org/labnol" htmlUrl="http://www.labnol.org"/>
+            <outline type="rss" text="Minterest" title="Minterest" xmlUrl="http://feeds.feedburner.com/Minterest" htmlUrl="http://www.minterest.org"/>
+            <outline type="rss" text="Blog Tyrant" title="Blog Tyrant" xmlUrl="http://www.blogtyrant.com/feed/" htmlUrl="http://www.blogtyrant.com"/>
+            <outline type="rss" text="Jeffbullas" title="Jeffbullas" xmlUrl="http://www.jeffbullas.com/feed/" htmlUrl="http://www.jeffbullas.com"/>
+            <outline type="rss" text="Leaving Work Behind" title="Leaving Work Behind" xmlUrl="http://feeds.feedburner.com/leavingworkbehind/" htmlUrl="http://www.leavingworkbehind.com"/>
+            <outline type="rss" text="Niche Pursuits" title="Niche Pursuits" xmlUrl="http://www.nichepursuits.com/feed/" htmlUrl="http://www.nichepursuits.com"/>
+            <outline type="rss" text="Hongkiat" title="Hongkiat" xmlUrl="http://feeds2.feedburner.com/24thfloor" htmlUrl="http://www.hongkiat.com/blog"/>
+            <outline type="rss" text="ViperChill" title="ViperChill" xmlUrl="http://feeds.feedburner.com/viperchill" htmlUrl="http://www.viperchill.com"/>
+            <outline type="rss" text="Moz Blog" title="Moz Blog" xmlUrl="http://feeds.feedburner.com/seomoz" htmlUrl="http://moz.com/blog"/>
+            <outline type="rss" text="ProBlogger" title="ProBlogger" xmlUrl="http://feeds.feedburner.com/ProbloggerHelpingBloggersEarnMoney" htmlUrl="http://www.problogger.net"/>
+            <outline type="rss" text="Google Operating System" title="Google Operating System" xmlUrl="http://feeds.feedburner.com/GoogleOperatingSystem" htmlUrl="http://googlesystem.blogspot.com/"/>
+            <outline type="rss" text="Kikolani" title="Kikolani" xmlUrl="http://kikolani.com/rss" htmlUrl="http://kikolani.com"/>
+            <outline type="rss" text="Matt Cutts" title="Matt Cutts" xmlUrl="http://www.mattcutts.com/blog/feed/" htmlUrl="http://www.mattcutts.com/blog"/>
+            <outline type="rss" text="Six Revisions" title="Six Revisions" xmlUrl="http://feeds.feedburner.com/SixRevisions" htmlUrl="http://sixrevisions.com"/>
+            <outline type="rss" text="Sugarrae" title="Sugarrae" xmlUrl="http://feeds.sugarrae.com/sugarrae" htmlUrl="http://sugarrae.com"/>
+            <outline type="rss" text="Zenhabits" title="Zenhabits" xmlUrl="http://feeds.feedburner.com/zenhabits" htmlUrl="http://zenhabits.net"/>
+            <outline type="rss" text="Smashing Magazine" title="Smashing Magazine" xmlUrl="http://rss1.smashingmagazine.com/feed/" htmlUrl="http://www.smashingmagazine.com"/>
+        </outline>
+    </body>
+</opml>

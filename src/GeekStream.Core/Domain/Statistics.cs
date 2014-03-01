@@ -12,6 +12,5 @@ namespace GeekStream.Core.Domain
         public long TotalFeedItems { get; set; }
         public long UniqueKeywords { get; set; }
         public long TotalKeywords { get; set; }
-        public long TotalClicks { get; set; }
     }
 }

@@ -59,12 +59,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XSocketHandler\XSocketHandler.csproj">
-      <Project>{3BDE2F9E-1F08-4CD4-BD29-F41ED13B104C}</Project>
-      <Name>XSocketHandler</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="XSocketServerPlugins\XSockets.Core.Communication.dll" />
     <Content Include="XSocketServerPlugins\XSockets.Extensibility.Handlers.dll" />
     <Content Include="XSocketServerPlugins\XSockets.Extensibility.Interceptors.dll" />

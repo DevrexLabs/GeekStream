@@ -1,69 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LiveDomain.Core;
 using System.Text.RegularExpressions;
 using GeekStream.Core.Views;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Domain
 {
     [Serializable]
     public class GeekStreamModel : Model
     {
-        const int NumPopularFeeds = 10;
         const int MaxSearchResults = 1000;
         const int NumberOfRecentEntries = 10;
 
         private HighscoreList<FeedItem> _mostRecentItems;
-
+        private HighscoreList<Feed> _mostRecentFeeds; 
 
         // feed id is always = index + 1. never remove, just set feed slot to null.
         private List<Feed> _feeds;
 
         private Dictionary<string, HashSet<IndexEntry>> _searchIndex;
-        private HighscoreList<Feed> _popularFeeds;
-        private HighscoreList<FeedItem> _popularItems;
+
+        private Statistics _statistics;
 
         public GeekStreamModel()
         {
             _feeds = new List<Feed>();
             _mostRecentItems = new HighscoreList<FeedItem>((a, b) => b.Published.CompareTo(a.Published),
                                                            NumberOfRecentEntries);
-            _popularFeeds = new HighscoreList<Feed>((a, b) => Math.Sign(b.Clicks - a.Clicks), NumPopularFeeds);
+            _mostRecentFeeds = new HighscoreList<Feed>((a,b) => (b.LastItemPublished ?? DateTime.MinValue).CompareTo(a.LastItemPublished));
             _searchIndex = new Dictionary<string, HashSet<IndexEntry>>(StringComparer.InvariantCultureIgnoreCase);
-            _popularItems = new HighscoreList<FeedItem>((a, b) => Math.Sign(b.Clicks - a.Clicks));
-
+            _statistics  = new Statistics();
         }
 
         public Statistics GetStatistics()
         {
-            Statistics stats = new Statistics();
-
-            long totalClicks = 0, totalItems = 0;
-            foreach (var feed in GetFeeds())
-            {
-                totalClicks += feed.Clicks;
-                totalItems += feed.Items.Count;
-            }
-
-            stats.TotalClicks = totalClicks;
-            stats.TotalFeedItems = totalItems;
-            stats.TotalFeeds = _feeds.Count;
-            stats.TotalKeywords = _searchIndex.Sum(kvp => kvp.Value.Count);
-            stats.UniqueKeywords = _searchIndex.Count;
-
-            return stats;
+            return _statistics;
         }
 
 
-        public IEnumerable<Feed> PopularFeeds()
+        public IEnumerable<Feed> MostRecentlyModifiedFeeds()
         {
-            return _popularFeeds;
-        }
-
-        public IEnumerable<FeedItem> PopularItems()
-        {
-            return _popularItems;
+            return _mostRecentFeeds;
         }
 
         public IEnumerable<FeedItem> GetMostRecentItems()
@@ -75,6 +53,7 @@ namespace GeekStream.Core.Domain
         {
             feed.Id = _feeds.Count + 1;
             _feeds.Add(feed);
+            _statistics.TotalFeeds++;
             return feed.Id;
         }
 
@@ -82,8 +61,8 @@ namespace GeekStream.Core.Domain
         {
             //Find the feed and add to its entries
             Feed feed = _feeds[feedId - 1];
-            feed.LastIndexed = collected;
             feed.AddItem(item);
+            _statistics.TotalFeedItems++;
 
             //Most recent list
             _mostRecentItems.Add(item);
@@ -93,8 +72,10 @@ namespace GeekStream.Core.Domain
             {
                 if (!_searchIndex.ContainsKey(keyword))
                 {
+                    _statistics.UniqueKeywords++;
                     _searchIndex[keyword] = new HashSet<IndexEntry>(new IndexEntryComparer());
                 }
+                _statistics.TotalKeywords++;
                 _searchIndex[keyword].Add(new IndexEntry(keyword) { Item = item });
             }
         }
@@ -106,30 +87,33 @@ namespace GeekStream.Core.Domain
             return _feeds[feedId - 1].GetItemById(itemId);
         }
 
-        public IEnumerable<IndexEntry> Search(string query, out int totalResults, bool orderByClicks = false)
+        public IEnumerable<IndexEntry> Search(string query, out int totalResults)
         {
             HashSet<IndexEntry> result = null;
             foreach (string searchTerm in ParseQuery(query))
             {
-                HashSet<IndexEntry> set;
-                if (!_searchIndex.TryGetValue(searchTerm, out set))
+                HashSet<IndexEntry> currentSearchTermHits;
+                if (!_searchIndex.TryGetValue(searchTerm, out currentSearchTermHits))
                 {
+                    //the current term does not exist in the index.
+                    //The total result will always be an empty set so we can exit immediately
                     totalResults = 0;
                     return Enumerable.Empty<IndexEntry>();
                 }
                 if (result == null)
                 {
-                    result = new HashSet<IndexEntry>(set, new IndexEntryComparer());
+                    result = new HashSet<IndexEntry>(currentSearchTermHits, new IndexEntryComparer());
                 }
                 else
-                    result.IntersectWith(set);
+                    result.IntersectWith(currentSearchTermHits);
             }
-           
-            totalResults = result.Count;
-            if (orderByClicks)
+            if (result == null)
             {
-                return result.Take(MaxSearchResults).OrderByDescending(ie => ie.Item.Clicks);
+                totalResults = 0;
+                return Enumerable.Empty<IndexEntry>();
             }
+            totalResults = result.Count;
+
             return result.Take(MaxSearchResults);
         }
 
@@ -148,29 +132,10 @@ namespace GeekStream.Core.Domain
 
         public IEnumerable<Feed> GetFeedsCollectedBefore(DateTime collectedBefore)
         {
-            foreach (var feed in GetFeeds().Where(f => f.LastIndexed <= collectedBefore))
+            foreach (var feed in GetFeeds().Where(f => f.LastCollected <= collectedBefore))
             {
                 yield return feed;
             }
-        }
-
-        public void Click(Int64 feedItemId, string searchQuery)
-        {
-            var itemClicked = GetItemByLongId(feedItemId);
-            itemClicked.Clicks++;
-            itemClicked.Feed.Clicks++;
-            _popularFeeds.Add(itemClicked.Feed);
-            _popularItems.Add(itemClicked);
-
-            //IEnumerable<string> searchTerms = ParseQuery(searchQuery);
-            //foreach (var searchTerm in searchTerms)
-            //{
-            //    HashSet<IndexEntry> set;
-            //    if (_searchIndex.TryGetValue(searchTerm, out set))
-            //    {
-            //        set.Single(ie => ie.Item.LongId == itemClicked.LongId).Clicks++;
-            //    }
-            //}
         }
 
         private IEnumerable<string> ParseQuery(string searchQuery)
@@ -195,7 +160,7 @@ namespace GeekStream.Core.Domain
         {
             feed = null;
             bool result = false;
-            if (id <= _feeds.Count)
+            if (id > 0 && id <= _feeds.Count)
             {
                 feed = GetFeedById(id);
                 result = feed != null;
@@ -210,12 +175,11 @@ namespace GeekStream.Core.Domain
 
             if (feedExists)
             {
+                _statistics.TotalFeeds--;
+                _statistics.TotalFeedItems -= feedToRemove.Items.Count;
                 _feeds[id-1] = null;
 
-                _popularFeeds.Remove(feedToRemove);
                 _mostRecentItems.RemoveItems(feedToRemove.Items);
-                _popularItems.RemoveItems(feedToRemove.Items);
-                
                 RemoveFeedFromSearchIndex(feedToRemove);
             }
 
@@ -232,9 +196,10 @@ namespace GeekStream.Core.Domain
                 var searchTerm = kvp.Key;
                 var entrySet = kvp.Value;
                 
-                entrySet.RemoveWhere(entry => itemsToRemove.Contains(entry.Item));
+                _statistics.TotalKeywords -= entrySet.RemoveWhere(entry => itemsToRemove.Contains(entry.Item));
                 if (entrySet.Count == 0) searchTermsToRemove.Add(searchTerm);
             }
+            _statistics.UniqueKeywords -= searchTermsToRemove.Count;
 
             foreach (string searchTerm in searchTermsToRemove) _searchIndex.Remove(searchTerm);
         }
@@ -248,24 +213,20 @@ namespace GeekStream.Core.Domain
 
         }
 
-        public void SetFeedLastCollected(int feedId, DateTime when)
-        {
-            try
-            {
-                GetFeedById(feedId).LastIndexed = when;
-            }
-            catch (NullReferenceException)
-            {
-                throw new ArgumentException("no such feed, id: " + feedId);
-            }
-            
-        }
-
         public bool RemoveFeedByUrl(string url)
         {
             Feed feed = GetFeedByUrl(url);
             if (feed != null) return RemoveFeedById(feed.Id);
             return false;
+        }
+
+        internal void SetFeedsLastCollected(int[] feedIds, DateTime when)
+        {
+            foreach (var feedId in feedIds)
+            {
+                Feed feed;
+                if (TryGetFeedById(feedId, out feed)) feed.LastCollected = when;
+            }
         }
     }
 }

@@ -1,30 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using GeekStream.Admin;
 using GeekStream.Core.Views;
-using LiveDomain.Core;
 using GeekStream.Core.Domain;
 using GeekStream.Core.Commands;
 using GeekStream.Core;
 using System.ServiceModel.Syndication;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
-using System.Xml;
-using LiveDomain.Enterprise;
 using GeekStream.Core.Queries;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Configuration;
+using OrigoDB.Core;
 
 namespace GeekStream.Admin
 {
     class Program
     {
-        private ITransactionHandler<GeekStreamModel> _geekStreamDb;
+        private IEngine<GeekStreamModel> _geekStreamDb;
         private string[] _args;
 
 
@@ -39,9 +32,9 @@ namespace GeekStream.Admin
         {
 
             //Set up the db connection or embedded engine
-            string connectionstring = ConfigurationManager.AppSettings["geekstream"];
-            connectionstring = connectionstring ?? "mode=embedded";
-            _geekStreamDb = LiveDbConnectionSettings.Parse(connectionstring).GetClient<GeekStreamModel>();
+            string connectionString = ConfigurationManager.AppSettings["geekstream"];
+            connectionString = connectionString ?? "mode=embedded";
+            _geekStreamDb = Engine.For<GeekStreamModel>(connectionString);
 
             if (_args.Length >= 2 && _args[0] == "-a") AddUrls(_args.Skip(1));
             else if (_args.Length == 2 && _args[0] == "-o") AddFeedsFromOpml(_args[1]);
@@ -71,7 +64,6 @@ namespace GeekStream.Admin
             Console.WriteLine("Items    : {0}", statistics.TotalFeedItems);
             Console.WriteLine("Words    : {0}", statistics.TotalKeywords);
             Console.WriteLine("Unique   : {0}", statistics.UniqueKeywords);
-            Console.WriteLine("Clicks   : {0}", statistics.TotalClicks);
         }
 
         private void Find(string regex)
@@ -193,14 +185,13 @@ namespace GeekStream.Admin
                 }
                 else
                 {
+                    List<int> collectedFeedIds = new List<int>();
                     var collector = new FeedCollector<FeedView>(feedsToCollect, feedView => feedView.Url);
                     collector.ItemCollected += ItemCollected;
-                    collector.SourceCollected += (sender, args) =>
-                        {
-                            var command = new SetFeedLastCollectedCommand(args.Source.Id, DateTime.Now);
-                            _geekStreamDb.Execute(command);
-                        };
+                    collector.SourceCollected += (sender, args) => collectedFeedIds.Add(args.Source.Id);
                     collector.Collect();
+                    _geekStreamDb.Execute(new SetFeedsLastCollectedCommand(collectedFeedIds.ToArray(), DateTime.Now));
+
                 }
             }
         }
@@ -222,11 +213,10 @@ namespace GeekStream.Admin
 
                 if (!feedView.ItemUrls.Contains(item.Url))
                 {
-                    Console.Write("+");
+                    Console.WriteLine(" + " + item.Title);
                     var command = new AddFeedItemCommand(item, indexKeys, feedView.Id, DateTime.Now);
                     _geekStreamDb.Execute(command);
                 }
-                else Console.Write(".");
             }
             catch (Exception ex)
             {
@@ -243,7 +233,7 @@ namespace GeekStream.Admin
                                Title = syndicationFeed.Title != null ? syndicationFeed.Title.Text : "Untitled feed",
                                Description = syndicationFeed.Description != null ? syndicationFeed.Description.Text : "No description",
                                ImageUrl = syndicationFeed.ImageUrl != null ? syndicationFeed.ImageUrl.ToString() : null,
-                               LastIndexed = DateTime.MinValue,
+                               LastCollected = DateTime.MinValue,
                                Url = url,
                                Created = DateTime.Now
                            };

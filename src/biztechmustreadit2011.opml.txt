@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?><opml version="1.1"><head>   <title>50 Must-Read IT Blogs from BizTech Magazine</title>   <dateCreated>Thu, 08 Sep 2011 18:23:33 +0200</dateCreated></head><body><outline text="BizTech Must-Read IT Blogs"><outline title="Absolute Software Blog" text="blog.absolute.com/feed/" type="rss" xmlUrl="http://blog.absolute.com/feed/" />
+<outline title="Andrew McAfee's blog" text="andrewmcafee.org/feed/" type="rss" xmlUrl="http://andrewmcafee.org/feed/" />
+<outline title="Around the Storage Block" text="h30507.www3.hp.com/hpblogs/rss/board?board.id=139" type="rss" xmlUrl="http://h30507.www3.hp.com/hpblogs/rss/board?board.id=139" />
+<outline title="Chuck's Blog" text="chucksblog.emc.com/chucks_blog/rss.xml" type="rss" xmlUrl="http://chucksblog.emc.com/chucks_blog/rss.xml" />
+<outline title="CIO Dashboard" text="feeds.feedburner.com/ciodashboard" type="rss" xmlUrl="http://feeds.feedburner.com/ciodashboard" />
+<outline title="Cisco's Small Business blog" text="feeds.feedburner.com/CiscoBlogSmallBusiness" type="rss" xmlUrl="http://feeds.feedburner.com/CiscoBlogSmallBusiness" />
+<outline title="The Citrix Blog" text="feeds.ws.citrix.com/CitrixBlogs" type="rss" xmlUrl="http://feeds.ws.citrix.com/CitrixBlogs" />
+<outline title="CloudAve" text="feeds.cloudave.com/cloudAve" type="rss" xmlUrl="http://feeds.cloudave.com/cloudAve" />
+<outline title="Cloud Computing" text="cloudcomputing.blogspot.com/feeds/posts/default" type="rss" xmlUrl="http://cloudcomputing.blogspot.com/feeds/posts/default" />
+<outline title="Cloud Tweaks" text="feeds.feedburner.com/cloudtweakscloud" type="rss" xmlUrl="http://feeds.feedburner.com/cloudtweakscloud" />
+<outline title="Cutter Consortium" text="blog.cutter.com/feed/" type="rss" xmlUrl="http://blog.cutter.com/feed/" />
+<outline title="Data Center Knowledge" text="feeds.feedburner.com/DataCenterKnowledge" type="rss" xmlUrl="http://feeds.feedburner.com/DataCenterKnowledge" />
+<outline title="Double Cloud" text="www.doublecloud.org/feed" type="rss" xmlUrl="http://www.doublecloud.org/feed" />
+<outline title="Exchange Server Pro" text="http://feeds.feedburner.com/ExchangeServerPro" type="rss" xmlUrl="http://feeds.feedburner.com/ExchangeServerPro" />
+<outline title="Face2Fujitsu" text="blog.ts.fujitsu.com/face2fujitsu/?feed=rss" type="rss" xmlUrl="http://blog.ts.fujitsu.com/face2fujitsu/?feed=rss" />
+<outline title="Fountainhead" text="fountnhead.blogspot.com/feeds/posts/default" type="rss" xmlUrl="http://fountnhead.blogspot.com/feeds/posts/default" />
+<outline title="Gartner Blog Network" text="blogs.gartner.com/gbn/feed/" type="rss" xmlUrl="http://blogs.gartner.com/gbn/feed/" />
+<outline title="GottaBeMobile" text="feeds2.feedburner.com/Gottabemobile" type="rss" xmlUrl="http://feeds2.feedburner.com/Gottabemobile" />
+<outline title="Greg's Storage IO Blog" text="storageioblog.com/RSS.xml" type="rss" xmlUrl="http://storageioblog.com/RSS.xml" />
+<outline title="Hu Yoshida's Blog" text="feeds2.feedburner.com/hds/hu-yoshida" type="rss" xmlUrl="http://feeds2.feedburner.com/hds/hu-yoshida" />
+<outline title="Inside System Storage" text="Inside System Storage" type="rss" xmlUrl="https://www.ibm.com/developerworks/mydeveloperworks/blogs/InsideSystemStorage/feed/entries/atom?lang=en" />
+<outline title="Mastering SharePoint with Bob Mixon" text="bobmixon.com/?feed=rss2" type="rss" xmlUrl="http://bobmixon.com/?feed=rss2" />
+<outline title="Microsoft Security Response Center" text="http://blogs.technet.com/b/msrc/rss.aspx" type="rss" xmlUrl="http://blogs.technet.com/b/msrc/rss.aspx" />
+<outline title="Naked Security" text="nakedsecurity.sophos.com/feed/" type="rss" xmlUrl="http://nakedsecurity.sophos.com/feed/" />
+<outline title="Intel's Open Port IT Community" text="communities.intel.com/community/openportit/blog/feeds/posts" type="rss" xmlUrl="http://communities.intel.com/community/openportit/blog/feeds/posts" />
+<outline title="OS X Daily" text="feeds.feedburner.com/osxdaily" type="rss" xmlUrl="http://feeds.feedburner.com/osxdaily" />
+<outline title="PandaLabs Blog" text="pandalabs.pandasecurity.com/feed/" type="rss" xmlUrl="http://pandalabs.pandasecurity.com/feed/" />
+<outline title="Rational Survivability" text="www.rationalsurvivability.com/blog/?feed=rss2" type="rss" xmlUrl="http://www.rationalsurvivability.com/blog/?feed=rss2" />
+<outline title="Real Business at Xerox" text="realbusinessatxerox.blogs.xerox.com/feed/" type="rss" xmlUrl="http://realbusinessatxerox.blogs.xerox.com/feed/" />
+<outline title="Scott Lowe" text="blog.scottlowe.org/feed/" type="rss" xmlUrl="http://blog.scottlowe.org/feed/" />
+<outline title="Sean Daniel" text="feeds.feedburner.com/Seanda-TechBlog" type="rss" xmlUrl="http://feeds.feedburner.com/Seanda-TechBlog" />
+<outline title="The Security Catalyst" text="www.securitycatalyst.com/feed/" type="rss" xmlUrl="http://www.securitycatalyst.com/feed/" />
+<outline title="Small Biz Go Mobile" text="www.marioarmstrong.com/smallbizgomobile/feed/" type="rss" xmlUrl="http://www.marioarmstrong.com/smallbizgomobile/feed/" />
+<outline title="Small Business Labs" text="feeds.feedburner.com/SmallBizLabs" type="rss" xmlUrl="http://feeds.feedburner.com/SmallBizLabs" />
+<outline title="Small Biz Technology" text="feeds.feedburner.com/Smallbiztechnologycom-SmbNewsAndInsight" type="rss" xmlUrl="http://feeds.feedburner.com/Smallbiztechnologycom-SmbNewsAndInsight" />
+<outline title="Stephen Foskett, Pack Rat" text="feeds.fosketts.net/StephenFoskettPackRat" type="rss" xmlUrl="http://feeds.fosketts.net/StephenFoskettPackRat" />
+<outline title="Tenable Security" text="blog.tenablesecurity.com/atom.xml" type="rss" xmlUrl="http://blog.tenablesecurity.com/atom.xml" />
+<outline title="Threatpost" text="threatpost.com/en_us/rss.xml" type="rss" xmlUrl="http://threatpost.com/en_us/rss.xml" />
+<outline title="Toshiba Telephone Systems" text="blog.telecom.toshiba.com/feed/" type="rss" xmlUrl="http://blog.telecom.toshiba.com/feed/" />
+<outline title="Tripewire Blog" text="feeds.feedburner.com/VirtualizationSecurityBlogEntries" type="rss" xmlUrl="http://feeds.feedburner.com/VirtualizationSecurityBlogEntries" />
+<outline title="Uncommon Sense Security" text="blog.uncommonsensesecurity.com/feeds/posts/default" type="rss" xmlUrl="http://blog.uncommonsensesecurity.com/feeds/posts/default" />
+<outline title="VMware Security" text="blogs.vmware.com/security/rss.xml" type="rss" xmlUrl="http://blogs.vmware.com/security/rss.xml" />
+<outline title="VMware Videos" text="www.vmwarevideos.com/feed" type="rss" xmlUrl="http://www.vmwarevideos.com/feed" />
+<outline title="Websense News and Views" text="community.websense.com/blogs/MainFeed.aspx" type="rss" xmlUrl="http://community.websense.com/blogs/MainFeed.aspx" />
+<outline title="The Windows Blog" text="windowsteamblog.com/b/MainFeed.aspx" type="rss" xmlUrl="http://windowsteamblog.com/b/MainFeed.aspx" />
+<outline title="Wingspan" text="community.brocade.com/community/feeds/allcontent?community=2030" type="rss" xmlUrl="http://community.brocade.com/community/feeds/allcontent?community=2030" />
+<outline title="The Wisdom of Clouds" text="news.cnet.com/8300-19413_3-240.xml" type="rss" xmlUrl="http://news.cnet.com/8300-19413_3-240.xml" />
+<outline title="Women 2" text="www.women2.org/?feed=rss2" type="rss" xmlUrl="http://www.women2.org/?feed=rss2" />
+<outline title="The World According to Mitch Garvis" text="garvis.ca/feed/" type="rss" xmlUrl="http://garvis.ca/feed/" />
+<outline title="Yellow Bricks" text="www.yellow-bricks.com/feed/" type="rss" xmlUrl="http://www.yellow-bricks.com/feed/" />
+   </outline></body></opml>

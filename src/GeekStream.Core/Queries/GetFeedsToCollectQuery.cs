@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GeekStream.Core.Domain;
 using GeekStream.Core.Views;
-using LiveDomain.Core;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Queries
 {
@@ -26,7 +24,7 @@ namespace GeekStream.Core.Queries
         {
             return model
                 .GetFeedsCollectedBefore(_collectedBefore)
-                .OrderByDescending(f => f.Created)
+                .OrderByDescending(f => f.Id)
                 .Skip(_skip)
                 .Take(_take)
                 .Select(f => new FeedView(f)).ToArray();

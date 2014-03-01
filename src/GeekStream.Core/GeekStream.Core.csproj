@@ -33,9 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiveDomain.Core, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\LiveDomain.Core.0.4.1\lib\net40\LiveDomain.Core.dll</HintPath>
+    <Reference Include="OrigoDB.Core">
+      <HintPath>..\packages\OrigoDb.Core.0.10.2\lib\OrigoDB.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,10 +42,9 @@
   <ItemGroup>
     <Compile Include="Commands\AddFeedCommand.cs" />
     <Compile Include="Commands\AddFeedItemCommand.cs" />
-    <Compile Include="Commands\RegisterClickCommand.cs" />
     <Compile Include="Commands\RemoveFeedByIdCommand.cs" />
     <Compile Include="Commands\RemoveFeedByUrlCommand.cs" />
-    <Compile Include="Commands\SetFeedLastCollectedCommand.cs" />
+    <Compile Include="Commands\SetFeedsLastCollectedCommand.cs" />
     <Compile Include="Domain\Feed.cs" />
     <Compile Include="Domain\FeedItem.cs" />
     <Compile Include="Domain\GeekStreamModel.cs" />
@@ -62,14 +60,13 @@
     <Compile Include="Queries\GetFeedItemsQuery.cs" />
     <Compile Include="Queries\GetFeedsQuery.cs" />
     <Compile Include="Queries\GetStatisticsQuery.cs" />
-    <Compile Include="SortMode.cs" />
+    <Compile Include="Views\FeedResultView.cs" />
     <Compile Include="Views\FeedView.cs" />
     <Compile Include="Queries\GetFeedByUrl.cs" />
     <Compile Include="Queries\GetFeedItemById.cs" />
     <Compile Include="Queries\SearchQuery.cs" />
     <Compile Include="Views\FeedItemView.cs" />
     <Compile Include="Views\SearchResultView.cs" />
-    <Compile Include="Views\SearchResultViewItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

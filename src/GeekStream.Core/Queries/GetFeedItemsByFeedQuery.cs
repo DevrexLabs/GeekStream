@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GeekStream.Core.Domain;
 using GeekStream.Core.Views;
-using LiveDomain.Core;
+using OrigoDB.Core;
 
 namespace GeekStream.Core.Queries
 {
     [Serializable]
     public class GetFeedItemsByFeedQuery : Query<GeekStreamModel, FeedResultView>
     {
-        public bool OrderByClicks { get; set; }
-        public int PageIndex { get; set; }
+        public const int ItemsPerPage = 30;
+        public readonly int PageIndex;
+        public readonly int Id;
 
         public GetFeedItemsByFeedQuery(int id, int pageIndex)
         {
@@ -20,26 +19,19 @@ namespace GeekStream.Core.Queries
             PageIndex = pageIndex;
         }
 
-        public int Id { get; set; }
-
-        #region Overrides of Query<GeekStreamModel,FeedView[]>
-
         protected override FeedResultView Execute(GeekStreamModel m)
         {
-            var skip = PageIndex * 100;
+            var skip = PageIndex * ItemsPerPage;
             var result = new FeedResultView();
             var items = m.GetEntriesByFeedId(Id);
 
             result.TotalResults = m.GetFeedById(Id).Items.Count;
-
-            if (OrderByClicks)
-                result.Items = items.OrderByDescending(f => f.Clicks).Skip(skip).Take(100).Select(f => new FeedItemView(f)).ToArray();
-            else
-                result.Items = items.Skip(skip).Take(100).Select(f => new FeedItemView(f)).ToArray();
-
+            result.Items = items
+                .OrderByDescending(item => item.Published)
+                .Skip(skip)
+                .Take(ItemsPerPage)
+                .Select(f => new FeedItemView(f)).ToArray();
             return result;
         }
-
-        #endregion
     }
 }
