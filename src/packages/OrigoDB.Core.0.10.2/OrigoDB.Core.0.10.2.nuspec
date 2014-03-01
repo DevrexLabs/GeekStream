@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>OrigoDB.Core</id>
+    <version>0.10.2</version>
+    <title>OrigoDb Embedded Engine and Client</title>
+    <authors>Robert Friberg,  Kristoffer Schroeder et al</authors>
+    <owners>Robert Friberg,  Kristoffer Schroeder et al</owners>
+    <licenseUrl>https://github.com/devrexlabs/origodb#license</licenseUrl>
+    <projectUrl>https://github.com/devrexlabs/origodb</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An in-memory database engine for .NET. Use native CLR types for modeling. Build faster systems, faster with native .NET in-memory data modeling. No SQL, No o/r-mapping, no problems!</description>
+    <summary>An in-memory database engine for .NET. Use native CLR types for modeling. Build faster systems, faster with native .NET in-memory data modeling. No SQL, No o/r-mapping, no problems!</summary>
+    <releaseNotes>Can be found on project site: https://github.com/devrexlabs/origodb/wiki/release-notes</releaseNotes>
+    <copyright>Copyright 2013 Devrex Labs</copyright>
+    <language />
+    <tags>in-memory imdb nosql prevalence odbms database imc</tags>
+  </metadata>
+</package>
