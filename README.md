@@ -19,8 +19,6 @@ Try it out
 -------------------------
 You can easily run geekstream locally. By default the connection string in web.config points to an embedded engine. This will load an in-process db from journal files in the App_Data folder.
 
-Hosting 
---------------------
 If you're feeling brave you can set up a standalone server. Get a trial version of OrigoDB server at http://origodb.com/  Follow the quick start guide at http://origodb.com/docs/quick-start but swap the Todo.Core.dll with GeekStream.Core.dll. 
 To get some data to play with use the admin utility (see below) or stop the server and copy the journal files from the App_Data/GeekStreamModel directory.
 
