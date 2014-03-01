@@ -1,31 +1,31 @@
 GeekStream
 ==========
-Geekstream is an example application built to demonstrate LiveDB Server - http://livedb.devrex.se/
-A live example can be found at http://geekstream.devrex.se
-
-GeekStream is a google-ish search engine for for syndication feeds and items. Besides search, there are some predefined streams in the footer:
-* Popular feeds
-* Recent items
-* Popular items
+Geekstream is an example application built to demonstrate OrigoDB  - http://github.com/devrexlabs/origodb
+A live example can be found at http://geekstream.devrexlabs.com
 
 
-
-Running the application
------------------------------
-
-1. Build the solution. A post build event copies the core domain assembly to the db folder. 
-2. Start LiveDB Server with db\Server\StartServer.bat
-3. Start the GeekStream web app from within Visual Studio.
+The online example runs on a virtual Windows 2008 with IIS and a standalone OrigoDB Server (http://origodb.com) hosting the database. The web application passes queries and commands to the db server using a request/response pattern over a tcp/ip connection.
 
 What to check out
 ------------
-Start by having a look at the GeekStreamModel class in the GeekStream.Core assembly. The in-memory database 
-is an instance of this class hosted by the server. If you're into DDD think of the model as an aggregate root and the entire database is a single aggregate.
+Start by having a look at the domain classes, commands, queries and views in the GeekStream.Core project. The database is an instance of GeekStreamModel hosted either in-process or in a standalone OrigoDB Server process. 
 
-The model is modified by commands and queried using Query objects. You'll find these in the Commands and Queries folders in the GeekStream.Core project. 
-Also, check out the classes in the Views folder. Views are used as return types from queries and commands. 
+To see how to setup an OrigoDB client connection see global.asax.cs and the connection string in web.config.
 
-The LiveDB connection is intialized in Global.asax.cs and exposed as a static property. It's thread safe so 
-Mvc action methods grab a connection and use it to execute queries and commands. You can see the queries and commands in the servers console window.
+Have a look at the controllers in the web application to see the client, proxy, commands, queries and views in action.
 
+
+Try it out
+-------------------------
+You can easily run geekstream locally. By default the connection string in web.config points to an embedded engine. This will load an in-process db from journal files in the App_Data folder.
+
+Hosting 
+--------------------
+If you're feeling brave you can set up a standalone server. Get a trial version of OrigoDB server at http://origodb.com/  Follow the quick start guide at http://origodb.com/docs/quick-start but swap the Todo.Core.dll with GeekStream.Core.dll. 
+To get some data to play with use the admin utility (see below) or stop the server and copy the journal files from the App_Data/GeekStreamModel directory.
+
+GeekStream.Admin
+----------------------------
+The admin project is a command line utility for collecting new items from the sources and adding/removing sources.
+It uses the connection string in the app.config
 
