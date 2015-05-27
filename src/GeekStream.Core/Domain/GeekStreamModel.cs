@@ -154,14 +154,8 @@ namespace GeekStream.Core.Domain
 
         public bool TryGetFeedById(int id, out Feed feed)
         {
-            feed = null;
-            bool result = false;
-            if (id > 0 && id <= _feeds.Count)
-            {
-                feed = GetFeedById(id);
-                result = feed != null;
-            }
-            return result;
+            feed = GetFeedById(id);
+            return feed != null;
         }
 
         public bool RemoveFeedById(int id)
