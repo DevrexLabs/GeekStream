@@ -7,7 +7,7 @@ namespace GeekStream.Core.Queries
     [Serializable]
     public class GetStatisticsQuery : Query<GeekStreamModel, Statistics>
     {
-        protected override Statistics Execute(GeekStreamModel model)
+        public override Statistics Execute(GeekStreamModel model)
         {
             return model.GetStatistics();
         }

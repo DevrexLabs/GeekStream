@@ -15,7 +15,7 @@ namespace GeekStream.Core.Queries
             Id = id;
         }
 
-        protected override FeedItemView Execute(GeekStreamModel m)
+        public override FeedItemView Execute(GeekStreamModel m)
         {
             return new FeedItemView(m.GetItemByLongId(Id));
         }

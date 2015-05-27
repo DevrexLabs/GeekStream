@@ -50,6 +50,9 @@ namespace GeekStream
 			AreaRegistration.RegisterAllAreas();
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+
+            //trigger eager connection to origodb, avoiding delay of first search
+		    DbClient.GetProxy();
 		}
 
 

@@ -19,7 +19,7 @@ namespace GeekStream.Core.Queries
             PageIndex = pageIndex;
         }
 
-        protected override FeedResultView Execute(GeekStreamModel m)
+        public override FeedResultView Execute(GeekStreamModel m)
         {
             var skip = PageIndex * ItemsPerPage;
             var result = new FeedResultView();

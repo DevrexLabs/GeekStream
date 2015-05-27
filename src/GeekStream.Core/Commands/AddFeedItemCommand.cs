@@ -21,7 +21,7 @@ namespace GeekStream.Core.Commands
             Collected = collected;
         }
 
-        protected override void Execute(GeekStreamModel model)
+        public override void Execute(GeekStreamModel model)
         {
             model.AddItem(Item, SearchTerms, FeedId, Collected);
         }

@@ -5,7 +5,7 @@ using OrigoDB.Core;
 namespace GeekStream.Core.Commands
 {
     [Serializable]
-    public class AddFeedCommand : CommandWithResult<GeekStreamModel, int>
+    public class AddFeedCommand : Command<GeekStreamModel, int>
     {
 
         public readonly Feed Feed;
@@ -16,7 +16,7 @@ namespace GeekStream.Core.Commands
             Feed = feed;
         }
 
-        protected override int Execute(GeekStreamModel model)
+        public override int Execute(GeekStreamModel model)
         {
             try
             {

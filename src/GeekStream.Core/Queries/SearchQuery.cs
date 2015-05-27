@@ -20,16 +20,16 @@ namespace GeekStream.Core.Queries
             Take = pageSize;
         }
 
-        protected override SearchResultView Execute(GeekStreamModel model)
+        public override SearchResultView Execute(GeekStreamModel model)
         {
             var result = new SearchResultView();
             int totalResults;
             var items = model.Search(SearchString, out totalResults);
             var queryResults = items
-                .OrderByDescending(entry => entry.Item.Published)
+                .OrderByDescending(item => item.Published)
                 .Skip(Skip)
                 .Take(Take)
-                .Select(indexEntry => new FeedItemView(indexEntry.Item))
+                .Select(feedItem => new FeedItemView(feedItem))
                 .ToArray();
 
             result.Query = SearchString;

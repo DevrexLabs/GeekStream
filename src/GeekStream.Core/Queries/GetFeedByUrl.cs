@@ -16,7 +16,7 @@ namespace GeekStream.Core.Queries
             Url = url;
         }
 
-        protected override FeedView Execute(GeekStreamModel m)
+        public override FeedView Execute(GeekStreamModel m)
         {
             var feed = m.GetFeedByUrl(Url);
             return feed != null ? new FeedView(feed) : null;

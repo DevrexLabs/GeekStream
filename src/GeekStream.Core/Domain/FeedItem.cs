@@ -4,7 +4,7 @@ using GeekStream.Core.Domain;
 namespace GeekStream.Core
 {
     [Serializable]
-    public class FeedItem
+    public class FeedItem : IComparable<FeedItem>
     {
         internal int Id { get; set; }
 
@@ -22,5 +22,10 @@ namespace GeekStream.Core
         public string Url { get; set; }
         public DateTimeOffset Published { get; set; }
         internal Feed Feed{ get; set; }
+
+        public int CompareTo(FeedItem other)
+        {
+            return Math.Sign(this.LongId - other.LongId);
+        }
     }
 }

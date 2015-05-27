@@ -20,7 +20,7 @@ namespace GeekStream.Core.Queries
     	}
 
 
-        protected override FeedView[] Execute(GeekStreamModel model)
+        public override FeedView[] Execute(GeekStreamModel model)
         {
             return model
                 .GetFeedsCollectedBefore(_collectedBefore)

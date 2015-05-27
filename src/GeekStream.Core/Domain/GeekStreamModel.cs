@@ -13,24 +13,24 @@ namespace GeekStream.Core.Domain
         const int MaxSearchResults = 1000;
         const int NumberOfRecentEntries = 10;
 
-        private HighscoreList<FeedItem> _mostRecentItems;
-        private HighscoreList<Feed> _mostRecentFeeds; 
+        private readonly HighscoreList<FeedItem> _mostRecentItems;
+        private readonly HighscoreList<Feed> _mostRecentFeeds;
 
-        // feed id is always = index + 1. never remove, just set feed slot to null.
-        private List<Feed> _feeds;
+        private readonly SortedDictionary<int,Feed> _feeds;
+        private int _nextFeedId = 1;
 
-        private Dictionary<string, HashSet<IndexEntry>> _searchIndex;
+        private readonly SortedDictionary<string, SortedSet<FeedItem>> _searchIndex;
 
-        private Statistics _statistics;
+        private readonly Statistics _statistics;
 
         public GeekStreamModel()
         {
-            _feeds = new List<Feed>();
+            _feeds = new SortedDictionary<int,Feed>();
             _mostRecentItems = new HighscoreList<FeedItem>((a, b) => b.Published.CompareTo(a.Published),
                                                            NumberOfRecentEntries);
-            _mostRecentFeeds = new HighscoreList<Feed>((a,b) => (b.LastItemPublished ?? DateTime.MinValue).CompareTo(a.LastItemPublished));
-            _searchIndex = new Dictionary<string, HashSet<IndexEntry>>(StringComparer.InvariantCultureIgnoreCase);
-            _statistics  = new Statistics();
+            _mostRecentFeeds = new HighscoreList<Feed>((a, b) => (b.LastItemPublished ?? DateTime.MinValue).CompareTo(a.LastItemPublished));
+            _searchIndex = new SortedDictionary<string, SortedSet<FeedItem>>(StringComparer.InvariantCultureIgnoreCase);
+            _statistics = new Statistics();
         }
 
         public Statistics GetStatistics()
@@ -51,8 +51,8 @@ namespace GeekStream.Core.Domain
 
         public int AddFeed(Feed feed)
         {
-            feed.Id = _feeds.Count + 1;
-            _feeds.Add(feed);
+            feed.Id = _nextFeedId++;
+            _feeds.Add(feed.Id, feed);
             _statistics.TotalFeeds++;
             return feed.Id;
         }
@@ -60,7 +60,7 @@ namespace GeekStream.Core.Domain
         public void AddItem(FeedItem item, string[] searchTerms, int feedId, DateTime collected)
         {
             //Find the feed and add to its entries
-            Feed feed = _feeds[feedId - 1];
+            Feed feed = _feeds[feedId];
             feed.AddItem(item);
             _statistics.TotalFeedItems++;
 
@@ -73,10 +73,10 @@ namespace GeekStream.Core.Domain
                 if (!_searchIndex.ContainsKey(keyword))
                 {
                     _statistics.UniqueKeywords++;
-                    _searchIndex[keyword] = new HashSet<IndexEntry>(new IndexEntryComparer());
+                    _searchIndex[keyword] = new SortedSet<FeedItem>();
                 }
                 _statistics.TotalKeywords++;
-                _searchIndex[keyword].Add(new IndexEntry(keyword) { Item = item });
+                _searchIndex[keyword].Add(item);
             }
         }
 
@@ -84,25 +84,25 @@ namespace GeekStream.Core.Domain
         {
             var feedId = (int)(id >> 32);
             var itemId = (int)id;
-            return _feeds[feedId - 1].GetItemById(itemId);
+            return _feeds[feedId].GetItemById(itemId);
         }
 
-        public IEnumerable<IndexEntry> Search(string query, out int totalResults)
+        public IEnumerable<FeedItem> Search(string query, out int totalResults)
         {
-            HashSet<IndexEntry> result = null;
+            HashSet<FeedItem> result = null;
             foreach (string searchTerm in ParseQuery(query))
             {
-                HashSet<IndexEntry> currentSearchTermHits;
+                SortedSet<FeedItem> currentSearchTermHits;
                 if (!_searchIndex.TryGetValue(searchTerm, out currentSearchTermHits))
                 {
                     //the current term does not exist in the index.
                     //The total result will always be an empty set so we can exit immediately
                     totalResults = 0;
-                    return Enumerable.Empty<IndexEntry>();
+                    return Enumerable.Empty<FeedItem>();
                 }
                 if (result == null)
                 {
-                    result = new HashSet<IndexEntry>(currentSearchTermHits, new IndexEntryComparer());
+                    result = new HashSet<FeedItem>(currentSearchTermHits);
                 }
                 else
                     result.IntersectWith(currentSearchTermHits);
@@ -110,7 +110,7 @@ namespace GeekStream.Core.Domain
             if (result == null)
             {
                 totalResults = 0;
-                return Enumerable.Empty<IndexEntry>();
+                return Enumerable.Empty<FeedItem>();
             }
             totalResults = result.Count;
 
@@ -119,31 +119,25 @@ namespace GeekStream.Core.Domain
 
         public IEnumerable<FeedItem> GetEntriesByFeedId(int feedId)
         {
-            return _feeds[feedId - 1].Items;
+            var feed = GetFeedById(feedId);
+            if (feed != null) return feed.Items;
+            return Enumerable.Empty<FeedItem>();
+
         }
 
         public IEnumerable<Feed> GetFeeds()
         {
-            foreach (var feed in _feeds)
-            {
-                if(feed != null) yield return feed;
-            }
+            return _feeds.Values;
         }
 
         public IEnumerable<Feed> GetFeedsCollectedBefore(DateTime collectedBefore)
         {
-            foreach (var feed in GetFeeds().Where(f => f.LastCollected <= collectedBefore))
-            {
-                yield return feed;
-            }
+            return GetFeeds().Where(f => f.LastCollected <= collectedBefore);
         }
 
         private IEnumerable<string> ParseQuery(string searchQuery)
         {
-            foreach (Match match in Regex.Matches(searchQuery, @"\w+"))
-            {
-                yield return match.Value;
-            }
+            return from Match match in Regex.Matches(searchQuery, @"\w+") select match.Value;
         }
 
         public Feed GetFeedByUrl(string url)
@@ -153,7 +147,9 @@ namespace GeekStream.Core.Domain
 
         public Feed GetFeedById(int feedId)
         {
-            return _feeds[feedId - 1];
+            Feed feed = null;
+            _feeds.TryGetValue(feedId, out feed);
+            return feed;
         }
 
         public bool TryGetFeedById(int id, out Feed feed)
@@ -177,10 +173,12 @@ namespace GeekStream.Core.Domain
             {
                 _statistics.TotalFeeds--;
                 _statistics.TotalFeedItems -= feedToRemove.Items.Count;
-                _feeds[id-1] = null;
-
-                _mostRecentItems.RemoveItems(feedToRemove.Items);
-                RemoveFeedFromSearchIndex(feedToRemove);
+                _feeds.Remove(id);
+                if (feedToRemove.Items.Any())
+                {
+                    _mostRecentItems.RemoveItems(feedToRemove.Items);
+                    RemoveFeedFromSearchIndex(feedToRemove);
+                }
             }
 
             return feedExists;
@@ -191,12 +189,12 @@ namespace GeekStream.Core.Domain
             var searchTermsToRemove = new List<string>();
             var itemsToRemove = new HashSet<FeedItem>(feed.Items);
 
-            foreach (KeyValuePair<string, HashSet<IndexEntry>> kvp in _searchIndex)
+            foreach (KeyValuePair<string, SortedSet<FeedItem>> kvp in _searchIndex)
             {
                 var searchTerm = kvp.Key;
                 var entrySet = kvp.Value;
-                
-                _statistics.TotalKeywords -= entrySet.RemoveWhere(entry => itemsToRemove.Contains(entry.Item));
+
+                _statistics.TotalKeywords -= entrySet.RemoveWhere(feedItem => itemsToRemove.Contains(feedItem));
                 if (entrySet.Count == 0) searchTermsToRemove.Add(searchTerm);
             }
             _statistics.UniqueKeywords -= searchTermsToRemove.Count;

@@ -18,7 +18,7 @@ namespace GeekStream.Core.Domain
             get { return _id; }
             set
             {
-                if (value <= 0 || value > UInt16.MaxValue) throw new ArgumentException();
+                if (value < 0 || value > UInt16.MaxValue) throw new ArgumentException();
                 _id = value;
             }
         }

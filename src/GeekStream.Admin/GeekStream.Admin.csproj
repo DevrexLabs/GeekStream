@@ -41,8 +41,9 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.4\lib\Net40-client\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="OrigoDB.Core">
-      <HintPath>..\packages\OrigoDb.Core.0.10.2\lib\OrigoDB.Core.dll</HintPath>
+    <Reference Include="OrigoDB.Core, Version=0.17.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\OrigoDB.Core.0.17.1\lib\net40\OrigoDB.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

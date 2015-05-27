@@ -16,7 +16,7 @@ namespace GeekStream.Core.Queries
     		Take = take;
     	}
 
-        protected override FeedItemView[] Execute(GeekStreamModel m)
+        public override FeedItemView[] Execute(GeekStreamModel m)
         {
 			return m.GetMostRecentItems()
                 .Take(Take)

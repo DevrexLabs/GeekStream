@@ -17,7 +17,7 @@ namespace GeekStream.Core.Commands
             When = when;
         }
 
-        protected override void Execute(GeekStreamModel model)
+        public override void Execute(GeekStreamModel model)
         {
             try
             {

@@ -16,7 +16,7 @@ namespace GeekStream.Core.Queries
 
         public readonly int Id;
 
-        protected override FeedView Execute(GeekStreamModel m)
+        public override FeedView Execute(GeekStreamModel m)
         {
             return new FeedView(m.GetFeedById(Id));
         }

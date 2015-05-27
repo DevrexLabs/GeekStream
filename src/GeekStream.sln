@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream", "GeekStream\GeekStream.csproj", "{0F3962A8-D871-4B50-811F-3CFD830D3C1B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream.Core", "GeekStream.Core\GeekStream.Core.csproj", "{320E2191-BAE7-4B7A-B958-48DD87097C73}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{997E1946-DFF5-4A14-A3AF-32C0FAE1CCF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CFE06581-F9DE-491E-A977-209AF4D5A826}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream", "GeekStream\GeekStream.csproj", "{0F3962A8-D871-4B50-811F-3CFD830D3C1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream.Core", "GeekStream.Core\GeekStream.Core.csproj", "{320E2191-BAE7-4B7A-B958-48DD87097C73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekStream.Admin", "GeekStream.Admin\GeekStream.Admin.csproj", "{04526E96-D4F0-41B0-BC9E-D4FCCFAE2074}"
 EndProject

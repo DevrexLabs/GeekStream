@@ -18,7 +18,7 @@ namespace GeekStream.Core.Commands
             FeedId = feedId;
         }
 
-        protected override void Execute(GeekStreamModel model)
+        public override void Execute(GeekStreamModel model)
         {
             if (!model.RemoveFeedById(FeedId))
                 throw new CommandAbortedException("No such feed");

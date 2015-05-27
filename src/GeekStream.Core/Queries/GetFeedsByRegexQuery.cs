@@ -17,7 +17,7 @@ namespace GeekStream.Core.Queries
             Pattern = pattern;
         }
 
-        protected override FeedView[] Execute(GeekStreamModel model)
+        public override FeedView[] Execute(GeekStreamModel model)
         {
             return model.GetFeedsByRegex(Pattern).Take(20).ToArray();
         }
