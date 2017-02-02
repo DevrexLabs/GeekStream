@@ -15,7 +15,7 @@ namespace GeekStream.Controllers
 
         public ActionResult About()
         {
-            return View(MvcApplication.DbProxy.GetStatistics());
+            return View(MvcApplication.DbClient.Execute(new GetStatisticsQuery()));
         }
 
         public ActionResult Api()

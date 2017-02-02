@@ -1,11 +1,10 @@
 ﻿using System.Configuration;
-using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using GeekStream.Core.Domain;
+using GeekStream.Core.Queries;
 using OrigoDB.Core;
-using OrigoDB.Core.Proxy;
 
 namespace GeekStream
 {
@@ -51,8 +50,7 @@ namespace GeekStream
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
-            //trigger eager connection to origodb, avoiding delay of first search
-		    DbClient.GetProxy();
+		    DbClient.Execute(new GetStatisticsQuery());
 		}
 
 
@@ -74,12 +72,5 @@ namespace GeekStream
 
 	        }
 	    }
-		public static GeekStreamModel DbProxy
-		{
-			get
-			{
-			    return DbClient.GetProxy();
-			}
-		}
     }
 }

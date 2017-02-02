@@ -90,7 +90,7 @@ namespace GeekStream.Core.Domain
         public IEnumerable<FeedItem> Search(string query, out int totalResults)
         {
             HashSet<FeedItem> result = null;
-            foreach (string searchTerm in ParseQuery(query))
+            foreach (string searchTerm in ParseQuery(query).Distinct())
             {
                 SortedSet<FeedItem> currentSearchTermHits;
                 if (!_searchIndex.TryGetValue(searchTerm, out currentSearchTermHits))

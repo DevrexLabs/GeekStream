@@ -28,7 +28,7 @@ namespace GeekStream.Models
         {
             return new IndexModel
             {
-                Statistics = MvcApplication.DbProxy.GetStatistics()
+                Statistics = MvcApplication.DbClient.Execute(new GetStatisticsQuery())
             };
         }
 
